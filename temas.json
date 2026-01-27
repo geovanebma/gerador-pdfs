@@ -117,5 +117,124 @@
     },
     "icone": "bi-code-square",
     "feito": true
+  },
+  {
+    "id": 2,
+    "principal": "Vamos de Desenvolvimento de Software",
+    "main": "Let's talk about Software Development",
+    "nome": "Dominando o Terminal Linux & Bash",
+    "name": "Mastering Linux Terminal & Bash",
+    "prompt_image": "A high-end cinematic digital art of a professional developer's workspace at night. A large, sleek monitor displays a sophisticated Linux terminal with glowing green and cyan code. A holographic projection of a Linux Tux penguin logo and abstract networking nodes floats subtly above the keyboard. The lighting is moody, dominated by deep blues and neon accents, reflecting off a polished dark desk. Intricate digital particles and data streams flow in the background, symbolizing high-speed computation and mastery. Ultra-realistic, 8k resolution, futuristic aesthetic, no text or words.",
+    "cor": "#19334C",
+    "cor_fonte": "#FFFFFF",
+    "subtitulo": "O guia definitivo para produtividade máxima e automação de sistemas",
+    "estrutura": {
+      "capitulos": [
+        [
+          "A Filosofia Unix: Tudo é Arquivo",
+          "The Unix Philosophy: Everything is a File",
+          false
+        ],
+        [
+          "Anatomia do Shell: Como o Terminal se Comunica com o Kernel",
+          "Shell Anatomy: How the Terminal Communicates with the Kernel",
+          false
+        ],
+        [
+          "Navegação de Elite: Atalhos e Comandos de Movimentação",
+          "Elite Navigation: Shortcuts and Movement Commands",
+          false
+        ],
+        [
+          "Gestão de Arquivos e Diretórios via CLI",
+          "File and Directory Management via CLI",
+          false
+        ],
+        [
+          "Permissões de Usuário e Grupos: O Poder do Chmod e Chown",
+          "User Permissions and Groups: The Power of Chmod and Chown",
+          false
+        ],
+        [
+          "Editores de Texto de Terminal: A Guerra entre Vim e Nano",
+          "Terminal Text Editors: The War between Vim and Nano",
+          false
+        ],
+        [
+          "Pipes e Redirecionamentos: Encadeando a Inteligência dos Comandos",
+          "Pipes and Redirection: Chaining Command Intelligence",
+          false
+        ],
+        [
+          "Filtros Poderosos: Manipulação de Texto com Grep, Sed e Awk",
+          "Powerful Filters: Text Manipulation with Grep, Sed, and Awk",
+          false
+        ],
+        [
+          "Gestão de Processos: Monitorando e Finalizando Tarefas",
+          "Process Management: Monitoring and Killing Tasks",
+          false
+        ],
+        [
+          "O Sistema de Arquivos Linux: Hierarquia e Montagem",
+          "The Linux File System: Hierarchy and Mounting",
+          false
+        ],
+        [
+          "Redes no Terminal: Diagnóstico e Transferência de Dados",
+          "Networking on the Terminal: Diagnosis and Data Transfer",
+          false
+        ],
+        [
+          "SSH e Acesso Remoto: Administrando Servidores com Segurança",
+          "SSH and Remote Access: Securely Managing Servers",
+          false
+        ],
+        [
+          "Introdução ao Bash Scripting: Automatizando o Repetitivo",
+          "Introduction to Bash Scripting: Automating the Repetitive",
+          false
+        ],
+        [
+          "Variáveis e Estruturas de Dados em Scripts Bash",
+          "Variables and Data Structures in Bash Scripts",
+          false
+        ],
+        [
+          "Lógica de Programação no Shell: If, Case e Loops",
+          "Programming Logic in the Shell: If, Case, and Loops",
+          false
+        ],
+        [
+          "Funções e Modularização de Scripts Profissionais",
+          "Functions and Modularization of Professional Scripts",
+          false
+        ],
+        [
+          "Agendamento de Tarefas com Cron e Anacron",
+          "Task Scheduling with Cron and Anacron",
+          false
+        ],
+        [
+          "Gestão de Pacotes e Repositórios: Apt, Yum e Pacman",
+          "Package and Repository Management: Apt, Yum, and Pacman",
+          false
+        ],
+        [
+          "Customização Extrema: Aliases, Funções de Shell e .bashrc",
+          "Extreme Customization: Aliases, Shell Functions, and .bashrc",
+          false
+        ],
+        [
+          "Segurança no Terminal: Hardening e Melhores Práticas",
+          "Terminal Security: Hardening and Best Practices",
+          false
+        ]
+      ],
+      "totalItens": 20,
+      "estiloExibicao": "tecnico-terminal"
+    },
+    "icone": "bi-terminal-fill",
+    "feito": false
   }
 ]

@@ -10,6 +10,7 @@ import { HfInference } from "@huggingface/inference";
 dotenv.config();
 
 const GROQ_KEY = process.env.GROQ_API_KEY;
+const HF_TOKEN = process.env.HF_TOKEN;
 
 if (!GROQ_KEY) {
     console.error("❌ ERRO FATAL: A variável GROQ_API_KEY (Groq) não foi encontrada no arquivo .env!");
@@ -186,8 +187,8 @@ function rgbFromHex(hex) {
     return rgb(r, g, b);
 }
 
-async function generateImage(titulo, prompt) {
-    const hf = new HfInference("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");
+async function generateImage(titulo, prompt, HF_TOKEN) {
+    const hf = new HfInference(HF_TOKEN);
     
     try {
         const fileName = `${titulo.toLowerCase().replace(/\s+/g, '-')}.png`;
@@ -818,7 +819,7 @@ async function executarGeracaoProfunda(tema, capituloNome, precisaSubtopicos) {
 async function processarTema(tema) {
     console.log(`\n🚀 Iniciando processamento do Tema: ${tema.nome} (ID: ${tema.id})`);
     const imagemCapa = await gerarImagem(tema.name, tema.prompt_image);
-    // const imagemCapa = await generateImage(tema.name, tema.prompt_image);
+    // const imagemCapa = await generateImage(tema.name, tema.prompt_image, HF_TOKEN);
 
     const blueprint = tema.estrutura;
 
