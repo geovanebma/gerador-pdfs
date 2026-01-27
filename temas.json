@@ -1,0 +1,121 @@
+[
+  {
+    "id": 1,
+    "principal": "Vamos de Desenvolvimento de Software",
+    "main": "Let's talk about Software Development",
+    "nome": "Conhecendo a Programação",
+    "name": "Understanding Programming",
+    "prompt_image": "A highly detailed digital artwork representing the concept of Understanding Programming. A translucent, intricate brain is superimposed over a modern circuit board, with glowing neural pathways mirroring the golden traces on the board. Binary code (1s and 0s) and elegant snippets of Python-like syntax flow like a gentle river through both structures. Simple, clean geometric shapes—cubes, spheres, pyramids—materialize from this flow of data, assembling into a stable structure. The scene is illuminated by a soft, ethereal blue and amber light, suggesting clarity and intelligence. The style is sleek, futuristic, and conceptual, with a focus on depth, light, and symbolic connection. No text, letters, or words are visible in the image.",
+    "cor": "#102A43",
+    "cor_fonte": "#FFFFFF",
+    "subtitulo": "Do zero absoluto à maestria na lógica de construção de sistemas",
+    "estrutura": {
+      "capitulos": [
+        [
+          "O Universo da Programação: O Que Realmente Acontece no Processador",
+          "The Programming Universe: What Really Happens in the CPU",
+          false
+        ],
+        [
+          "História da Computação: De Ada Lovelace aos Modelos de IA",
+          "History of Computing: From Ada Lovelace to AI Models",
+          false
+        ],
+        [
+          "Compiladores vs Interpretadores: Como o Código Vira Ação",
+          "Compilers vs Interpreters: How Code Becomes Action",
+          false
+        ],
+        [
+          "Pensamento Computacional: Decomposição e Reconhecimento de Padrões",
+          "Computational Thinking: Decomposition and Pattern Recognition",
+          false
+        ],
+        [
+          "Algoritmos no Mundo Real: O Passo a Passo da Lógica",
+          "Real-World Algorithms: The Step-by-Step Logic",
+          false
+        ],
+        [
+          "Arquitetura de Dados: Variáveis, Constantes e Escopo",
+          "Data Architecture: Variables, Constants and Scope",
+          false
+        ],
+        [
+          "Tipagem Primitiva: Inteiros, Floats, Bools e Strings",
+          "Primitive Typing: Integers, Floats, Bools and Strings",
+          false
+        ],
+        [
+          "Operadores Aritméticos e a Precedência Matemática",
+          "Arithmetic Operators and Mathematical Precedence",
+          false
+        ],
+        [
+          "Lógica Booleana: A Magia das Portas AND, OR e NOT",
+          "Boolean Logic: The Magic of AND, OR and NOT Gates",
+          false
+        ],
+        [
+          "Estruturas Condicionais Simples e Compostas",
+          "Simple and Compound Conditional Structures",
+          false
+        ],
+        [
+          "Seleção Múltipla com Switch Case: Organizando Decisões",
+          "Multiple Selection with Switch Case: Organizing Decisions",
+          false
+        ],
+        [
+          "Laços de Repetição I: O Ciclo de Vida do While",
+          "Looping Structures I: The While Lifecycle",
+          false
+        ],
+        [
+          "Laços de Repetição II: Iteração Profissional com For",
+          "Looping Structures II: Professional Iteration with For",
+          false
+        ],
+        [
+          "Tratamento de Exceções: O Que Fazer Quando Tudo Dá Errado",
+          "Exception Handling: What to Do When Everything Goes Wrong",
+          false
+        ],
+        [
+          "Abstração de Funções: Reaproveitando Inteligência",
+          "Function Abstraction: Reusing Intelligence",
+          false
+        ],
+        [
+          "Parâmetros, Argumentos e Retornos de Valores",
+          "Parameters, Arguments and Value Returns",
+          false
+        ],
+        [
+          "Arrays e Listas: Gerenciando Coleções de Dados",
+          "Arrays and Lists: Managing Data Collections",
+          false
+        ],
+        [
+          "Matrizes e Vetores Multidimensionais",
+          "Matrices and Multidimensional Vectors",
+          false
+        ],
+        [
+          "Introdução à Modularização: Bibliotecas e Pacotes",
+          "Introduction to Modularization: Libraries and Packages",
+          false
+        ],
+        [
+          "O Futuro do Desenvolvedor: Roadmap e Próximos Passos",
+          "The Developer's Future: Roadmap and Next Steps",
+          false
+        ]
+      ],
+      "totalItens": 20,
+      "estiloExibicao": "tecnico-terminal"
+    },
+    "icone": "bi-code-square",
+    "feito": false
+  }
+]

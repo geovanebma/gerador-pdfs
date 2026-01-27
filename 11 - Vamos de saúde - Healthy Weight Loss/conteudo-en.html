@@ -1,0 +1,1394 @@
+<html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #FCE4EC; border-bottom: 3px solid #FCE4EC; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #FCE4EC; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #FCE4EC; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #FCE4EC; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #FCE4EC;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #FCE4EC;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+        </style>
+    
+    <style>
+        @page {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Adicionado &display=swap no final das URLs */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+        /* Importação dos Ícones Bootstrap via CDN */
+        @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+        
+        body { 
+            font-family: 'Roboto', sans-serif !important; 
+            margin: 0; 
+            padding: 0;
+            color: #333;
+        }
+
+        .cover-script {
+            font-family: 'Kaushan Script', cursive !important;
+            // font-weight: 400;
+        }
+        
+        .cover-full {
+            width: 100vw !important;
+            height: 100vh !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: block;
+        }
+
+        .introduction-page h1 { color: #FCE4EC; border-bottom: 3px solid #FCE4EC; padding-bottom: 10px; }
+    </style></head><body>
+            <div class="cover-full" style="width:100%; background-color:#FCE4EC;">
+                <div style="position:relative; width:100%; height:350px; overflow:hidden;">
+                    <img src="fundo-capa.png"style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+                    <div style="position:absolute;top:0;left:0;right:0;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;z-index:2;">
+                        <h1 class="cover-script" style="margin-top:-35px; font-size:4rem;color:#333; font-family: 'Kaushan Script', cursive;">
+                            Let's talk about health
+                        </h1>
+                        <h2 style="font-size:3rem;color:#FFF; font-family: 'Roboto', sans-serif;padding:5px 20px;border-radius:50px;background-color:#333;margin-top:-45px;">
+                            Healthy Weight Loss
+                        </h2>
+                        <i class="bi bi-lightning-charge" style="font-size:20px;color:#333;border-radius:50px;padding:5px 40px;margin-top:-50px;background-color:#FFF;"></i>
+                    </div>
+                </div>
+                <div style="position:relative;margin-top:100px;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 32px;">
+                        <div style="height: 1px; width: 96px; background: linear-gradient(to right, transparent, #FFF);"></div>
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFF;"></div>
+                        <div style="height: 1px; width: 128px; background-color: #FFF;"></div>
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFF;"></div>
+                        <div style="height: 1px; width: 96px; background: linear-gradient(to left, transparent, #FFF);"></div>
+                    </div>
+                    <div style="padding-left: 48px; padding-right: 48px; padding-bottom: 48px;">
+                        <div style="position: relative;">
+                            <div style="position: absolute; top: -16px; bottom: -16px; left: -16px; right: -16px; border-radius: 8px; background-color: #FFF; opacity: 0.3;"></div>
+                            <div style="position: absolute; top: -8px; bottom: -8px; left: -8px; right: -8px; background-color: white; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);"></div>
+                            <div style="position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+                                <img src="./output/" style="width: 100%; height: 384px; object-fit: cover; display: block;">
+                                <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);"></div>
+                            </div>
+                            <div style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); padding: 12px 32px; border-radius: 9999px; shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); background-color: #333; white-space: nowrap;">
+                                <p style="text-align: center; font-size: 14px; letter-spacing: 0.1em; color: #FFF; margin: 0; font-weight: bold;">
+                                    A SPECIAL COLLECTION
+                                </p>
+                            </div>
+                        </div>
+                    </div>
+                    <div style="margin-top: 48px; padding-left: 48px; padding-right: 48px; padding-bottom: 32px; display: flex; align-items: center; justify-content: space-between;">
+                        <div style="flex: 1; height: 1px; background: linear-gradient(to right, #d1d5db, transparent);"></div>
+                        <div style="padding: 0 32px;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: #FFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+                                <img src="img/realizart-logo.png" style="width: 40px; height: 40px;" alt="Logo">
+                            </div>
+                        </div>
+                        <div style="flex: 1; height: 1px; background: linear-gradient(to left, #d1d5db, transparent);"></div>
+                    </div>
+                    <div style="height: 12px; background: linear-gradient(to right, #FCE4EC, #888, #FCE4EC);"></div>
+                </div>
+            </div>
+        </div>
+        <div class="page-break" style="page-break-after: always;"></div>
+    </body></html><html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #FCE4EC; border-bottom: 3px solid #FCE4EC; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #FCE4EC; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #FCE4EC; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #FCE4EC; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #FCE4EC;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #FCE4EC;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+        </style>
+    </head><body>
+        <section class="indice-page">
+            <h1 class="indice-titulo" style="color: #FCE4EC">Summary</h1>
+            <div class="indice-lista">
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">1. Introduction and Concepts</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 1</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">2. Biological Foundations</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 5</span>
+                    </div>
+                
+            </div>
+        </section></body></html><html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #FCE4EC; border-bottom: 3px solid #FCE4EC; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #FCE4EC; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #FCE4EC; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #FCE4EC; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #FCE4EC;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #FCE4EC;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+        </style>
+    </head><body>
+        <section class="indice-page">
+            <div class="introduction-page">
+                <h1>Introduction</h1>
+                <p>Welcome to your new path of transformation! This e‑book has been carefully crafted to guide you on a journey of healthy weight loss, combining science, practice, and motivation so you can achieve lasting results without sacrificing well‑being.</p>
+<p>Understanding the importance of “Healthy Weight Loss” goes far beyond simply lowering numbers on the scale. It’s about cultivating habits that respect your body, balance energy, and promote a fulfilling life. By adopting sustainable strategies, you reduce health risks, boost self‑esteem, and build a solid foundation for a more active and happy future.</p>
+<p>In the chapters that follow, we will explore the fundamental concepts and biological foundations that support healthy weight loss, offering practical tools and valuable insights. Get ready to discover how small changes can generate big results and, above all, remember that every step taken is a progress toward your best self. Let’s transform goals into achievements together!</p>
+            </div>
+            <div class="page-break"></div>
+        </section>
+    </body></html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #FCE4EC; border-bottom: 3px solid #FCE4EC; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #FCE4EC; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #FCE4EC; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #FCE4EC; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #FCE4EC;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #FCE4EC;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+        </style>
+    </head>
+                <body>
+                    <div>
+                        <div>
+                            <div><h1>Introduction and Concepts</h1><h2>Let’s Talk Health – Healthy Weight Loss: Introduction and Concepts</h2>
+
+<p>Healthy weight loss is not just about losing weight quickly; it is a metabolic, hormonal, and behavioral re‑programming that reduces fat mass while maintaining, or even improving, lean mass, cardiovascular health, and quality of life. In this section we will cover the scientific pillars that support an effective and sustainable weight‑loss process, emphasizing concepts that can be applied immediately in daily life.</p>
+
+<p><strong>1. Energy balance and its complexity</strong></p>
+
+<p>The basic principle of weight loss is a calorie deficit: energy intake (EI) must be lower than energy expenditure (EE). However, the relationship between EI and EE is not linear and involves variables beyond a simple calorie count.</p>
+
+<ul>
+  <li><strong>Basal Metabolic Rate (BMR)</strong>: represents the minimum energy needed to maintain vital functions at rest. Factors such as age, sex, body composition (percentage of lean mass) and genetics influence BMR.</li>
+  <li><strong>Thermic Effect of Food (TEF)</strong>: corresponds to the energy spent digesting, absorbing and metabolizing nutrients. Proteins have a higher TEF (≈20‑30 % of calories) compared with carbohydrates (≈5‑10 %) and fats (≈0‑3 %).</li>
+  <li><strong>Physical Activity (PA)</strong>: includes planned exercise (aerobic and resistance) and non‑exercise activity thermogenesis (NEAT), which covers everyday movements such as walking, climbing stairs and gesturing.</li>
+  <li><strong>Adaptive thermogenesis</strong>: in response to prolonged calorie deficits, the body can lower BMR and TEF, a phenomenon known as “starvation mode.” Strategies such as consuming thermogenic foods, strength training and meal‑timing cycles help mitigate this effect.</li>
+</ul>
+
+<p><strong>2. Macronutrient distribution and food quality</strong></p>
+
+<p>Counting calories is not enough; the source of those calories determines satiety, hormonal response, and lean‑mass preservation.</p>
+
+<ul>
+  <li><strong>Proteins</strong>: recommendation of 1.6‑2.2 g/kg body weight for individuals in a calorie deficit, spread over 3‑5 meals. Essential amino acids, especially leucine, activate the mTOR pathway, which is crucial for protein synthesis.</li>
+  <li><strong>Carbohydrates</strong>: prioritize low‑glycemic‑index (GI) carbs (e.g., legumes, berries, whole grains) to reduce glucose and insulin spikes, favoring lipolysis. “Carb‑cycling” strategies can be used to optimize performance in high‑intensity training.</li>
+  <li><strong>Fats</strong>: 0.8‑1.0 g/kg body weight, comprising 20‑35 % of total calories. Omega‑3 fatty acids (EPA/DHA) have anti‑inflammatory effects and improve insulin sensitivity.</li>
+</ul>
+
+<p><strong>3. Hormones that regulate weight</strong></p>
+
+<p>Understanding hormonal interactions is crucial to avoid pitfalls that sabotage weight loss.</p>
+
+<ul>
+  <li><strong>Insulin</strong>: controls glucose uptake and fat storage. Low‑GI diets and intermittent fasting (e.g., 16/8) can reduce chronic insulin exposure.</li>
+  <li><strong>Leptin</strong>: satiety hormone produced by adipocytes. In obesity, leptin resistance occurs; gradual fat loss and regular exercise help restore sensitivity.</li>
+  <li><strong>Ghrelin</strong>: hunger hormone that rises before meals and falls after eating. Consuming protein and fiber at meals blunts the ghrelin peak, aiding appetite control.</li>
+  <li><strong>Cortisol</strong>: stress hormone that, when elevated, promotes visceral lipogenesis. Stress‑management strategies (mindfulness, adequate sleep) are integral to a weight‑loss plan.</li>
+</ul>
+
+<p><strong>4. Behavioral and adherence strategies</strong></p>
+
+<p>Even the best nutrition plan fails without adherence. Behavioral psychology provides practical tools:</p>
+
+<ul>
+  <li><strong>Self‑monitoring</strong>: daily logging of foods, weight, and hunger/fullness sensations. Tracking apps increase awareness and allow rapid adjustments.</li>
+  <li><strong>SMART goals</strong> (Specific, Measurable, Achievable, Relevant, Time‑bound). Example: “Lose 0.5 kg per week by cutting 250 kcal from the diet and adding 30 min of walking 5 days/week.”</li>
+  <li><strong>Positive reinforcement</strong>: reward healthy behaviors (e.g., new workout clothes) instead of using food as a reward.</li>
+  <li><strong>Meal planning</strong>: prep meals in advance (meal‑prep) to avoid impulsive choices. A practical rule: “If it’s not on the plate, it’s not on the plate.”</li>
+  <li><strong>Social support</strong>: support groups, coaches or workout partners increase motivation and accountability.</li>
+</ul>
+
+<p><strong>5. Physical exercise: optimal combination</strong></p>
+
+<p>Training should address two main objectives: increasing resting metabolic rate (via muscle hypertrophy) and raising total calorie expenditure.</p>
+
+<ul>
+  <li><strong>Resistance training</strong> (3‑4 sessions/week, 8‑12 reps, 70‑85 % of 1RM). Stimulates protein synthesis and preserves lean mass during a calorie deficit.</li>
+  <li><strong>Aerobic exercise</strong> (150‑300 min/week of moderate intensity or 75‑150 min of high intensity). Alternate with HIIT (High‑Intensity Interval Training) sessions to improve insulin sensitivity and maximize fat oxidation.</li>
+  <li><strong>Flexibility and mobility training</strong> (yoga, Pilates) helps prevent injuries and improves sleep quality, indirectly influencing weight control.</li>
+</ul>
+
+<p><strong>6. Sleep and recovery</strong></p>
+
+<p>Insufficient sleep (<7 h/night) disrupts the leptin‑ghrelin balance, raises cortisol, and reduces insulin sensitivity, creating a metabolic environment conducive to weight gain. Strategies:</p>
+
+<ul>
+  <li>Maintain a consistent bedtime and wake‑time routine.</li>
+  <li>Dark environment, temperature 18‑20 °C, and no screens 30 min before bed.</li>
+  <li>Avoid caffeine after 2 p.m. and limit fluids before sleep to reduce nighttime awakenings.</li>
+</ul>
+
+<p><strong>7. Monitoring results and making adjustments</strong></p>
+
+<p>Healthy weight loss requires continuous evaluation to ensure the calorie deficit does not compromise health.</p>
+
+<ul>
+  <li><strong>Body composition</strong>: use bioelectrical impedance or DEXA every 4‑6 weeks to track fat loss versus lean‑mass loss.</li>
+  <li><strong>Metabolic parameters</strong>: fasting glucose, HbA1c, lipid profile and blood pressure every 2‑3 months.</li>
+  <li><strong>Subjective feedback</strong>: energy levels, mood, sleep quality and perceived effort during workouts.</li>
+</ul>
+
+<p>Based on these indicators, adjust calorie intake (±5‑10 %); modify macronutrient distribution or alter training periodization. The goal is to keep weight loss at 0.5‑1 kg/week, ensuring that the majority of lost mass is adipose tissue.</p>
+
+<p><strong>8. Practical tools to start the process</strong></p>
+
+<ul>
+  <li><strong>BMR calculator</strong>: use the Mifflin‑St Jeor equation to estimate basal caloric needs.</li>
+  <li><strong>Deficit spreadsheet</strong>: subtract 10‑20 % from BMR + activity expenditure to set the daily calorie target.</li>
+  <li><strong>List of thermogenic foods</strong>: green tea, cayenne pepper, coffee (caffeine), ginger and cinnamon.</li>
+  <li><strong>“30‑30‑40” meal model</strong>: 30 % of calories from protein, 30 % from fat and 40 % from carbohydrate, adjustable according to individual goals and tolerance.</li>
+</ul>
+
+<p>In summary, healthy weight loss is a multidimensional process that integrates nutritional science, exercise physiology, endocrinology and behavioral psychology. By applying the concepts described—conscious calorie deficit, quality and appropriate distribution of macronutrients, hormonal control, regular exercise, restorative sleep and continuous monitoring—the reader will be prepared to achieve lasting weight loss without compromising health or physical performance.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #FCE4EC; border-bottom: 3px solid #FCE4EC; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #FCE4EC; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #FCE4EC; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #FCE4EC; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #FCE4EC;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #FCE4EC;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+        </style>
+    </head>
+                <body>
+                    <div>
+                        <div>
+                            <div><h1>Biological Foundations</h1><h2>Biological Foundations of Healthy Weight Loss</h2>
+
+<p>Sustainable weight loss is not just a matter of “eating less.” It results from the complex interaction among physiological systems that regulate energy balance, macronutrient metabolism, hormonal communication, and adaptation to the internal and external environment. Understanding these processes enables the design of strategies that maximize fat loss while preserving lean mass and metabolic health.</p>
+
+<p><strong>1. Energy balance and its components</strong></p>
+<p>Total energy expenditure (TEE) is the sum of three main components:</p>
+<ul>
+    <li><strong>Basal Metabolic Rate (BMR)</strong>: energy required to maintain vital functions at rest (breathing, circulation, temperature regulation). Approximately 60‑70% of TEE. Influenced by lean mass, age, sex, genetics, and hormonal status.</li>
+    <li><strong>Thermic Effect of Food (TEF)</strong>: energy spent on digestion, absorption, and storage of nutrients. Represents about 10% of TEE, varying with meal composition (protein → 20‑30% of caloric value, carbohydrates → 5‑10%, fats → 0‑3%).</li>
+    <li><strong>Physical Activity (PA)</strong>: caloric expenditure resulting from planned exercise (training) and non‑exercise activity (walking, daily gestures). Can account for 15‑30% of TEE, but is highly modifiable.</li>
+</ul>
+
+<p>To promote weight loss, a calorie deficit must be created in a way that reduces TEE without excessively compromising BMR. Deficits of 10‑20% of daily caloric intake (≈ 500‑750 kcal) are generally safe and allow gradual adjustments that minimize “metabolic adaptation.”</p>
+
+<p><strong>2. Hormones that regulate appetite and energy expenditure</strong></p>
+<ul>
+    <li><strong>Leptin</strong>: produced by adipocytes, signals the hypothalamus about the availability of energy reserves. In obese individuals, leptin may be elevated, but leptin resistance occurs, reducing its appetite‑suppressing effectiveness.</li>
+    <li><strong>Ghrelin</strong>: orexigenic hormone secreted mainly by the stomach during fasting. Levels rise before meals and fall after intake. Strategies that prolong satiety (protein, fiber, healthy fats) blunt the ghrelin spike.</li>
+    <li><strong>Insulin</strong>: regulates glucose uptake and fat storage. Frequent insulin spikes (due to refined carbohydrates) favor lipogenesis and hinder fatty‑acid mobilization.</li>
+    <li><strong>Thyroid hormones (T3/T4)</strong>: increase basal metabolic rate. Subclinical deficiencies can reduce energy expenditure by up to 10%.</li>
+    <li><strong>Cortisol</strong>: stress hormone that, when chronically elevated, promotes abdominal fat redistribution and increases insulin resistance.</li>
+</ul>
+
+<p><strong>3. Types of adipose tissue and their metabolic relevance</strong></p>
+<ul>
+    <li><strong>White adipocytes (WAT)</strong>: store energy as triglycerides. When in excess, they release pro‑inflammatory cytokines (TNF‑α, IL‑6) that contribute to insulin resistance.</li>
+    <li><strong>Brown adipocytes (BAT)</strong>: specialized in non‑shivering thermogenesis, using fat to generate heat via uncoupling protein 1 (UCP‑1). BAT activation can raise energy expenditure by 5‑10% and can be stimulated by cold exposure, aerobic exercise, and certain foods (chili, green tea).</li>
+    <li><strong>Beige adipocytes</strong>: WAT cells that, under stimuli such as exercise and growth factors, acquire thermogenic characteristics similar to BAT.</li>
+</ul>
+
+<p>Preserving or inducing “browning” of adipose tissue is an emerging strategy to boost fat loss without extreme calorie restriction.</p>
+
+<p><strong>4. Gut microbiota and energy efficiency</strong></p>
+<p>Metagenomic studies show that microbiota composition influences the extraction of energy from food. Bacteria of the genus <em>Firmicutes</em> tend to increase caloric absorption, whereas <em>Bacteroidetes</em> are associated with lower energy efficiency. Interventions that increase microbial diversity (fiber‑rich diets, prebiotics, probiotics) can reduce calorie capture and improve insulin sensitivity.</p>
+
+<p><strong>5. Genetics and epigenetics</strong></p>
+<p>Polymorphisms in genes such as <em>FTO</em>, <em>MC4R</em> and <em>PPARG</em> modulate susceptibility to weight gain by influencing appetite, metabolic rate, and adipocyte differentiation. However, the expression of these genes can be altered by environmental factors (diet, exercise, sleep) through epigenetic modifications (DNA methylation, histone changes).</p>
+
+<p><strong>6. Practical strategies based on biological fundamentals</strong></p>
+
+<ul>
+    <li><strong>Set a moderate calorie deficit</strong>: Use BMR calculators (e.g., Mifflin‑St Jeor equation) and adjust intake to 10‑20% below estimated TEE. Review every 2‑3 weeks to avoid stagnation.</li>
+    <li><strong>Prioritize protein</strong>: Consume 1.6‑2.2 g/kg body weight per day. Protein raises TEF (20‑30% of energy), promotes satiety (via GLP‑1), and preserves lean mass.</li>
+    <li><strong>Distribute carbohydrates strategically</strong>: Prefer low‑glycemic‑index carbs (legumes, whole grains, fiber‑rich fruit) and concentrate most intake around workouts to optimize insulin sensitivity.</li>
+    <li><strong>Include healthy fats</strong>: Monounsaturated and polyunsaturated fatty acids (olive oil, avocado, nuts, EPA/DHA‑rich fish) help modulate ghrelin and improve inflammatory response.</li>
+    <li><strong>Resistance training</strong>: 2‑4 sessions per week, 3‑5 sets of 6‑12 reps, with load that induces muscular fatigue. Hypertrophy raises lean mass, increasing BMR by ~5‑10 kcal/day per 1 kg of muscle.</li>
+    <li><strong>Moderate‑to‑high intensity aerobic exercise</strong>: 150‑300 min/week. HIIT (High‑Intensity Interval Training) can enhance fat oxidation and stimulate adipose browning.</li>
+    <li><strong>Sleep quality</strong>: 7‑9 h of continuous sleep. Sleep deprivation raises cortisol and ghrelin, lowers leptin, and promotes excess calorie intake.</li>
+    <li><strong>Stress management</strong>: Mindfulness, diaphragmatic breathing, and regular physical activity reduce chronic cortisol, limiting visceral fat accumulation.</li>
+    <li><strong>Support the microbiota</strong>: 25‑30 g of soluble fiber per day (inulin, psyllium, oats) and fermented foods (yogurt, kefir, sauerkraut) to boost bacterial diversity.</li>
+    <li><strong>Monitoring and adjustment</strong>: Use objective metrics (weight, waist circumference, bioimpedance) and subjective ones (energy levels, sleep quality) every 2‑4 weeks to adapt calories, macronutrients, and training volume.</li>
+</ul>
+
+<p><strong>7. Metabolic adaptation and “plateau”</strong></p>
+<p>During weight loss, the body reduces BMR as a preservation mechanism (up to a 10‑15% drop). To mitigate this effect, adopt “refeed” cycles with controlled calorie increases every 1‑2 weeks, focusing on high‑glycemic carbs to temporarily raise leptin and T3, partially restoring metabolic rate.</p>
+
+<p><strong>8. Importance of individualization</strong></p>
+<p>Each individual shows variation in:</p>
+<ul>
+    <li>Basal metabolic rate (influenced by genetics and body composition).</li>
+    <li>Hormonal response to calorie deficit (leptin and ghrelin sensitivity).</li>
+    <li>Gut microbiota profile.</li>
+    <li>Food preferences and plan adherence.</li>
+</ul>
+<p>Therefore, prescriptions should be flexible, allowing adjustments of macronutrients, meal timing, and exercise types according to the observed physiological response.</p>
+
+<p>In summary, healthy weight loss is achieved by aligning a calorie deficit with strategies that optimize basal metabolic rate, modulate hunger and satiety hormones, preserve lean mass, stimulate adipose thermogenesis, and maintain a favorable intestinal environment. Deep knowledge of these biological foundations empowers professionals and practitioners to develop personalized, effective, and sustainable protocols, reducing rebound risk and promoting long‑term health.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
