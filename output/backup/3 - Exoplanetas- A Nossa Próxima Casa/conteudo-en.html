@@ -1,0 +1,3006 @@
+<html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: undefined; border-bottom: 3px solid undefined; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: undefined; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: undefined; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: undefined; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: undefined;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: undefined;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: undefined;
+            }
+        </style>
+    
+    <style>
+        @page {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Adicionado &display=swap no final das URLs */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+        /* Importação dos Ícones Bootstrap via CDN */
+        @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+        
+        body { 
+            font-family: 'Roboto', sans-serif !important; 
+            margin: 0; 
+            padding: 0;
+            color: #333;
+        }
+
+        .cover-script {
+            font-family: 'Kaushan Script', cursive !important;
+            // font-weight: 400;
+        }
+        
+        .cover-full {
+            width: 100vw !important;
+            height: 100vh !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: block;
+        }
+
+        .introduction-page h1 { color: undefined; border-bottom: 3px solid undefined; padding-bottom: 10px; }
+    </style></head><body>
+            <div class="cover-full" style="width:100%; background-color:undefined;">
+                <div style="position:relative; width:100%; height:350px; overflow:hidden;">
+                    <img src="fundo-capa.png"style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+                    <div style="position:absolute;top:0;left:0;right:0;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;z-index:2;">
+                        <h3 class="cover-script" style="margin-top:-15px; font-size:2.5rem; color:#333; font-family: 'Kaushan Script', cursive; line-height: 1.1;">
+                            Let's talk about Space Exploration
+                        </h3>
+                        
+                        <h3 style="font-size:1.8rem; color:#FFF; font-family: 'Roboto', sans-serif; padding:5px 20px; border-radius:50px; background-color:#333; margin-top:-15px; display: inline-block; max-width: 90%;">
+                            Exoplanets: Our Next Home
+                        </h3>
+                        <i class="bi bi-rocket-takeoff" style="font-size:20px;color:#333;border-radius:50px;padding:5px 40px;margin-top:-50px;background-color:#FFF;"></i>
+                    </div>
+                </div>
+                <div style="position:relative;margin-top:100px;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 32px;">
+                        <div style="height: 1px; width: 96px; background: linear-gradient(to right, transparent, #FFF);"></div>
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFF;"></div>
+                        <div style="height: 1px; width: 128px; background-color: #FFF;"></div>
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFF;"></div>
+                        <div style="height: 1px; width: 96px; background: linear-gradient(to left, transparent, #FFF);"></div>
+                    </div>
+                    <div style="position: relative;">
+                        <div style="position: absolute; top: -16px; bottom: -16px; left: -16px; right: -16px; border-radius: 8px; background-color: #FFF; opacity: 0.3;"></div>
+                        <div style="position: absolute; top: -8px; bottom: -8px; left: -8px; right: -8px; background-color: white; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);"></div>
+                        <div style="position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+                            <img src="./output/exoplanets__our_next_home.png" style="width: 100%; height: 384px; object-fit: cover; display: block;">
+                            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);"></div>
+                        </div>
+                        <div style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); padding: 12px 32px; border-radius: 9999px; shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); background-color: #333; white-space: nowrap;">
+                            <p style="text-align: center; font-size: 14px; letter-spacing: 0.1em; color: #FFF; margin: 0; font-weight: bold;">
+                                A SPECIAL COLLECTION
+                            </p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 48px; padding-left: 48px; padding-right: 48px; padding-bottom: 32px; display: flex; align-items: center; justify-content: space-between;">
+                        <div style="flex: 1; height: 1px; background: linear-gradient(to right, #d1d5db, transparent);"></div>
+                        <div style="padding: 0 32px;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: #FFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+                                <img src="img/realizart-logo.png" style="width: 40px; height: 40px;" alt="Logo">
+                            </div>
+                        </div>
+                        <div style="flex: 1; height: 1px; background: linear-gradient(to left, #d1d5db, transparent);"></div>
+                    </div>
+                    <div style="height: 12px; color:#ffffff; background: linear-gradient(to right, undefined, #888, undefined);"></div>
+                </div>
+            </div>
+        </div>
+        <div class="page-break" style="page-break-after: always;"></div>
+    </body></html><html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: undefined; border-bottom: 3px solid undefined; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: undefined; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: undefined; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: undefined; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: undefined;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: undefined;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: undefined;
+            }
+        </style>
+    </head><body>
+        <section class="indice-page">
+            <h1 class="indice-titulo" style="color: undefined">Summary</h1>
+            <div class="indice-lista">
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">1. The Search for Mars: The First Step</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 1</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">2. Earthlings in Other Suns: Colonization Candidates</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 5</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">3. Interstellar Travel Physics: Wormholes and Warp Drive</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 9</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">4. The Fermi Paradox: Why Are We Still Alone?</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 15</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">5. Astrobiology: What Would Real Aliens Look Like?</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 19</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">6. The Future of Earth as the Home Planet</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 23</span>
+                    </div>
+                
+            </div>
+        </section></body></html><html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: undefined; border-bottom: 3px solid undefined; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: undefined; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: undefined; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: undefined; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: undefined;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: undefined;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: undefined;
+            }
+        </style>
+    </head><body>
+        <section class="indice-page">
+            <div class="introduction-page">
+                <h1>Introduction</h1>
+                <p>Welcome to a journey that goes beyond the limits of our night sky. As you open the pages of “Let’s Explore Space – Exoplanets: Our Next Home,” you will be guided by discoveries that turn curiosity into hope, showing how the search for new worlds can redefine humanity’s future.</p>
+<p>From the first bold step toward Mars to the identification of habitable planets around other stars, each chapter reveals how science and imagination converge to make exoplanet colonization possible. By understanding the physics of wormholes, the potential of warp drive, and the mysteries of the Fermi Paradox, you will discover not only where we can go, but also why we remain the pioneers of the cosmos.</p>
+<p>Exploring astrobiology and reflecting on Earth’s destiny, this e‑book highlights the urgency and beauty of seeking a new home among the stars. Prepare to be inspired, to question, and above all, to act—because the next chapter of our story is written in the distant lights of exoplanets. Let’s work together to turn this dream into reality!</p>
+            </div>
+            <div class="page-break"></div>
+        </section>
+    </body></html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: undefined; border-bottom: 3px solid undefined; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: undefined; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: undefined; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: undefined; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: undefined;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: undefined;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: undefined;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The Search for Mars: The First Step</h1><h2>Space Exploration of Exoplanets: Our Next Home – The Search for Mars: The First Step</h2>
+
+<p>Mars has been, since antiquity, the object of fascination and speculation. In the context of exoplanet exploration, the Red Planet represents the <em>benchmark</em> for the transition from <strong>robotic exploration</strong> to <strong>human presence</strong>. This chapter provides an in‑depth technical analysis of the steps required to turn Mars into humanity’s <em>first extra‑planetary home</em>, covering everything from scientific goal definition to the engineering details of crewed missions.</p>
+
+<h2>1. Strategic Objectives of the Mars‑2028/2035 Mission</h2>
+
+<p>The objectives are divided into three interdependent categories:</p>
+
+<ul>
+    <li><strong>Fundamental science</strong>: characterization of Mars’ geology, climatology, and potential habitability, including the search for biosignatures.</li>
+    <li><strong>Life‑support technology</strong>: validation of <em>In‑Situ Resource Utilization</em> (ISRU) systems, pressurized habitats, and air/water recycling in the Martian environment.</li>
+    <li><strong>Transportation architecture</strong>: demonstration of high‑efficiency propulsion systems (e.g., <code>LOX/CH4</code>), transfer modules, and reusable surface vehicles.</li>
+</ul>
+
+<p>These goals are aligned with the <em>NASA Roadmap* (2023‑2035) and ESA’s <em>Moon‑to‑Mars</em> program, ensuring synergy among international partners.</p>
+
+<h2>2. Mission Architecture: From Launch to Landing</h2>
+
+<p>The proposed architecture follows the <strong>“Mars Transfer Vehicle (MTV)”</strong> coupled with a <strong>“Surface Habitat Module (SHM)”</strong>. The event flow can be summarized as follows:</p>
+
+<ol>
+    <li><strong>Launch</strong>: Use of a heavy‑lift launcher (e.g., <code>SpaceX Starship</code> or <code>NASA SLS</code>) to place the MTV into interplanetary transfer orbit (TLI – <em>Trans‑Lunar Injection</em> adapted for <em>Trans‑Mars Injection</em>).</li>
+    <li><strong>Trajectory Correction Maneuver (TCM)</strong>: <code>LOX/CH4</code> burn for fine‑tuning the trajectory, minimizing residual <em>Δv</em> (< 50 m/s).</li>
+    <li><strong>Entry, Descent, and Landing (EDL)</strong>: Hybrid system of parachutes, retro‑propulsion, and <em>sky‑crane</em> to deliver <code>~20 t</code> of payload to the surface.</li>
+    <li><strong>Habitat Deployment</strong>: Autonomous unfolding of inflatable structures (e.g., <code>Boeing VSS Habitat</code>) with regolith shielding.</li>
+    <li><strong>ISRU Operation</strong>: Conversion of atmospheric <code>CO₂</code> into <code>O₂</code> via MOXIE‑Scale, and production of <code>CH₄</code> from <code>H₂O</code> extracted from permafrost.</li>
+</ol>
+
+<h2>3. Propulsion and Δv – Practical Calculation</h2>
+
+<p>To size the required propellant, we use the Tsiolkovsky equation:</p>
+
+<pre><code>Δv = Isp * g0 * ln(m0 / mf)</code></pre>
+
+<p>where:</p>
+
+<ul>
+    <li><code>Isp</code> = 380 s (high‑performance <code>LOX/CH4</code> propellant)</li>
+    <li><code>g0</code> = 9.80665 m/s² (Earth’s standard gravity)</li>
+    <li><code>m0</code> = initial mass (includes payload, structure, propellant)</li>
+    <li><code>mf</code> = final mass (after propellant burn)</li>
+</ul>
+
+<p>Assuming <code>m0 = 120 000 kg</code> and <code>mf = 80 000 kg</code>:</p>
+
+<pre><code>Δv = 380 * 9.80665 * ln(120000 / 80000)
+    ≈ 380 * 9.80665 * ln(1.5)
+    ≈ 380 * 9.80665 * 0.4055
+    ≈ 1,511 m/s</code></pre>
+
+<p>This <em>Δv</em> covers the Martian orbit insertion phase and the first trajectory‑correction burn, demonstrating that a single stage of <code>LOX/CH4</code> propulsion is sufficient for the proposed mission.</p>
+
+<h2>4. Life‑Support Technologies (LST)</h2>
+
+<p>LSTs are the heart of human permanence. Practical solutions include:</p>
+
+<ul>
+    <li><strong>Air recycling</strong>: Closed‑loop cycle using <code>Sabatier</code> + <code>Electrolysis</code> to convert <code>CO₂</code> + <code>H₂</code> → <code>CH₄</code> + <code>H₂O</code>, followed by electrolysis to generate <code>O₂</code> and reusable <code>H₂</code>.</li>
+    <li><strong>Water purification</strong>: <em>Forward osmosis</em> systems combined with <em>UV sterilization</em> to turn permafrost ice into potable water with > 95 % efficiency.</li>
+    <li><strong>Inflatable habitat</strong>: Structures of <code>Aluminum‑Laminated Fabric</code> with an internal <code>Mylar</code> layer for heat retention, and an external cover of <code>regolith‑derived shielding</code> (≈ 0.5 m) to attenuate gamma radiation.</li>
+    <li><strong>Food production</strong>: Cultivation in <em>Vertical Farming Units (VFUs)</em> using adjustable‑spectrum LED lighting (450 nm + 660 nm) and a substrate of <code>hydroponic rock‑wool</code> enriched with nutrients extracted from <code>Martian regolith</code>.</li>
+</ul>
+
+<h2>5. Radiation Challenges and Mitigation Strategies</h2>
+
+<p>Galactic cosmic rays (GCR) and solar particle events (SPE) are critical for long‑duration missions. Practical strategies:</p>
+
+<ul>
+    <li><strong>Local mass shielding</strong>: Use ≈ 2 g/cm² of regolith (≈ 0.5 m of compacted soil) around the habitat, reducing the annual GCR dose from ~0.7 Sv to <0.2 Sv.</li>
+    <li><strong>Refuge areas</strong>: Designate internal modules as <em>storm shelters</em> with additional shielding (e.g., <code>Water walls – 10 cm</code>) for high‑intensity SPEs.</li>
+    <li><strong>Radioprotective pharmaceuticals</strong>: Administration of <code>Amifostine</code> or <code>DNA‑repair enhancers</code> before periods of high exposure.</li>
+</ul>
+
+<h2>6. Implementation Schedule and Milestones</h2>
+
+<p>A 7‑10‑year plan, divided into <em>Technology Demonstration (TD)</em>, <em>Pre‑cursor Missions (PM)</em>, and <em>Human Landing (HL)</em> phases:</p>
+
+<table>
+    <tr><th>Year</th><th>Phase</th><th>Main Objective</th></tr>
+    <tr><td>2025‑2026</td><td>TD</td><td>Suborbital flight test of <code>LOX/CH4</code>; MOXIE‑Scale demonstration.</td></tr>
+    <tr><td>2027‑2028</td><td>PM</td><td>Robotic mission <em>Perseverance‑2</em> with pilot‑scale ISRU of <code>O₂</code> and <code>CH₄</code>.</td></tr>
+    <tr><td>2029‑2030</td><td>TD</td><td>Autonomous inflatable habitat tested in <em>Desert Analog</em> (Nevada).</td></tr>
+    <tr><td>2031‑2033</td><td>PM</td><td>Delivery of a cargo module with <code>100 t</code> of supplies and <code>2 t</code> of regolith for shielding construction.</td></tr>
+    <tr><td>2034‑2035</td><td>HL</td><td>Crewed landing (4‑6 astronauts) and establishment of <em>Base Alpha</em> with <code>30 days</code> of autonomy.</td></tr>
+</table>
+
+<h2>7. Practical Aspects for the Mission Team</h2>
+
+<p>To ensure successful execution, the team should observe:</p>
+
+<ul>
+    <li><strong>Risk management</strong>: Apply the <code>FMEA (Failure Mode and Effects Analysis)</code> matrix to every subsystem (propulsion, EDL, LST).</li>
+    <li><strong>Astronaut training</strong>: Partial‑gravity simulators (<code>0.38 g</code>) and <em>EMERG‑EVA</em> protocols for ISRU repairs.</li>
+    <li><strong>Communication</strong>: <code>UHF</code> + <code>X‑Band</code> network for low‑latency links, supported by experimental <code>laser comms</code> for high‑rate scientific data transmission.</li>
+    <li><strong>Supply logistics</strong>: Establish <em>pre‑positioned depots</em> of water and fuel in <em>Valles Marineris</em>, leveraging the terrain for natural radiation protection.</li>
+</ul>
+
+<h2>8. Conclusion – From Exoplanets to Our Next Home</h2>
+
+<p>Mars represents the <strong>first tangible step</strong> toward interplanetary colonization. The approach detailed here combines <em>high‑fidelity engineering</em> with <em>tested operational practices</em>, creating a robust pathway that can be extrapolated to future exoplanetary targets. By mastering the <em>integration of ISRU, pressurized habitats, and low‑<code>Δv</code> propulsion</em>, humanity will be ready not only to live on Mars but also to design self‑sustaining missions to worlds beyond our Solar System.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: undefined; border-bottom: 3px solid undefined; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: undefined; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: undefined; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: undefined; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: undefined;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: undefined;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: undefined;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Earthlings on Other Suns: Colonization Candidates</h1><h2>Let's Explore Exoplanets: Our Next Home – Earthlings on Other Suns: Colonization Candidates</h2>
+
+<p>The search for habitable worlds beyond the Solar System has progressed exponentially over the past two decades, driven by missions such as <em>Kepler</em>, <em>TESS</em> (Transiting Exoplanet Survey Satellite) and the <em>James Webb Space Telescope</em> (JWST). More than 5,000 exoplanets have been confirmed, but only a fraction meet the strict criteria for long‑term habitability. This chapter examines, in a technical and practical manner, the critical selection parameters, the main currently recognized candidates, and the exploration strategies that could turn these worlds into future human colonies.</p>
+
+<h2>1. Fundamental Habitability Parameters</h2>
+
+<p>To assess colonization viability, scientists use a set of inter‑related metrics grouped into three categories: <strong>environmental</strong>, <strong>astronomical</strong> and <strong>technological</strong>. Each category has quantifiable sub‑parameters that can be compared to Earth reference values.</p>
+
+<ul>
+  <li><strong>Habitable Zone (HZ) and Stellar Flux</strong> – The orbital distance that allows surface temperatures between 0 °C and 100 °C, assuming an Earth‑like atmosphere. The <code>Seff</code> (effective stellar flux) parameter should lie between 0.75 and 1.5 for Sun‑like stars.</li>
+  <li><strong>Equilibrium Temperature (Teq)</strong> – Calculated by <code>Teq = T★ * sqrt(R★/(2*a)) * (1 - A)^(1/4)</code>, where <code>T★</code> is the star’s temperature, <code>R★</code> its radius, <code>a</code> the semi‑major axis and <code>A</code> the planet’s albedo. Values between 250 K and 320 K are considered favorable.</li>
+  <li><strong>Mass &amp; Radius (M, R)</strong> – Rocky planets typically exhibit 0.5 – 2.0 M⊕ and 0.8 – 1.5 R⊕. Densities above 3 g cm⁻³ suggest a predominantly silicate composition.</li>
+  <li><strong>Stellar Activity</strong> – Ultraviolet radiation and charged‑particle emission rates (flares, stellar wind). M‑dwarfs, although abundant, show high activity that can erode atmospheres.</li>
+  <li><strong>Orbital Stability</strong> – Inclination (< 5°) and low eccentricity (< 0.1) reduce extreme climate variations.</li>
+  <li><strong>Presence of Liquid Water</strong> – Inferred from transit spectroscopy (H₂O absorption band) and climate models.</li>
+</ul>
+
+<p>Only planets that simultaneously satisfy these criteria are considered <em>serious candidates</em> for colonization.</p>
+
+<h2>2. Main Candidates (as of 2026)</h2>
+
+<p>The list below gathers exoplanets with the highest scores in habitability indices (HZ‑score) and with mass, radius and composition data precise enough for practical assessments.</p>
+
+<ul>
+  <li><strong>Proxima Centauri b</strong> – 1.27 M⊕, 1.08 R⊕, orbiting within the habitable zone of a red dwarf (0.0485 AU). Challenges: strong stellar activity and likely tidal locking.</li>
+  <li><strong>TRAPPIST‑1e</strong> – 0.92 M⊕, 0.92 R⊕, located in the habitable zone of an ultra‑cool star (0.028 AU). Atmosphere not yet confirmed; however, estimated equilibrium temperature is ~251 K.</li>
+  <li><strong>LHS 1140 b</strong> – 6.6 M⊕, 1.43 R⊕, orbiting at 0.094 AU around a low‑activity red dwarf. Density of ~7.5 g cm⁻³ indicates an iron‑silicate core, good atmospheric retention.</li>
+  <li><strong>Kepler‑442b</strong> – 2.34 M⊕, 1.34 R⊕, orbiting 1.05 AU from a K2‑type star. Stellar flux <code>Seff = 0.71</code>, equilibrium temperature ~233 K, but with potential for moderate greenhouse effect.</li>
+  <li><strong>TOI‑700 d</strong> – 1.72 M⊕, 1.14 R⊕, around a K2V star (0.163 AU). First TESS discovery in the habitable zone; spectroscopy indicates an absence of dense water clouds.</li>
+</ul>
+
+<p>These targets are prioritized not only for their habitability metrics but also for logistical factors: proximity (< 15 light‑years), stellar brightness (facilitating spectroscopic observations), and feasibility of advanced propulsion missions.</p>
+
+<h2>3. Exploration Strategies and Mission Technologies</h2>
+
+<p>Turning an exoplanet into a colony requires a sequence of interlinked missions, each reducing uncertainty and establishing critical infrastructure. Below is a technological roadmap divided into three phases, with practical implementation details.</p>
+
+<h3>3.1. Phase I – Remote Reconnaissance</h3>
+
+<ul>
+  <li><strong>High‑Resolution Transit Spectroscopy</strong> – Use JWST, ELT (Extremely Large Telescope) and future observatories such as <em>HabEx</em> to detect H₂O, O₂, CO₂, CH₄ molecules. Practical tool:
+    <code>
+      python
+      import pysynphot as ps
+      # Simulate transmission spectrum
+      model = ps.Icat('phoenix', teff=3500, logg=5.0)
+      # Add H2O absorption
+      model_abs = model * ps.extinction('water', 1.0)
+    </code>
+  </li>
+  <li><strong>Direct Imaging with Coronagraphs</strong> – Design telescopes with <em>starshades</em> to block starlight and observe surface reflections. Goals: contrast <code>10⁻¹⁰</code> and angular resolution <code>λ/D ≈ 5 mas</code> for stars within <10 ly.</li>
+  <li><strong>Stellar Activity Measurements</strong> – Continuous monitoring of flares via X‑ray telescopes (e.g., <em>XRISM</em>) and radio arrays (e.g., <em>SKA</em>) to assess radiation risk.</li>
+</ul>
+
+<h3>3.2. Phase II – Data‑Exchange Missions</h3>
+
+<ul>
+  <li><strong>Relativistic‑Speed Propulsion Vehicles</strong> – Solar‑sail propulsion systems (Breakthrough Starshot) or fusion propulsion (re‑visited <em>Daedalus</em> project). Typical mission parameters:
+    <code>
+      distance = 4.24  # light‑years to Proxima Centauri
+      speed = 0.2 * 299792458  # 0.2c in m/s
+      travel_time = distance / (speed / 299792458)  # years
+    </code>
+    Results in <code>~21 years</code> travel time.
+  </li>
+  <li><strong>Interplanetary Relay Satellites</strong> – Constellations of small satellites (CubeSats) placed at the target star’s Lagrange points for low‑latency communication (< 5 min).</li>
+  <li><strong>Autonomous In‑Situ Analysis Robots</strong> – Landers equipped with miniaturized <em>mass spectrometers</em> (< 10 g) and drilling systems up to 2 m for subsurface samples, reducing biological contamination risk.</li>
+</ul>
+
+<h3>3.3. Phase III – Colonization Infrastructure</h3>
+
+<ul>
+  <li><strong>Orbital Supply Station</strong> – Construction of inflatable habitats (e.g., <em>Biosphere 2‑Lite</em>) in low orbit to store supplies, water and propellants before descent.</li>
+  <li><strong>Localized Terraforming</strong> – <em>Bio‑engineered microbes</em> capable of fixing CO₂ and generating O₂, such as genetically modified cyanobacteria tolerant to UV radiation.</li>
+  <li><strong>Pressurized Underground Habitat</strong> – Use of lava tubes or laser‑drilled tunnels created by robotic excavators, shielding colonists from cosmic radiation and temperature swings.</li>
+</ul>
+
+<h2>4. Risk Assessment and Mitigation</h2>
+
+<p>Even with favorable parameters, colonization faces planetary‑scale and engineering risks. The main risk factors and their mitigation strategies are:</p>
+
+<ul>
+  <li><strong>Stellar Radiation</strong> – Underground installations or use of <em>regolith shielding</em> with a minimum thickness of 2 m (reduces dose to <10 mSv/yr).</li>
+  <li><strong>Water Resource Scarcity</strong> – Pre‑mapping of ice deposits using deep‑penetrating radar (e.g., <em>ICESat‑2</em>) and water recycling with <em>membrane distillation</em> systems.</li>
+  <li><strong>Orbital/Tidal Instability</strong> – Selection of sites near the “terminator” (twilight zone) to exploit moderate temperatures and constant illumination.</li>
+  <li><strong>Biological Contamination</strong> – Planetary protection protocols at level 4 (ISO 14644‑1) to prevent transfer of terrestrial microorganisms and preserve the exoplanetary biosphere.</li>
+</ul>
+
+<h2>5. Economic Considerations and Timeline</h2>
+
+<p>The total cost of a colonization mission up to the first permanent settlement (approximately 50‑100 years of project time) is estimated between <strong>US$ 150 billion</strong> and <strong>US$ 250 billion</strong>, allocated as follows:</p>
+
+<ul>
+  <li>Advanced propulsion R&amp;D – 30 %</li>
+  <li>Construction and launch of transport vehicles – 25 %</li>
+  <li>Orbital and surface infrastructure – 35 %</li>
+  <li>Support operations and contingencies – 10 %</li>
+</ul>
+
+<p>Funding can be enabled through public‑private partnerships, with tax incentives for space‑mining and biotechnology firms, as well as international agreements on resource use (e.g., the UN treaty on outer space exploration).</p>
+
+<h2>6. Conclusion</h2>
+
+<p>The exoplanets listed above represent the most promising targets for future human colonization. The combination of rigorous habitability metrics, emerging propulsion technologies, and advanced instrumentation makes it possible to turn the “next home” of science fiction into a plausible reality. Success, however, will depend on integrated planning that aligns science, engineering and public policy, mitigating biological and environmental risks while maximizing scientific and economic returns.</p>
+
+<p>By following the proposed roadmap—from remote observation to the establishment of sustainable habitats—humanity could, within a century, set its first firm steps on extraterrestrial soil, ushering in a new era of cosmic expansion.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: undefined; border-bottom: 3px solid undefined; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: undefined; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: undefined; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: undefined; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: undefined;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: undefined;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: undefined;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The Physics of Interstellar Travel: Wormholes and Warp</h1><h2>Chapter 7 – The Physics of Interstellar Travel: Wormholes and Warp</h2>
+
+<p>The concept of “home” for humanity may very well be located on exoplanets orbiting stars dozens or hundreds of light‑years away. For this vision to cease being merely science fiction, the theoretical and experimental community has been investigating two of the most audacious proposals to overcome the light‑speed barrier: <strong>wormholes</strong> and <strong>space‑warp propulsion</strong>. This chapter presents, in a technical and practical manner, the mathematical foundations, the necessary physical conditions, and the engineering challenges that lie ahead for each proposal.</p>
+
+<h2>1. Wormholes: Topological Passages in Space‑Time</h2>
+
+<p>A wormhole, or Einstein‑Rosen bridge, is a solution of Einstein’s field equations that connects two distant regions of space‑time through a curvature “tunnel”. The most studied metric for this phenomenon is the <em>Morris‑Thorne Metric</em>, which describes a static, spherically symmetric wormhole:</p>
+
+<code>
+ds² = -c² dt² + dl² + (b(l))² (dθ² + sin²θ dφ²)
+</code>
+
+<ul>
+  <li><strong>c</strong> – speed of light in vacuum;</li>
+  <li><strong>l</strong> – radial coordinate that runs through the “throat” (l = 0 at the point of minimum area);</li>
+  <li><strong>b(l)</strong> – shape function that determines the throat radius, with <b>b(0) = b₀</b> (minimum tunnel radius).</li>
+</ul>
+
+<p>For the wormhole to be traversable (i.e., to allow passage of ships and humans), two conditions are crucial:</p>
+
+<ol>
+  <li><strong>Absence of an event horizon</strong>: the metric must be regular everywhere, avoiding singularities that trap light.</li>
+  <li><strong>Violation of the null energy condition (NEC)</strong>: the matter that sustains the throat must have negative energy density, something that, so far, has only been observed on microscopic scales (e.g., the Casimir effect).</li>
+</ol>
+
+<h2>1.1. Exotic Energy and Negative‑Density Matter</h2>
+
+<p>The NEC states that for any null vector k<sup>μ</sup>, T<sub>μν</sub> k<sup>μ</sup> k<sup>ν</sup> ≥ 0. For a traversable wormhole, it is required that:</p>
+
+<code>
+T<sub>μν</sub> k<sup>μ</sup> k<sup>ν</sup> < 0
+</code>
+
+<p>This implies the existence of <em>exotic energy</em>. The main proposals to generate such energy are:</p>
+
+<ul>
+  <li><strong>Phantom scalar fields</strong>: field theories that introduce a negative kinetic term in the Lagrangian.</li>
+  <li><strong>Vacuum fluctuations</strong> (Casimir effect): conducting plates separated by nanometers produce negative pressure, but the magnitude is still about 30 orders of magnitude below what is needed for a macroscopic throat.</li>
+  <li><strong>Localized dark‑energy matter</strong>: if the cosmological constant Λ could be manipulated locally, it might generate the required negative pressure.</li>
+</ul>
+
+<h2>1.2. Practical Mass/Energy Estimates</h2>
+
+<p>Considering a throat radius b₀ = 100 m, the total energy required (in mass‑energy units) can be estimated by:</p>
+
+<code>
+E ≈ (c⁴ / G) * π * b₀
+</code>
+
+<p>Plugging in the numbers:</p>
+
+<code>
+E ≈ ( (3×10⁸)⁴ / 6.674×10⁻¹¹ ) * π * 100 ≈ 3.2 × 10⁴⁶ J
+</code>
+
+<p>This energy corresponds to ~3.5×10²⁹ kg of mass (about 5.8 times the mass of Earth). Therefore, creating a human‑scale traversable wormhole would at least require technologies capable of handling energy comparable to the total output of a G‑type star in a few seconds – a challenge that, for now, lies beyond laboratory physics.</p>
+
+<h2>1.3. Proposed Engineering Strategies</h2>
+
+<ul>
+  <li><strong>Incremental construction</strong>: create a micro‑wormhole using the Casimir effect and amplify it with ultra‑intense magnetic fields (10¹⁴ T). The idea relies on controlled “inflation”, analogous to cosmological inflation.</li>
+  <li><strong>Use of “dark‑energy bubbles”</strong>: Higgs‑field confinement devices that could temporarily raise Λ in volumes of a few cubic meters.</li>
+  <li><strong>Stabilization by rotation fields</strong>: rotation of the throat (Teo‑Kerr solution) can reduce the amount of exotic energy needed, but introduces wave‑mode instabilities that must be damped by active feedback.</li>
+</ul>
+
+<h2>2. Warp Propulsion</h2>
+
+<p>Unlike wormholes, warp propulsion does not require topological “shortcuts”, but rather a manipulation of the local metric to create a “bubble” of space‑time that moves at effective speeds greater than c, while the interior of the bubble remains at rest relative to its contents.</p>
+
+<h2>2.1. Alcubierre Metric</h2>
+
+<p>The solution proposed by Miguel Alcubierre (1994) is described by the metric:</p>
+
+<code>
+ds² = -c² dt² + [dx - v_s(t) f(r_s) dt]² + dy² + dz²
+</code>
+
+<p>where:</p>
+
+<ul>
+  <li><strong>v_s(t)</strong> – bubble velocity along the x‑axis;</li>
+  <li><strong>r_s = √[(x - x_s(t))² + y² + z²]</strong> – radial distance to the bubble’s centre;</li>
+  <li><strong>f(r_s)</strong> – shape function that tends to 1 inside the bubble and 0 outside, typically <code>f(r_s) = (tanh[σ(r_s + R)] - tanh[σ(r_s - R)]) / (2 tanh[σR])</code>, with <strong>R</strong> the bubble radius and <strong>σ</strong> controlling wall thickness.</li>
+</ul>
+
+<p>This metric satisfies Einstein’s equations with a stress‑energy tensor that again violates the NEC in the “bubble wall” region.</p>
+
+<h2>2.2. Quantifying the Required Energy</h2>
+
+<p>For a bubble with radius R = 100 m and speed v = 0.5 c, the minimum energy (assuming uniform density) can be approximated by:</p>
+
+<code>
+E_min ≈ - (c⁴ / G) * (v² / c²) * R³
+</code>
+
+<p>Inserting the numbers:</p>
+
+<code>
+E_min ≈ - ( (3×10⁸)⁴ / 6.674×10⁻¹¹ ) * (0.5)² * (100)³ ≈ -3.6 × 10⁴⁶ J
+</code>
+
+<p>Again, the required energy is on the order of 10⁴⁶ J, with the negative sign indicating the need for exotic energy.</p>
+
+<h2>2.3. Proposed Energy Reductions</h2>
+
+<ul>
+  <li><strong>“Conical” bubble shapes</strong> (Natário, 2001): by choosing f(r) functions that concentrate curvature in smaller regions, the required energy can be reduced by up to 10⁴ times.</li>
+  <li><strong>Use of superconducting magnetic fields</strong>: creating regions of negative pressure via controlled vacuum energy may replace part of the exotic energy.</li>
+  <li><strong>Dimensional compactification (string theory)</strong>: in brane scenarios, curvature can “leak” into extra dimensions, lowering the energy needed in our observable 3‑D space.</li>
+</ul>
+
+<h2>2.4. Practical Implementation – “Warp Ship” Project</h2>
+
+<p>A feasible concept for a warp‑ship prototype (capable of reaching ~0.1 c) would involve the following subsystems:</p>
+
+<ol>
+  <li><strong>Exotic Energy Field Generator (EEFG)</strong>: a high‑density fusion reactor coupled to a “Casimir‑field” circuit that amplifies negative pressure on micro‑scales.</li>
+  <li><strong>Exotic Matter Support Structure (EMSS)</strong>: a hull of metamaterials with negative refractive index, capable of containing and stabilizing the curvature region.</li>
+  <li><strong>Bubble Shape Control System (BSCS)</strong>: high‑precision laser interferometer curvature sensors feeding a quantum‑feedback algorithm to adjust f(r) in real time.</li>
+  <li><strong>Auxiliary Propulsion System (APS)</strong>: ion or laser thrusters to accelerate the ship to the bubble‑entry speed (≈0.01 c), reducing the exotic‑energy load during the “warp‑acceleration” phase.</li>
+</ol>
+
+<p>The operational cycle would be:</p>
+
+<ul>
+  <li>Activate the APS to reach the launch speed;</li>
+  <li>Gradually turn on the EEFG, generating a zone of negative energy around the ship;</li>
+  <li>BSCS feedback shapes f(r) to create a minimal‑thickness bubble wall;</li>
+  <li>Transition to the “warp” phase where the ship remains inside the bubble, moving at 0.1 c without experiencing internal acceleration forces;</li>
+  <li>Controlled bubble shutdown upon arrival, followed by conventional propulsion for orbital insertion.</li>
+</ul>
+
+<h2>3. Practical Comparison Between Wormholes and Warp</h2>
+
+<table border="1" cellpadding="5" cellspacing="0">
+  <tr>
+    <th>Aspect</th>
+    <th>Wormhole</th>
+    <th>Warp Propulsion</th>
+  </tr>
+  <tr>
+    <td>Space‑Time Topology</td>
+    <td>Global alteration (connection of two distinct regions)</td>
+    <td>Local alteration (moving bubble)</td>
+  </tr>
+  <tr>
+    <td>Exotic Energy Required</td>
+    <td>~10⁴⁶ J for a 100 m throat</td>
+    <td>~10⁴⁶ J (reducible to ~10⁴² J with optimizations)</td>
+  </tr>
+  <tr>
+    <td>Current Technological Viability</td>
+    <td>No experimental macroscopic method</td>
+    <td>Metamaterial and Casimir‑field proposals in laboratory stage</td>
+  </tr>
+  <tr>
+    <td>Instability Risk</td>
+    <td>Possible collapse when traversing matter</td>
+    <td>Wave‑mode instabilities in the bubble wall</td>
+  </tr>
+  <tr>
+    <td>Effective Travel Time</td>
+    <td>Instantaneous (theoretically)</td>
+    <td>Limited by bubble speed (e.g., 0.1 c → 400 years for 40 ly)</td>
+  </tr>
+</table>
+
+<h2>4. Future Research and Development Paths</h2>
+
+<p>To turn these ideas into interstellar‑exploration tools, the community should focus on three research lines:</p>
+
+<ul>
+  <li><strong>Exotic Energy Physics</strong>: deepen Casimir experiments in complex geometries, investigate phantom‑field properties in quantum‑gravity theories, and search for mechanisms to control the cosmological constant.</li>
+  <li><strong>Curvature Metamaterials</strong>: design structures that mimic negative refractive indices for gravitational waves (analogous to electromagnetic “cloaking”) and test their ability to generate negative stresses.</li>
+  <li><strong>Numerical Metric Simulation</strong>: use supercomputers to solve the Einstein‑Maxwell‑Klein‑Gordon equations in non‑linear regimes, allowing optimization of f(r) and b(l) before building prototypes.</li>
+</ul>
+
+<p>Moreover, gravitational‑wave observatories (LIGO, Virgo, KAGRA) may, in the near future, detect signals from natural events involving microscopic wormholes or extreme curvature regions, providing essential empirical data to validate (or refute) the theories presented here.</p>
+
+<h2>5. Conclusion</h2>
+
+<p>Although still residing in the realm of advanced theoretical physics, the concepts of wormholes and warp propulsion represent the only known pathways that, in principle, allow surpassing the light‑speed barrier without violating general relativity. The energy demands—on the order of 10⁴⁶ J—and the need for exotic matter remain the greatest practical obstacles. Nevertheless, the convergence of research in vacuum energy, metamaterials, and metric simulation could, over the coming decades, significantly narrow the gap between theory and implementation.</p>
+
+<p>For the exploration of habitable exoplanets, the most plausible strategy within a 200–300‑year horizon may combine <em>short‑distance wormholes</em> (for interstellar jumps of up to a few thousand light‑years) with <em>low‑speed warp ships</em> for the final leg to the target planet. This hybrid approach leverages the strengths of both ideas, minimizing risks while maximizing interplanetary route flexibility.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: undefined; border-bottom: 3px solid undefined; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: undefined; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: undefined; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: undefined; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: undefined;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: undefined;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: undefined;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The Fermi Paradox: Why Are We Still Alone?</h1><h2>The Fermi Paradox: Why Are We Still Alone?</h2>
+
+<p>Since Enrico Fermi asked “where is everybody?” during a lunch in 1950, the scientific community has been grappling with the apparent contrast between the <strong>statistical probability</strong> of intelligent life in the Universe and the <strong>absence of observational evidence</strong>. In the context of exoplanet exploration, the paradox takes on even more intriguing contours: we have discovered thousands of worlds around other stars, many within the so‑called <em>habitable zone</em>, yet we have not detected any signal from technological civilizations. This chapter examines, in a technical and practical way, the main factors that feed the paradox and presents tools that allow the reader to quantitatively evaluate the most relevant hypotheses.</p>
+
+<h2>1. The Drake Equation as a Quantitative Basis</h2>
+
+<p>The Drake Equation, proposed by Frank Drake in 1961, remains the starting point for estimating the number <em>N</em> of detectable civilizations in the Milky Way:</p>
+
+<code>
+N = R_* × f_p × n_e × f_l × f_i × f_c × L
+</code>
+
+<ul>
+  <li><strong>R_*</strong>: star‑formation rate in the galaxy (≈ 1–3 stars/yr).</li>
+  <li><strong>f_p</strong>: fraction of stars with planetary systems (≈ 0.8–1.0, based on <em>Kepler</em> and <em>TESS</em> data).</li>
+  <li><strong>n_e</strong>: average number of potentially habitable planets per system (≈ 0.2–0.5).</li>
+  <li><strong>f_l</strong>: fraction of those planets where life actually arises (unknown).</li>
+  <li><strong>f_i</strong>: fraction where life evolves intelligence (unknown).</li>
+  <li><strong>f_c</strong>: fraction that develops detectable technology (e.g., radio, laser).</li>
+  <li><strong>L</strong>: average lifetime of a technological civilization (years).</li>
+</ul>
+
+<p>The first four terms can be estimated with reasonable confidence thanks to exoplanet‑detection missions. The last three remain highly speculative, and it is precisely the uncertainty about <em>f_l, f_i, f_c</em> and <em>L</em> that fuels the paradox.</p>
+
+<h2>2. Exoplanets in the Habitable Zone: Practical Data</h2>
+
+<p>To evaluate <strong>n_e</strong>, we need to identify planets that receive the right amount of stellar energy to keep liquid water. The basic calculation of the habitable zone (HZ) uses stellar luminosity (<em>L_\*</em>) and orbital distance (<em>a</em>):</p>
+
+<code>
+# Python – conservative habitable zone calculation (Kopparapu et al. 2013)
+import numpy as np
+
+def hab_zone(L_star):
+    # Inner and outer limits (in AU) for Sun‑like stars
+    inner = np.sqrt(L_star / 1.1)   # “runaway greenhouse” limit
+    outer = np.sqrt(L_star / 0.53)  # “maximum greenhouse” limit
+    return inner, outer
+
+# Example: star with 0.8 L_sun
+inner, outer = hab_zone(0.8)
+print(f"Habitable zone: {inner:.2f}–{outer:.2f} AU")
+</code>
+
+<p>Applying this algorithm to catalogs such as the <em>NASA Exoplanet Archive</em>, we can generate lists of <em>Earth‑candidates</em>. By 2025, about <strong>≈ 150</strong> rocky exoplanets had been identified within the HZ of their stars, with sizes between 0.8 and 1.5 R⊕ and estimated surface temperatures between 250 K and 350 K.</p>
+
+<h2>3. Main Hypotheses Attempting to Resolve the Paradox</h2>
+
+<p>Several explanations have been proposed, classifiable into two broad categories: <em>evolutionary filters</em> (Great Filter) and <em>observational limitations</em>. Each has practical implications for exoplanet research and SETI.</p>
+
+<ul>
+  <li><strong>Great Filter</strong>: One or more critical stages that are either extremely rare or inevitably self‑destructive. It may lie before life (rarity of abiogenesis) or after (technological self‑destruction). If the filter lies ahead, our civilization could be at imminent risk.</li>
+  <li><strong>Rare Earth Hypothesis</strong>: Combined conditions—such as a large moon, a stable magnetic field, a location in a galactic ring free of radiation—are so specific that complex life is almost unique.</li>
+  <li><strong>Silent/Passive Life Hypothesis</strong>: Civilizations may exist but do not emit intentionally detectable signals (e.g., low‑power laser communication or sub‑space networks).</li>
+  <li><strong>Zoo Hypothesis</strong>: Advanced civilizations deliberately avoid contact to allow life to evolve naturally.</li>
+  <li><strong>Technological Detection Limitations</strong>: Our instruments may be insufficient to capture signals from civilizations that use technologies different from ours (e.g., neutrino communication or stellar modulation).</li>
+</ul>
+
+<h2>4. Practical Search Strategies – From Exoplanet to Signaling</h2>
+
+<p>To turn the paradox into a testable scientific problem, the community has adopted two lines of action:</p>
+
+<h3>4.1. Atmospheric Characterization of Exoplanets</h3>
+
+<p>Transmission and emission spectroscopy allows the identification of biosignatures (O₂, O₃, CH₄, CO₂) in exoplanet atmospheres. The <em>James Webb Space Telescope (JWST)</em> has already demonstrated the ability to detect water in super‑Earth atmospheres. Future missions (e.g., <em>HabEx</em>, <em>LUVOIR</em>) should reach resolutions <em>R</em> ≈ 100 000, needed to distinguish narrow lines of artificial gases such as <strong>CFCs</strong> or <strong>SF₆</strong>, which would be indicators of technological activity.</p>
+
+<h3>4.2. Search for Technosignatures</h3>
+
+<p>Beyond radio, the search for <em>laser beacons</em>, <em>infrared excess</em> (indicative of Dyson‑type megastructures) and <em>stellar pulsation modulation</em> has gained traction. The algorithm below exemplifies how to look for luminosity variations consistent with a <em>laser beacon</em> in high‑cadence photometric data:</p>
+
+<code>
+# Python – detection of laser peak in a photometric flux series
+import numpy as np
+from scipy.signal import find_peaks
+
+def laser_peaks(flux, threshold=5):
+    # Normalize the series
+    norm = (flux - np.mean(flux)) / np.std(flux)
+    # Find peaks above the sigma threshold
+    peaks, _ = find_peaks(norm, height=threshold)
+    return peaks
+
+# Simulated flux with noise + artificial peak
+np.random.seed(42)
+flux = np.random.normal(0, 1, 10000)
+flux[5432] += 8   # hypothetical laser peak
+peaks = laser_peaks(flux)
+print(f"Detected peaks at samples: {peaks}")
+</code>
+
+<p>These methods are implemented in pipelines of projects such as <em>Breakthrough Listen</em> and <em>SETI@home</em>, enabling automatic analysis of petabytes of data.</p>
+
+<h2>5. The Future of Investigation: Key Missions and Instruments</h2>
+
+<ul>
+  <li><strong>JWST (2021‑present)</strong>: transmission spectroscopy from 0.6–28 µm; detects H₂O, CO₂, CH₄ in super‑Earth atmospheres.</li>
+  <li><strong>ELT (Extremely Large Telescope, 2028)</strong>: angular resolution of 5 mas; capable of high‑resolution spectroscopy (<em>R</em> ≈ 100 000) on directly imaged exoplanets.</li>
+  <li><strong>LUVOIR/HabEx (study phase 2035‑2040)</strong>: 8–15 m telescopes with advanced coronagraphs; primary goal is detection of biosignatures on Earth‑like exoplanets.</li>
+  <li><strong>Breakthrough Starshot (concept)</strong>: gram‑scale probes propelled by lasers that could reach Alpha Centauri in 20 years, enabling in‑situ observations of exoplanets.</li>
+  <li><strong>“SETI Infrared” Project (2024‑)</strong>: uses the <em>Wide-field Infrared Survey Explorer (WISE)</em> to map infrared excesses that could indicate megastructures.</li>
+</ul>
+
+<h2>6. Practical Implications for Researchers and Amateurs</h2>
+
+<p>Although the search for intelligent life has not yet yielded definitive answers, technical advances allow both professionals and enthusiasts to contribute measurably:</p>
+
+<ul>
+  <li><strong>Participation in citizen‑science projects</strong>: platforms like <em>Zooniverse</em> let volunteers classify exoplanet light curves and spot possible anomalies.</li>
+  <li><strong>Use of open data</strong>: the <em>NASA Exoplanet Archive</em> and <em>ESA Gaia DR3</em> provide complete catalogs that can be analyzed with simple scripts (e.g., Python, Julia).</li>
+  <li><strong>Development of signal‑analysis pipelines</strong>: learn to apply noise‑filtering techniques, Fourier analysis, and machine‑learning methods (CNNs) to detect non‑trivial patterns in time series.</li>
+  <li><strong>Observation planning</strong>: when proposing telescope time, emphasize the need to observe multiple transits of the same target to confirm signal persistence, reducing false positives.</li>
+</ul>
+
+<h2>7. Conclusion: Where Does the Paradox Lead Us?</h2>
+
+<p>The Fermi paradox is not an obstacle but a guide that directs our investigations toward the critical points of the causal chain that leads from star formation to a detectable technological civilization. Each term of the Drake Equation can be refined as new missions deliver high‑precision data on exoplanets, atmospheres, and possible technosignatures.</p>
+
+<p>If, after the coming decades, we still have not found signals, the most likely interpretations will point to a <strong>Great Filter</strong> situated after the emergence of complex life—a existential warning that forces us to reflect on the sustainability of our own civilization.</p>
+
+<p>Nevertheless, the very practice of seeking answers—developing instruments, algorithms, and observation strategies—is already reshaping our understanding of the cosmos. The paradox therefore remains the engine that drives space exploration and exoplanetary investigation toward what may become humanity’s <em>next home</em>.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: undefined; border-bottom: 3px solid undefined; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: undefined; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: undefined; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: undefined; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: undefined;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: undefined;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: undefined;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Astrobiology: What Would Real Aliens Be Like?</h1><h2>Astrobiology: What Would Real Aliens Be Like?</h2>
+
+<p>When we contemplate the possibility of life on exoplanets, the question that intrigues scientists and the general public the most is not only <em>where</em> to find life, but <em>how</em> it could be. The answer depends on an intricate set of planetary, stellar, and biochemical factors that, combined, define the “habitable zone” and, consequently, the forms extraterrestrial organisms could take. This chapter presents a technical‑practical overview for anyone who wants to understand, model, and search for signals of real aliens.</p>
+
+<ul>
+  <li><strong>Basic physical conditions:</strong> surface temperature, gravity, stellar radiation, and atmospheric pressure.</li>
+  <li><strong>Basic chemistry:</strong> availability of liquid water, redox energy sources, key elements (C, H, N, O, P, S), and possible alternative solvents.</li>
+  <li><strong>Planetary ecology:</strong> biogeochemical cycles, ecological niches, and interactions between microorganisms and their environment.</li>
+  <li><strong>Detectability:</strong> spectroscopic biosignatures, metabolic signatures, and observation strategies.</li>
+</ul>
+
+<h2>1. Planetary Parameters that Shape Biology</h2>
+
+<p>Habitability limits are, first and foremost, imposed by the planet’s physical conditions. The simplified equation for a planet’s equilibrium temperature (<code>Teq</code>) is:</p>
+
+<code>
+# Calculate equilibrium temperature (Teq) in Kelvin
+import numpy as np
+
+def teq(L_star, a, albedo=0.3):
+    """
+    L_star  : stellar luminosity in solar units
+    a       : orbital distance in AU
+    albedo  : planetary reflectivity (default 0.3)
+    """
+    sigma = 5.670374419e-8  # Stefan‑Boltzmann constant (W·m⁻²·K⁻⁴)
+    Teq = ((L_star * 3.828e26 * (1 - albedo)) / (16 * np.pi * sigma * (a * 1.496e11)**2))**0.25
+    return Teq
+</code>
+
+<p>Temperatures between 260 K and 340 K are considered “comfortable” for liquid water, but extremophiles on Earth demonstrate that life can thrive outside this range.</p>
+
+<ul>
+  <li><strong>Gravity (g):</strong> influences cellular architecture (e.g., rigid cell walls in high‑gravity environments) and the ability to fly or swim.</li>
+  <li><strong>Atmospheric pressure:</strong> controls water’s boiling point and the solubility of gases such as O₂, CO₂, and CH₄, which are essential for metabolism.</li>
+  <li><strong>Ultraviolet (UV) radiation:</strong> can destroy organic molecules, but also provides energy for alternative photosyntheses.</li>
+</ul>
+
+<h2>2. Chemistry of Life: Beyond Carbon‑Water?</h2>
+
+<p>Although carbon‑water chemistry is the most studied, modern astrobiology considers other “solvents” and molecular “backbones.” Below are the main alternatives and their implications for alien morphology.</p>
+
+<ul>
+  <li><strong>Silicon:</strong> possible in SiO₂‑rich environments and at elevated temperatures; crystalline structures could replace lipid membranes.</li>
+  <li><strong>Ammonia (NH₃) as a solvent:</strong> works at lower temperatures (‑78 °C to ‑33 °C). Organisms could have proteins with weaker hydrogen bonds, resulting in more flexible membranes.</li>
+  <li><strong>Methane (CH₄) on worlds like Titan:</strong> liquid methane could sustain a “methane biochemistry,” with metabolites based on hydrocarbon redox reactions.</li>
+</ul>
+
+<p>These alternatives directly influence the external appearance of organisms: colors based on different pigments (e.g., methane‑based carotenoids), shapes adapted to high viscosity (e.g., gelatinous structures in methane), and locomotion strategies (e.g., “floating” in dense atmospheres).</p>
+
+<h2>3. Metabolism and Energy Strategies</h2>
+
+<p>On Earth, the main metabolic types are:</p>
+
+<ul>
+  <li><strong>Phototrophic:</strong> capture photons to generate energy (e.g., water oxidation).</li>
+  <li><strong>Chemo‑trophic:</strong> oxidation of inorganic compounds (e.g., sulfate reduction).</li>
+  <li><strong>Anaerobic metabolism:</strong> fermentation or use of non‑oxygen electron acceptors.</li>
+</ul>
+
+<p>Exoplanets may favor unprecedented combinations. For example, a planet orbiting a red dwarf with intense flare activity could have atmospheres rich in H₂S; chemo‑trophic organisms that use sulfide as an electron acceptor would be advantageous. In high‑CO₂ pressure environments, “iron‑oxygen chemiosynthesis” could dominate.</p>
+
+<h2>4. Possible Morphologies of Organisms</h2>
+
+<p>By extrapolating from physics and chemistry, we can outline a few shape archetypes:</p>
+
+<ul>
+  <li><strong>Globular microorganisms:</strong> in high‑gravity settings, spherical forms minimize surface‑to‑volume area, reducing structural stress.</li>
+  <li><strong>Rigid filaments:</strong> useful in low‑gravity or dense media (e.g., liquid methane) where resistance to flow is critical.</li>
+  <li><strong>Layered structures:</strong> similar to silicate shells on silica‑rich planets, providing protection against UV radiation.</li>
+  <li><strong>Multicellular colonies with radial symmetry:</strong> optimize light capture in dense or turbid atmospheres.</li>
+</ul>
+
+<p>Beyond shape, coloration may be determined by pigments that absorb the host star’s dominant spectrum. Around red dwarfs, light is predominantly infrared; pigments such as bacteriochlorophyll d can produce reddish or almost opaque black tones.</p>
+
+<h2>5. Detectable Biosignatures and Observation Strategies</h2>
+
+<p>To recognize real aliens, we need to identify biosignatures that are robust against false positives. The main categories are:</p>
+
+<ul>
+  <li><strong>Atmospheric gases in chemical disequilibrium:</strong> coexistence of O₂ and CH₄, or presence of N₂O, which are difficult to maintain without biological processes.</li>
+  <li><strong>Spectral signatures of pigments:</strong> a “red edge” from chlorophyll in reflected spectra, or absorptions from bacteriochlorophyll in the infrared.</li>
+  <li><strong>Temporal variability:</strong> seasonal gas fluctuations that follow biological cycles (e.g., O₂ increase during alien “springs”).</li>
+</ul>
+
+<p>Instruments such as the <em>James Webb Space Telescope</em> (JWST) and the future <em>Atmospheric Remote‑sensing Infrared Exoplanet Large‑survey</em> (ARIEL) use transmission and emission spectroscopy to measure these signals. Practical strategies include:</p>
+
+<ol>
+  <li>Selecting targets within the “habitable zone” around stable stars with low flare activity.</li>
+  <li>Observing multiple molecular transitions (e.g., 1.27 µm O₂‑a‑band, 3.3 µm CH₄) to reduce ambiguities.</li>
+  <li>Combining spectroscopic data with 3D climate modeling (GCMs) to validate the plausibility of biosignatures.</li>
+</ol>
+
+<h2>6. Practical Modeling: Simulating an Alien Ecosystem</h2>
+
+<p>Below is a short Python snippet that demonstrates how to generate a simplified food‑web model, using growth rates based on available light energy (<code>E_light</code>) and chemical resources (<code>E_chem</code>).</p>
+
+<code>
+import numpy as np
+
+# Global parameters
+E_light = 200  # W·m⁻² (luminosity flux on the planet)
+E_chem  = 50   # W·m⁻² (available chemical energy)
+
+# Growth rates (per day)
+def growth_rate(E, k):
+    return k * np.log1p(E)  # Logarithmic saturation function
+
+k_phototroph = 0.04
+k_chemotroph = 0.03
+
+# Initial populations (arbitrary)
+P_phot = 1e6
+P_chem = 5e5
+
+# Simple 365‑day simulation
+for day in range(365):
+    P_phot += growth_rate(E_light, k_phototroph) * P_phot
+    P_chem += growth_rate(E_chem, k_chemotroph) * P_chem
+    # Cross‑predation (e.g., phototrophs consumed by chemotrophs)
+    predation = 0.001 * P_phot
+    P_phot -= predation
+    P_chem += predation
+
+print(f"Final phototrophic population: {P_phot:.2e}")
+print(f"Final chemotrophic population: {P_chem:.2e}")
+</code>
+
+<p>This model can be expanded with:</p>
+
+<ul>
+  <li>Integration of nutrient cycles (C, N, P).</li>
+  <li>Seasonal variability of <code>E_light</code> for planets with axial tilt.</li>
+  <li>Climate feedbacks that alter <code>E_chem</code> via volcanism or photolysis.</li>
+</ul>
+
+<h2>7. Conclusion: From Concepts to Real Search</h2>
+
+<p>Describing what real aliens would look like requires converging observational data, laboratory experiments (e.g., high‑pressure atmosphere simulations), and advanced computational modeling. The key take‑aways for anyone who wants to actively contribute to the exploration are:</p>
+
+<ol>
+  <li>Understand the planetary context before inferring biology.</li>
+  <li>Consider multiple solvent chemistries and molecular backbones.</li>
+  <li>Focus on robust biosignatures and multimodal observation strategies.</li>
+  <li>Use modeling tools (Python, GCMs, computational biochemistry) to generate testable hypotheses.</li>
+</ol>
+
+<p>By applying these principles, the scientific community moves ever closer to answering the question that drives space exploration: <em>are we alone?</em> When the answer arrives, it will be the product of an interdisciplinary effort that blends astrophysics, chemistry, biology, and data science — and, perhaps, will show us that our future cosmic neighbors could be as diverse as the stars they orbit.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: undefined; border-bottom: 3px solid undefined; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: undefined; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: undefined; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: undefined; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: undefined;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: undefined;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: undefined;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The Future of Earth as a Planet of Origin</h1><h2>Let's Explore Exoplanetary Space: Our Next Home – The Future of Earth as a Planet of Origin</h2>
+
+<p>In the last two decades, exoplanetary astronomy has moved from a discipline of occasional discovery to a mature field capable of characterizing atmospheres, geology, and even signs of bioactivity on worlds tens of light‑years away. This revolution turns the idea of a “next home” from science‑fiction into a technical‑strategic problem that will require engineering decisions, public policies, and fundamental science. This chapter presents, in depth and practical terms, the pillars that support the transition of Earth – the planet of origin – to an interplanetary civilization that inhabits habitable exoplanets.</p>
+
+<h2>1. Selection of habitable targets: criteria and quantitative metrics</h2>
+
+<p>To plan colonization missions, it is essential to filter the vast catalog of more than 5,000 confirmed exoplanets (<a href="https://exoplanetarchive.ipac.caltech.edu/">NASA Exoplanet Archive</a>) using metrics that translate habitability into measurable parameters. The three most used metrics are:</p>
+
+<ul>
+  <li><strong>Habitable Index (HI)</strong>: combines habitable zone (HZ), planetary size (0.5–1.5 R⊕) and mass (0.5–5 M⊕). Calculated as <code>HI = (HZ_score * Size_score * Mass_score) / 3</code>.</li>
+  <li><strong>Equilibrium Temperature (T_eq)</strong>: <code>T_eq = T_star * sqrt(R_star / (2 * a)) * (1 - A)^(1/4)</code>, where <code>A</code> is the estimated albedo. Values between 250 K and 320 K are considered optimal.</li>
+  <li><strong>Cosmic Radiation Flux (CRF)</strong>: measure of exposure to galactic cosmic rays. Planets in low‑activity stellar systems receive < 1 Sv/yr, reducing mutation risk.</li>
+</ul>
+
+<p>Applying these metrics to <em>Proxima Centauri b</em>, <em>TRAPPIST‑1e</em> and <em>LHS 1140 b</em>, we obtain:</p>
+
+<ul>
+  <li><strong>Proxima Centauri b</strong>: HI ≈ 0.68, T_eq ≈ 234 K, CRF ≈ 0.9 Sv/yr.</li>
+  <li><strong>TRAPPIST‑1e</strong>: HI ≈ 0.81, T_eq ≈ 251 K, CRF ≈ 0.7 Sv/yr.</li>
+  <li><strong>LHS 1140 b</strong>: HI ≈ 0.85, T_eq ≈ 230 K, CRF ≈ 0.5 Sv/yr.</li>
+</ul>
+
+<p>These values indicate that <em>LHS 1140 b</em> offers the best balance between temperature and radiation, making it a priority candidate for reconnaissance missions.</p>
+
+<h2>2. Interstellar propulsion: cutting‑edge technologies and trajectory calculations</h2>
+
+<p>Interstellar distances demand energy impulses that exceed traditional chemical rockets by orders of magnitude. The two most advanced technologies with experimental demonstrations are:</p>
+
+<ul>
+  <li><strong>Laser‑sail propulsion (Breakthrough Starshot)</strong>: acceleration up to 0.2 c using 100 GW laser beams directed at 4 m‑diameter sails. Travel time to <em>Proxima Centauri</em> ≈ 20 years.</li>
+  <li><strong>Inertial confinement fusion propulsion (ICF)</strong>: implosion of deuterium‑tritium capsules with petawatt lasers, generating 10 MN thrust. Designed for Δv ≈ 0.05 c in multiple stages.</li>
+</ul>
+
+<p>To estimate the required energy, we use the relativistic kinetic‑energy equation:</p>
+
+<code>
+E = (γ - 1) * m * c²  
+γ = 1 / sqrt(1 - (v² / c²))
+</code>
+
+<p>where <code>m</code> is the spacecraft mass (e.g., 10 kg for a Starshot probe) and <code>v</code> the target velocity. Substituting <code>v = 0.2c</code>:</p>
+
+<code>
+γ = 1 / sqrt(1 - 0.04) ≈ 1.0206  
+E ≈ (1.0206 - 1) * 10 kg * (3×10⁸ m/s)² ≈ 1.85×10¹⁶ J
+</code>
+
+<p>This corresponds to roughly 5 kt of TNT – an energy level feasible with megawatt‑year class laser facilities.</p>
+
+<h2>3. Reconnaissance mission architecture</h2>
+
+<p>A reconnaissance (Recon) mission aims to collect atmospheric, topographic, and radiation data before a colonization decision is made. The typical architecture includes:</p>
+
+<ul>
+  <li><strong>Acceleration sail</strong> (laser or fusion) that delivers the probe to the target.</li>
+  <li><strong>Correction‑propulsion module (MPC)</strong> with xenon ion thrusters for orbital adjustments (<code>Δv ≈ 10 m/s</code>).</li>
+  <li><strong>Scientific payload</strong>:
+    <ul>
+      <li>High‑resolution spectrograph (R ≈ 100 000) for biosignature analysis (O₂, CH₄).</li>
+      <li>Topographic scanning lidar (precision < 1 m).</li>
+      <li>High‑energy particle detector (for CRF).</li>
+    </ul>
+  </li>
+  <li><strong>Laser communication</strong> (λ = 1550 nm) capable of up to 1 Gbps over 30 ly distances with 10 m antennas on the target planet.</li>
+</ul>
+
+<p>Typical timeline:</p>
+
+<ul>
+  <li><strong>Year 0</strong>: Sail launch and start of acceleration.</li>
+  <li><strong>Year 20‑25</strong>: Arrival at the destination system; separation and orbital insertion.</li>
+  <li><strong>Year 25‑30</strong>: Scientific data collection and transmission back to Earth.</li>
+</ul>
+
+<h2>4. Colonization strategies: self‑sustaining habitats</h2>
+
+<p>With Recon data in hand, the next phase is designing habitats that minimize dependence on Earth. Three complementary approaches are recommended:</p>
+
+<ul>
+  <li><strong>Regolith‑inflatable habitat</strong>: Carbon‑fiber inflatable structures covered with local soil (regolith) for radiation shielding. Uses <code>3 t/m²</code> of regolith to cut CRF by 90 %.</li>
+  <li><strong>Artificial photosynthesis bioreactors</strong>: Closed systems that convert atmospheric CO₂ into O₂ and biomass using genetically engineered algae. Estimated production rate: <code>0.5 kg O₂ / m³ / day</code>.</li>
+  <li><strong>Long‑term terraforming</strong>: Injection of greenhouse gases (SF₆, PFCs) to raise average temperature by <code>+5 K</code> over 500 years, facilitating permanent settlement.</li>
+</ul>
+
+<p>The required shielding thickness can be calculated with the exponential attenuation formula:</p>
+
+<code>
+I = I₀ * e^(-μ * x)  
+μ = attenuation coefficient (cm⁻¹)  
+x = material thickness (cm)
+</code>
+
+<p>For regolith with <code>μ ≈ 0.03 cm⁻¹</code> and a goal of reducing radiation intensity from 1 Sv/yr to <0.1 Sv/yr, we need:</p>
+
+<code>
+0.1 = 1 * e^(-0.03 * x) → x ≈ 77 cm
+</code>
+
+<p>Thus, a layer of roughly 0.8 m of local soil is sufficient.</p>
+
+<h2>5. The role of Earth as “planet of origin” in the interplanetary future</h2>
+
+<p>Even with expansion to exoplanets, Earth will remain the technological and cultural reference core. Earth’s strategic functions include:</p>
+
+<ul>
+  <li><strong>Critical‑resource production hub</strong> (lanthanides, helium‑3) that cannot yet be mined at scale on exoplanets.</li>
+  <li><strong>Bioinformatics database</strong>: Storage of human and synthetic‑microbe genomes essential for colonist adaptation.</li>
+  <li><strong>Interplanetary communication network</strong> based on laser‑satellite constellations that keep latency < 10 min between Earth and systems up to 30 ly away.</li>
+  <li><strong>Governance center</strong>: International legal framework (e.g., Exoplanetary Colonization Treaty) regulating resource rights and biosignature preservation.</li>
+</ul>
+
+<p>To ensure Earth’s resilience, it is recommended to implement <strong>climate feedback loops</strong> that use space‑based solar power (SSP) to offset thermal energy losses, reducing reliance on fossil fuels and maintaining the climatic stability needed to support interplanetary missions.</p>
+
+<h2>6. Practical 30‑year roadmap for the Earth → Exoplanet transition</h2>
+
+<ol>
+  <li><strong>Years 0‑5</strong>: Completion of 10 MW laser‑sail demonstrators and orbital‑low‑Earth‑orbit (LEO) bioreactor tests.</li>
+  <li><strong>Years 6‑10</strong>: Launch of the first Recon mission to <em>LHS 1140 b</em>; development of interplanetary laser‑communication network.</li>
+  <li><strong>Years 11‑15</strong>: Recon data analysis; landing site selection; design of inflatable habitat with local shielding.</li>
+  <li><strong>Years 16‑20</strong>: Construction and launch of a colonization module (mass ≈ 50 t) using multi‑stage inertial‑confinement‑fusion propulsion.</li>
+  <li><strong>Years 21‑25</strong>: Establishment of pilot base; start of O₂ and food production in bioreactors.</li>
+  <li><strong>Years 26‑30</strong>: Infrastructure expansion, initiation of low‑scale terraforming projects, and full integration with Earth‑based support network.</li>
+</ol>
+
+<p>Following this roadmap, humanity not only secures a “life‑insurance” for the species but also opens pathways for scientific exploration of stellar systems that have so far been merely observational objects.</p>
+
+<h2>Conclusion</h2>
+
+<p>Exploring exoplanets as a “next home” requires the convergence of high‑precision astronomy, frontier propulsion, self‑sustaining habitat engineering, and global governance. Every step – from target selection to colony establishment – must be grounded in robust quantitative metrics and prototypes tested in real environments (LEO, Moon, Mars). By positioning Earth as a resilient planet of origin and a technological hub, we create the infrastructure needed for humanity to safely and sustainably migrate to new habitable worlds, ensuring the continuity of life and civilization in the cosmos.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>

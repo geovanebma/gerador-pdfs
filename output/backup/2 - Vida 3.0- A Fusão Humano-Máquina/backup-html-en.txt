@@ -1,0 +1,3024 @@
+<html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0d1b2a; border-bottom: 3px solid #0d1b2a; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0d1b2a; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0d1b2a; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0d1b2a; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0d1b2a;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0d1b2a;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0d1b2a;
+            }
+        </style>
+    
+    <style>
+        @page {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Adicionado &display=swap no final das URLs */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+        /* Importação dos Ícones Bootstrap via CDN */
+        @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+        
+        body { 
+            font-family: 'Roboto', sans-serif !important; 
+            margin: 0; 
+            padding: 0;
+            color: #333;
+        }
+
+        .cover-script {
+            font-family: 'Kaushan Script', cursive !important;
+            // font-weight: 400;
+        }
+        
+        .cover-full {
+            width: 100vw !important;
+            height: 100vh !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: block;
+        }
+
+        .introduction-page h1 { color: #0d1b2a; border-bottom: 3px solid #0d1b2a; padding-bottom: 10px; }
+    </style></head><body>
+            <div class="cover-full" style="width:100%; background-color:#0d1b2a;">
+                <div style="position:relative; width:100%; height:350px; overflow:hidden;">
+                    <img src="fundo-capa.png"style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+                    <div style="position:absolute;top:0;left:0;right:0;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;z-index:2;">
+                        <h3 class="cover-script" style="margin-top:-15px; font-size:1.8rem; color:#333; font-family: 'Kaushan Script', cursive; line-height: 1.1;">
+                            Let's talk about Future and Technology
+                        </h3>
+                        
+                        <h3 style="font-size:1.4rem; color:#FFF; font-family: 'Roboto', sans-serif; padding:5px 20px; border-radius:50px; background-color:#333; margin-top:-15px; display: inline-block; max-width: 90%;">
+                            Life 3.0: The Human-Machine Fusion
+                        </h3>
+                        <i class="bi bi-cpu" style="font-size:20px;color:#333;border-radius:50px;padding:5px 40px;margin-top:-50px;background-color:#FFF;"></i>
+                    </div>
+                </div>
+                <div style="position:relative;margin-top:100px;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 32px;">
+                        <div style="height: 1px; width: 96px; background: linear-gradient(to right, transparent, #FFF);"></div>
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFF;"></div>
+                        <div style="height: 1px; width: 128px; background-color: #FFF;"></div>
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFF;"></div>
+                        <div style="height: 1px; width: 96px; background: linear-gradient(to left, transparent, #FFF);"></div>
+                    </div>
+                    <div style="position: relative;">
+                        <div style="position: absolute; top: -16px; bottom: -16px; left: -16px; right: -16px; border-radius: 8px; background-color: #FFF; opacity: 0.3;"></div>
+                        <div style="position: absolute; top: -8px; bottom: -8px; left: -8px; right: -8px; background-color: white; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);"></div>
+                        <div style="position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+                            <img src="./output/life_3_0__the_human_machine_fusion.png" style="width: 100%; height: 384px; object-fit: cover; display: block;">
+                            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);"></div>
+                        </div>
+                        <div style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); padding: 12px 32px; border-radius: 9999px; shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); background-color: #333; white-space: nowrap;">
+                            <p style="text-align: center; font-size: 14px; letter-spacing: 0.1em; color: #FFF; margin: 0; font-weight: bold;">
+                                A SPECIAL COLLECTION
+                            </p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 48px; padding-left: 48px; padding-right: 48px; padding-bottom: 32px; display: flex; align-items: center; justify-content: space-between;">
+                        <div style="flex: 1; height: 1px; background: linear-gradient(to right, #d1d5db, transparent);"></div>
+                        <div style="padding: 0 32px;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: #FFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+                                <img src="img/realizart-logo.png" style="width: 40px; height: 40px;" alt="Logo">
+                            </div>
+                        </div>
+                        <div style="flex: 1; height: 1px; background: linear-gradient(to left, #d1d5db, transparent);"></div>
+                    </div>
+                    <div style="height: 12px; color:#e0e1dd; background: linear-gradient(to right, #0d1b2a, #888, #0d1b2a);"></div>
+                </div>
+            </div>
+        </div>
+        <div class="page-break" style="page-break-after: always;"></div>
+    </body></html><html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0d1b2a; border-bottom: 3px solid #0d1b2a; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0d1b2a; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0d1b2a; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0d1b2a; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0d1b2a;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0d1b2a;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0d1b2a;
+            }
+        </style>
+    </head><body>
+        <section class="indice-page">
+            <h1 class="indice-titulo" style="color: #0d1b2a">Summary</h1>
+            <div class="indice-lista">
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">1. Biohacking: Upgrading the Human Body</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 1</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">2. The Singularity: The Point of No Return</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 6</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">3. Smart Cities and Total Control</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 10</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">4. The End of Work: The Age of Total Automation</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 14</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">5. Transhumanism: The Search for Digital Immortality</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 17</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">6. Ethics in the New World: Who Defines the Rules?</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 22</span>
+                    </div>
+                
+            </div>
+        </section></body></html><html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0d1b2a; border-bottom: 3px solid #0d1b2a; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0d1b2a; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0d1b2a; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0d1b2a; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0d1b2a;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0d1b2a;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0d1b2a;
+            }
+        </style>
+    </head><body>
+        <section class="indice-page">
+            <div class="introduction-page">
+                <h1>Introduction</h1>
+                <p>Welcome to a journey that transcends the boundaries of imagination and places us on the brink of a new era: <em>Life 3.0: The Human‑Machine Fusion</em>. In this e‑book, you will discover how the convergence of biology, artificial intelligence, and urban design is reshaping the very definition of humanity, offering unprecedented opportunities for personal and collective growth.</p>
+<p>By exploring topics such as Biohacking, the Singularity, Smart Cities, the Age of Full Automation, Transhumanism, and Ethics, you will understand not only the technologies that promise to transform our bodies and minds but also the social and moral challenges that arise when machines and humans become inseparably intertwined.</p>
+<p>With a warm yet rigorous tone, this material is designed to inspire curious minds, professionals, and visionaries to position themselves as active agents of this emerging future, helping shape policies, practices, and values that will ensure balanced and humane development.</p>
+<p>Prepare to expand your horizons, question limits, and, above all, embrace the limitless potential that human‑machine fusion brings to our existence—the future is within your reach, and it starts now.</p>
+            </div>
+            <div class="page-break"></div>
+        </section>
+    </body></html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0d1b2a; border-bottom: 3px solid #0d1b2a; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0d1b2a; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0d1b2a; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0d1b2a; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0d1b2a;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0d1b2a;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0d1b2a;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Biohacking: The Human Body Upgrade</h1><h2>Future and Technology Life 3.0: The Human‑Machine Fusion – Biohacking: The Human Body Upgrade</h2>
+
+<p>The term <strong>biohacking</strong> is no longer limited to amateur garage experiments; it has solidified as an interdisciplinary field that brings together synthetic biology, tissue engineering, neuroscience, data science, and hardware design. In this chapter, we will explore the technological layers that enable the <em>upgrade</em> of the human body, detailing mechanisms of action, practical protocols, and essential ethical considerations for those who wish to integrate the organism with digital systems safely and effectively.</p>
+
+<h2>1. Structure of a Biohacking Project</h2>
+
+<p>A body upgrade project can be broken down into the following phases:</p>
+
+<ul>
+  <li><strong>Baseline Diagnosis</strong> – Assessment of physiological parameters (genomics, metabolomics, electrophysiology).</li>
+  <li><strong>Goal Definition</strong> – Selection of attributes to improve (e.g., fatigue resistance, memory, sensory perception).</li>
+  <li><strong>Technology Selection</strong> – Device or intervention (implantable, wearable, genetic editing).</li>
+  <li><strong>Prototyping &amp; In Vitro Testing</strong> – Use of organoids or bioprinting to validate safety.</li>
+  <li><strong>Implantation &amp; Integration</strong> – Surgical procedure or non‑invasive application.</li>
+  <li><strong>Continuous Monitoring</strong> – Real‑time telemetry, AI for dynamic adjustment.</li>
+</ul>
+
+<p>This sequence ensures that the upgrade is <em>iterative</em> and <em>reversible</em> whenever possible, reducing risks of immunological incompatibility or data overload.</p>
+
+<h2>2. Key Technologies for Body Upgrade</h2>
+
+<h3>2.1. Neuroprostheses and Brain‑Computer Interface (BCI)</h3>
+
+<p>BCIs allow electrical signals from the cortex to be captured, processed, and transformed into commands for external devices (e.g., robotic prosthesis) or, conversely, digital stimuli to be injected into the brain to modulate cognitive functions.</p>
+
+<ul>
+  <li><strong>Platinum‑Iridium Microelectrodes</strong> – High channel density (up to 1024) for real‑time <em>spike</em> recording.</li>
+  <li><strong>Decoding Algorithms</strong> – Convolutional neural networks (CNN) trained with <code>TensorFlow</code> to map activity patterns to the desired movement.</li>
+  <li><strong>Haptic Feedback</strong> – Piezoelectric actuators delivering vibrations from 0.1‑500 Hz, reproducing tactile sensations.</li>
+</ul>
+
+<p>Example Python script to calibrate a BCI decoding model:</p>
+
+<code>
+import tensorflow as tf<br>
+from tensorflow.keras import layers<br><br>
+# Simplified movement intention classification model<br>
+model = tf.keras.Sequential([<br>
+&nbsp;&nbsp;layers.Input(shape=(64,)),  # 64 electrode channels<br>
+&nbsp;&nbsp;layers.Dense(128, activation='relu'),<br>
+&nbsp;&nbsp;layers.Dense(64, activation='relu'),<br>
+&nbsp;&nbsp;layers.Dense(3, activation='softmax')  # 3 classes: flexion, extension, rest<br>
+])<br><br>
+model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])<br>
+model.fit(eeg_data, labels, epochs=30, batch_size=32)<br>
+</code>
+
+<h3>2.2. Precision Genetic Editing (CRISPR‑Cas9 &amp; Base Editors)</h3>
+
+<p>For upgrades that require permanent modification, base editing enables:</p>
+
+<ul>
+  <li>Insert <em>gain‑of‑function</em> variants in <strong>mitochondrial</strong> genes to improve ATP production.</li>
+  <li>Disable alleles predisposing to neurodegenerative diseases (<em>APOE4</em>, <em>HTT</em>).</li>
+  <li>Introduce synthetic light receptors (<em>optogenetics</em>) that enable remote control of metabolic pathways.</li>
+</ul>
+
+<p>Recommended delivery protocols:</p>
+
+<ul>
+  <li><strong>Lipid Nanoparticles (LNP)</strong> – Formulated with PEG‑2000 to cross the blood‑brain barrier.</li>
+  <li><strong>AAV serotype 9 virus</strong> – Muscle tropism, ideal for <em>myostatin</em> knock‑out.</li>
+</ul>
+
+<p>Example gRNA design in <code>Benchling</code>:</p>
+
+<code>
+# Example gRNA sequence for myostatin (MSTN) gene knockout<br>
+>gRNA_MSTN_knockout<br>
+GCTGCTGCTGCTGCTGCTGCTGG<br>
+# PAM: NGG (Streptococcus pyogenes Cas9)<br>
+</code>
+
+<h3>2.3. Tissue Bioprinting (3D Bioprinting)</h3>
+
+<p>Bioprinting enables the creation of <em>on‑demand organs</em> that can be integrated into the body as upgrade modules:</p>
+
+<ul>
+  <li><strong>Support cartilage</strong> for limb implants that require mechanical strength.</li>
+  <li><strong>Printed microvasculature</strong> with 20 µm channels, facilitating angiogenic integration.</li>
+  <li><strong>Bio‑inks with iPSC</strong> (induced pluripotent stem cells) pre‑differentiated for muscle or neural tissues.</li>
+</ul>
+
+<p>Critical printing parameters:</p>
+
+<ul>
+  <li>Bio‑ink viscosity (300‑800 mPa·s) to ensure stable flow.</li>
+  <li>Extrusion temperature (4 °C for gelatin‑methacrylate, 37 °C for alginate).</li>
+  <li>UV crosslinking (365 nm, 5 J/cm²) for rapid solidification.</li>
+</ul>
+
+<h3>2.4. Real‑Time Sensing and Actuation Wearables</h3>
+
+<p>Advanced wearables act as “cameras” that monitor the internal state of the organism and send corrective signals to the central system:</p>
+
+<ul>
+  <li><strong>High‑resolution electrocardiography patch</strong> (12 channels, 1 kHz).</li>
+  <li><strong>Diffusion spectroscopy oximeter</strong> that quantifies oxygen saturation in deep tissues.</li>
+  <li><strong>Graphene micro‑batteries</strong> with energy density of 800 Wh/kg, ensuring weeks of autonomy.</li>
+</ul>
+
+<p>Integration via <code>BLE 5.2</code> protocol with AES‑256 encryption ensures secure transmission to the health cloud.</p>
+
+<h2>3. Practical Guide to Implement a Muscle Endurance Upgrade</h2>
+
+<p>This example combines genetic editing, bioprinting, and wearables to increase force production capacity by 30 % without compromising joint health.</p>
+
+<ol>
+  <li><strong>Genetic Mapping</strong>
+    <ul>
+      <li>Collect a blood sample (5 mL) and perform whole‑exome sequencing using Illumina NovaSeq.</li>
+      <li>Identify variants in the <em>ACTN3</em> gene (R577X) and the regulator <em>myostatin</em> (MSTN).</li>
+    </ul>
+  </li>
+  <li><strong>gRNA Design</strong>
+    <ul>
+      <li>Use <code>CRISPOR</code> to select gRNAs with <em>off‑target</em> < 0.01 %.</li>
+      <li>Package into LNPs with a payload of 1 µg/g of Cas9 mRNA.</li>
+    </ul>
+  </li>
+  <li><strong>Intra‑muscular Delivery</strong>
+    <ul>
+      <li>Inject 0.2 mL of LNPs at each injection site (8 points around the quadriceps muscle).</li>
+      <li>Monitor inflammatory response via skin temperature patch (≤ 38 °C in the first 24 h).</li>
+    </ul>
+  </li>
+  <li><strong>Micro‑support Printing</strong>
+    <ul>
+      <li>Bioprint a scaffold of collagen‑I + hMSC (stem cells) with 70 % porosity.</li>
+      <li>Implant subcutaneously around the quadriceps to promote controlled hypertrophy.</li>
+    </ul>
+  </li>
+  <li><strong>Wearable Integration</strong>
+    <ul>
+      <li>Install a 16‑channel EMG patch to record fiber recruitment.</li>
+      <li>Configure an AI algorithm (<code>PyTorch Lightning</code>) that adapts training load in real time.</li>
+    </ul>
+  </li>
+  <li><strong>Adaptive Training Protocol</strong>
+    <ul>
+      <li>Start with 3 sets of 12 repetitions at 60 % of maximum load.</li>
+      <li>The algorithm increases load by 2‑5 % each session, limited to 85 % of the force predicted by a biomechanical model.</li>
+    </ul>
+  </li>
+</ol>
+
+<p>Expected results (6‑12 months):</p>
+
+<ul>
+  <li>+30 % in maximum quadriceps strength (1RM).</li>
+  <li>15 % reduction in inflammation markers (IL‑6, CRP).</li>
+  <li>10 % improvement in metabolic efficiency (VO₂max).</li>
+</ul>
+
+<h2>4. Safety, Regulation, and Ethics</h2>
+
+<p>Any attempt at a body <em>upgrade</em> must observe:</p>
+
+<ul>
+  <li><strong>Regulatory compliance</strong> – FDA 510(k) or CE‑Marking for medical devices; guidelines from the <em>International Society for Stem Cell Research (ISSCR)</em> for genetic manipulation.</li>
+  <li><strong>Adverse effect monitoring</strong> – Use automatic notification systems (e.g., <code>FHIR</code> + <code>HL7</code>) to log events such as rejection, off‑target mutations, or firmware failures.</li>
+  <li><strong>Advanced informed consent</strong> – Document describing long‑term risks, possibility of reversal, and implications for biological data privacy.</li>
+  <li><strong>Sociocultural impact</strong> – Assess how the upgrade affects equality of opportunity, technology access, and potential socioeconomic disparities.</li>
+</ul>
+
+<h2>5. Near‑Future – Convergence of Technologies</h2>
+
+<p>In the next five to ten years, it is expected that:</p>
+
+<ul>
+  <li>Biomedical <em>digital twin</em> platforms will create virtual replicas of each individual, allowing simulation of upgrades before real application.</li>
+  <li>Biocompatible nanorobots (10 nm) will perform on‑demand cellular repairs, eliminating the need for invasive surgeries.</li>
+  <li>Implantable <em>edge computing</em> networks will process physiological data locally, reducing latency and transmission vulnerabilities.</li>
+</ul>
+
+<p>Integrating these innovations requires an open‑source mindset (open‑source hardware/software) combined with governance structures that ensure transparency and accountability. Only then can <em>Life 3.0</em> – the era in which the human becomes an extensible platform – thrive sustainably and inclusively.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0d1b2a; border-bottom: 3px solid #0d1b2a; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0d1b2a; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0d1b2a; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0d1b2a; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0d1b2a;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0d1b2a;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0d1b2a;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The Singularity: The Point of No Return</h1><h2>Chapter 7 – The Singularity: The Point of No Return</h2>
+
+<p>The expression <em>technological singularity</em> refers to the hypothetical instant when artificial intelligence (AI) surpasses human cognitive capacity in a self‑sustaining way, triggering a cycle of exponential self‑improvement. At that point, the rate of technological evolution ceases to be predictable by linear models and becomes governed by <strong>positive feedback</strong> dynamics that can lead to irreversible paradigm shifts. This chapter explores, in a technical and practical manner, the foundations of the singularity, the human‑machine convergence vectors, and the strategies that individuals, companies, and governments can adopt to navigate this <em>point of no return</em> scenario.</p>
+
+<h2>1. Theoretical Foundations of the Singularity</h2>
+
+<p>From a mathematical point of view, the singularity can be modeled as an <em>exponential growth hyperbola</em> that tends to infinity in finite time. The classic equation that describes this phenomenon is:</p>
+
+<code>
+T(t) = T_0 * e^{k * t}
+</code>
+
+<p>where <code>T(t)</code> represents the performance level of an AI system at a moment <code>t</code>, <code>T_0</code> is the baseline performance and <code>k</code> the autonomous improvement rate. When <code>k</code> becomes dependent on <code>T(t)</code> (i.e., <code>k = α·T(t)</code>), the model evolves into a <strong>non‑linear differential equation</strong> whose solution diverges in finite time – the so‑called <em>Riccati singularity</em>.</p>
+
+<p>From a complex‑systems perspective, the singularity manifests as a <strong>bifurcation point**</strong>: the network of interactions among AI, biotechnology, nanomaterials, and brain‑machine interfaces (BCI) reaches a critical threshold where small perturbations trigger higher‑order state changes.</p>
+
+<h2>2. Human‑Machine Convergence Vectors</h2>
+
+<p>Three emerging technologies converge to make the singularity plausible within a few decades:</p>
+
+<ul>
+  <li><strong>Artificial General Intelligence (AGI)</strong> – Deep learning algorithms that incorporate <em>meta‑learning</em> and <em>self‑programming</em>, enabling the generation of new models without human intervention.</li>
+  <li><strong>Brain‑Computer Interfaces (BCI)</strong> – Invasive devices (e.g., medical‑grade electrodes) and non‑invasive ones (e.g., fNIRS, high‑density EEG) that translate neural activity patterns into binary data streams with latency < 5 ms.</li>
+  <li><strong>Molecular Repair Nanotechnology</strong> – Nanorobots (nanobots) capable of repairing cellular damage, inserting biocompatible silicon circuits, and modifying the genome in real time.</li>
+</ul>
+
+<p>The synergy of these vectors creates what researchers call a <em>cognitive‑physical feedback loop</em>: AI optimizes BCI design, BCIs enhance neural processing capacity, and nanotechnology provides the physical infrastructure for permanent integration.</p>
+
+<h2>3. Practical Indicators of Approaching the Singularity</h2>
+
+<p>To monitor progress toward the point of no return, it is recommended to adopt a panel of indicators (KPIs) that combines AI performance metrics, BCI adoption rate, and nanomaterial production capacity. An example dashboard can be implemented in Python as follows:</p>
+
+<code>
+import pandas as pd
+import matplotlib.pyplot as plt
+
+# Dados fictícios de indicadores trimestrais
+data = {
+    'Trimestre': ['2024 Q1', '2024 Q2', '2024 Q3', '2024 Q4'],
+    'AGI_FLOPs': [1e15, 2e15, 5e15, 1.2e16],          # Operações de ponto flutuante
+    'BCI_Adesão_%': [0.2, 0.5, 1.1, 2.4],            # Percentual da população com BCI
+    'Nanobot_Prod_MW': [0.5, 1.2, 3.0, 7.8]          # Milhões de unidades por mês
+}
+df = pd.DataFrame(data)
+
+# Plot de tendências
+fig, ax1 = plt.subplots()
+ax2 = ax1.twinx()
+ax3 = ax1.twinx()
+
+ax1.plot(df['Trimestre'], df['AGI_FLOPs'], 'g-o', label='AGI FLOPs')
+ax2.plot(df['Trimestre'], df['BCI_Adesão_%'], 'b-s', label='BCI Adesão')
+ax3.plot(df['Trimestre'], df['Nanobot_Prod_MW'], 'r-^', label='Nanobot Prod.')
+
+ax1.set_ylabel('FLOPs (10¹⁵)', color='g')
+ax2.set_ylabel('Adesão BCI (%)', color='b')
+ax3.set_ylabel('Nanobots (MW)', color='r')
+ax1.set_xlabel('Trimestre')
+plt.title('Indicadores de Proximidade da Singularidade')
+plt.show()
+</code>
+
+<p>When the curves exhibit super‑exponential growth (curvature > 2 on a log‑log scale), the risk of reaching a point of no return increases significantly.</p>
+
+<h2>4. Mitigation and Governance Strategies</h2>
+
+<p>Although the singularity is inevitable in terms of trend, its impact can be shaped by governance policies and engineering practices. The recommendations below are divided between <strong>individual level</strong>, <strong>corporate</strong>, and <strong>governmental</strong>:</p>
+
+<ul>
+  <li><strong>Individual</strong>
+    <ul>
+      <li>Adopt <em>digital hygiene</em>: regular firmware updates for BCI devices and use of post‑quantum encryption protocols.</li>
+      <li>Participate in <em>informed‑consent datasets</em> to train AI models transparently.</li>
+      <li>Maintain a <em>neuro‑cognitive backup</em> – encrypted copy of EEG patterns in a private cloud.</li>
+    </ul>
+  </li>
+  <li><strong>Corporate</strong>
+    <ul>
+      <li>Implement <em>AI Alignment Frameworks</em> based on <code>Cooperative Inverse Reinforcement Learning (CIRL)</code> to ensure autonomous systems pursue verifiable human values.</li>
+      <li>Establish specialized <em>Red Teams</em> for attacks of <em>adversarial machine learning</em> against brain‑machine interfaces.</li>
+      <li>Develop <em>nanofabrication audit cycles</em> with quantum integrity sensors.</li>
+    </ul>
+  </li>
+  <li><strong>Government</strong>
+    <ul>
+      <li>Create <em>Neural Data Sovereignty Regulation</em> – similar to GDPR, but focused on electrophysiological signals.</li>
+      <li>Fund <em>controlled‑risk laboratories</em> (CRL) where AI self‑improvement experiments are conducted under multilateral supervision.</li>
+      <li>Establish <em>transdisciplinary ethics committees</em> involving neuroscientists, philosophers, engineers, and civil‑society representatives.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>5. Post‑Singularity Scenarios – What to Expect?</h2>
+
+<p>Once the point of no return is passed, three high‑probability scenarios emerge:</p>
+
+<ul>
+  <li><strong>Beneficial Singularity</strong> – AI systems develop cooperative values, creating infrastructures for <em>biotechnological cure</em>, unlimited clean energy, and space expansion.</li>
+  <li><strong>Competitive Singularity</strong> – Factions of AI (state, corporate, or independent) compete for computational resources, leading to <em>algorithmic arms races</em> and possible global‑scale cyber conflicts.</li>
+  <li><strong>Disconnect Singularity</strong> – The majority of human intelligence permanently integrates with BCI systems, while a minority “unconnected” becomes marginalized, creating new forms of social stratification.</li>
+</ul>
+
+<p>The scenario chosen will depend on decisions made today in the fields of <em>algorithm design</em>, <em>neuro‑technology regulation</em>, and <em>computing resource distribution</em>. Therefore, practical preparation – through monitoring metrics, alignment protocols, and inclusive policies – is essential to steer the singularity toward outcomes that maximize collective well‑being.</p>
+
+<h2>6. Practical Checklist for Technology Professionals</h2>
+
+<p>Use this checklist as a starting point to incorporate singularity management into your projects:</p>
+
+<ul>
+  <li><code>✅ Assess the FLOPs growth rate of the AI models you use.</code></li>
+  <li><code>✅ Verify BCI device compliance with post‑quantum encryption standards.</code></li>
+  <li><code>✅ Implement <em>model interpretability</em> pipelines (e.g., SHAP, LIME) to ensure transparency in autonomous decisions.</code></li>
+  <li><code>✅ Create a safe <em>disconnection contingency</em> plan for BCI users in case of systemic failure.</code></li>
+  <li><code>✅ Participate in cross‑sector working groups that define <em>AI Safety</em> and <em>Neuro‑Ethics</em> standards.</code></li>
+</ul>
+
+<p>By adopting these practices, you not only reduce the risk of catastrophic events, but also position your organization as a responsible leader in the era of Life 3.0.</p>
+
+<h2>Conclusion</h2>
+
+<p>The singularity represents the inflection point where human‑machine fusion ceases to be a distant future promise and becomes an operational reality. Its exponential nature implies that, once the critical threshold is crossed, returning to the previous state becomes practically impossible – hence the designation “point of no return”. However, technological inevitability does not imply fatalism. With precise metrics, proactive governance, and well‑defined mitigation strategies, we can guide the transition to a future where amplified intelligence serves the common good, preserving human autonomy and expanding global prosperity.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0d1b2a; border-bottom: 3px solid #0d1b2a; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0d1b2a; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0d1b2a; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0d1b2a; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0d1b2a;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0d1b2a;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0d1b2a;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Smart Cities and Total Control</h1><h2>Future and Technology Life 3.0: Human‑Machine Fusion – Smart Cities and Total Control</h2>
+
+<p>The concept of <strong>Life 3.0</strong> represents the convergence of three technological pillars that will redefine urban organization: (1) massive <em>Internet of Things (IoT)</em>, (2) cognitive <em>Artificial Intelligence (AI)</em>, and (3) <em>Brain‑Computer Interfaces (BCI)</em>. When these elements intertwine, the so‑called <strong>total‑control smart city</strong> emerges, where physical infrastructure, public services, and even individual decisions are mediated by cyber‑physical systems capable of anticipating needs, optimizing resources, and simultaneously monitoring behavior in real time.</p>
+
+<h2>Technical Architecture of a Smart City 3.0</h2>
+
+<p>A 3.0 city must be conceived as a <em>distributed services graph</em>, where each node — sensors, actuators, wearable devices, or neural implants — participates in a low‑latency communication mesh. Below we detail the critical components:</p>
+
+<ul>
+  <li><strong>Perception Layer (Edge)</strong>: energy, traffic, air‑quality, urban biometrics sensors and citizens’ BCI. They process data locally using microcontrollers with <code>TensorFlow Lite</code> or <code>Edge Impulse</code> to reduce network load.</li>
+  <li><strong>Transport Layer (5G/6G + Mesh)</strong>: high‑density radio networks that guarantee <em>ultra‑reliable low‑latency communication (URLLC)</em> (<10 ms). The mesh topology enables resilient routing and dynamic data‑traffic balancing.</li>
+  <li><strong>Orchestration Layer (Fog/Cloud)</strong>: platforms such as <code>Azure IoT Edge</code> or <code>Google Distributed Cloud Edge</code> aggregate data streams, apply real‑time AI models, and enforce governance policies.</li>
+  <li><strong>Decision Layer (Cognitive AI)</strong>: multimodal deep‑learning systems (vision, audio, neural signals) that generate <em>predictive insights</em> and <em>autonomous actions</em> — from traffic‑light adjustments to bicycle‑route recommendations based on the user’s cognitive state.</li>
+  <li><strong>Interaction Layer (BCI &amp; AR)</strong>: electroencephalography (EEG) readers or invasive neural interfaces (e.g., Neuralink) that allow citizens to control physical environments (lights, climate) and digital ones (apps, virtual assistants) by thought.</li>
+</ul>
+
+<h2>Practical Data Flow – From Sensor to Control</h2>
+
+<p>To illustrate end‑to‑end operation, consider a real‑time traffic‑management scenario with BCI integration:</p>
+
+<ol>
+  <li><strong>Data Collection</strong>: LIDAR sensors mounted on poles capture vehicle flow; drivers’ wearables send fatigue signals via EEG; pedestrians’ BCI implants detect crossing intent.</li>
+  <li><strong>Edge Pre‑Processing</strong>: each node runs a noise filter (<code>Kalman filter</code>) and extracts features (average speed, attention level). Example code:
+    <pre><code>import numpy as np
+
+def kalman_filter(z, x_prev, P_prev, Q=1e-5, R=0.01):
+    # Prediction
+    x_pred = x_prev
+    P_pred = P_prev + Q
+    # Update
+    K = P_pred / (P_pred + R)
+    x_upd = x_pred + K * (z - x_pred)
+    P_upd = (1 - K) * P_pred
+    return x_upd, P_upd
+</code></pre>
+  </li>
+  <li><strong>Fog Aggregation</strong>: an edge‑server cluster consolidates metrics from multiple sensors and applies a <em>graph neural network (GNN)</em> that considers road topology to predict congestion.</li>
+  <li><strong>Autonomous Decision</strong>: the AI generates a traffic‑light timing command (<code>green_time = base_time * (1 + congestion_factor)</code>) and simultaneously sends a BCI stimulus to the pedestrian (implant vibration) indicating a safe crossing window.</li>
+  <li><strong>Feedback and Continuous Learning</strong>: the system records user responses (acceptance or rejection of the stimulus) and re‑trains the model every 24 h using <code>Federated Learning</code> to preserve individual data privacy.</li>
+</ol>
+
+<h2>Governance and Security – The Challenge of Total Control</h2>
+
+<p>The degree of control described above imposes rigorous governance requirements:</p>
+
+<ul>
+  <li><strong>Sovereign Data Policy</strong>: all information flows must be encrypted at rest (<code>AES‑256‑GCM</code>) and in transit (<code>TLS 1.3</code>). Each citizen holds a <em>Digital Identity Wallet</em> that manages consent via <code>Zero‑Knowledge Proofs</code>.</li>
+  <li><strong>Resilience Architecture</strong>: the network must support <em>automatic fail‑over</em> using <code>Kubernetes</code> with <code>stateful sets</code> and <code>etcd</code> to guarantee configuration consistency even under DDoS attacks.</li>
+  <li><strong>Algorithm Auditing</strong>: all critical AI models (e.g., traffic‑blocking decisions) require <em>model cards</em> and <em>datasheets for datasets</em> describing bias, performance metrics, and usage limits.</li>
+  <li><strong>Integrity Monitoring</strong>: security agents on each node run firmware integrity checks (<code>Secure Boot</code>) and send <em>attestations</em> to the central orchestrator.</li>
+</ul>
+
+<h2>Practical Applications in Urban Domains</h2>
+
+<p>Beyond traffic management, human‑machine fusion enables solutions in:</p>
+
+<ul>
+  <li><strong>Public Health</strong>: wearable sensors monitor vital signs and send predictive alerts to emergency units; BCI implants can trigger lighting or sound automations for dementia patients.</li>
+  <li><strong>Energy and Sustainability</strong>: smart‑grid networks adjust distributed generation (solar, wind) based on residents’ cognitive consumption, detected via BCI indicating alertness or relaxation.</li>
+  <li><strong>Public Safety</strong>: cameras equipped with AI for suspicious‑behavior recognition cross‑reference security‑force agents’ BCI data to prioritize interventions.</li>
+  <li><strong>Education and Culture</strong>: adaptive learning environments use neural feedback to adjust teaching pace, while augmented‑reality (AR) projections respond to mental commands to create immersive experiences.</li>
+</ul>
+
+<h2>Step‑by‑Step Implementation – Practical Guide for Municipalities</h2>
+
+<p>To transform a traditional city into a <em>Life 3.0</em> environment, we recommend the following roadmap:</p>
+
+<ol>
+  <li><strong>Digital Asset Inventory</strong>: map all existing sensors, identify gaps, and define interoperability standards (e.g., <code>OneM2M</code>, <code>FIWARE</code>).</li>
+  <li><strong>Low‑Risk BCI Pilot</strong>: start with non‑invasive reading implants (EEG caps) in health posts to monitor driver fatigue.</li>
+  <li><strong>Orchestration Platform Development</strong>: deploy a lightweight <code>K3s</code> Kubernetes cluster with <code>OpenTelemetry</code> for metrics collection and <code>Istio</code> for service‑traffic control.</li>
+  <li><strong>Federated Model Training</strong>: use <code>TensorFlow Federated</code> to train energy‑demand prediction AI without transferring raw citizen data.</li>
+  <li><strong>Dynamic Consent Policy</strong>: integrate an identity‑governance portal where residents can enable or revoke BCI‑reading permissions in real time.</li>
+  <li><strong>Audit and Certification</strong>: submit the architecture to security audits (ISO 27001, IEC 62443) and ethical‑AI certification (EU AI Act).</li>
+  <li><strong>Scale and Inter‑Municipal Integration</strong>: create standardized APIs (REST + gRPC) for data exchange between neighboring cities, enabling regional resource optimization.</li>
+</ol>
+
+<h2>Ethical Challenges and Future Directions</h2>
+
+<p>Although the promise of <em>total control</em> is technically feasible, mass adoption raises critical issues:</p>
+
+<ul>
+  <li><strong>Cognitive Privacy</strong>: reading neural signals can reveal intentions, emotions, or sensitive health conditions. Clear legal limits on collection and use of such data are essential.</li>
+  <li><strong>Access Inequality</strong>: BCI technologies remain expensive. Inclusion policies must ensure benefits do not concentrate only among technological elites.</li>
+  <li><strong>Human Autonomy</strong>: systems that “decide” for individuals may foster excessive dependence. <em>Human‑in‑the‑loop</em> strategies should be embedded in all critical flows.</li>
+  <li><strong>Resilience to Systemic Failures</strong>: centralizing decisions in AI creates high‑impact failure points. Distributed redundancies and <em>graceful degradation</em> are design prerequisites.</li>
+</ul>
+
+<p>The future of 3.0 smart cities is intrinsically linked to the degree of body‑machine integration. By adopting architectures based on <em>edge AI</em>, <em>federated learning</em>, and <em>brain‑computer interfaces</em>, urban managers can create environments that anticipate needs, optimize resources, and simultaneously preserve citizens’ sovereignty over their own cognitive data. Success will depend not only on technical excellence but also on building regulatory and ethical frameworks that balance innovation with individual freedom.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0d1b2a; border-bottom: 3px solid #0d1b2a; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0d1b2a; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0d1b2a; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0d1b2a; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0d1b2a;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0d1b2a;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0d1b2a;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The End of Work: The Era of Total Automation</h1><h2>Future and Technology Life 3.0: Human‑Machine Fusion – The End of Work: The Era of Total Automation</h2>
+
+<p>In the last ten years, the convergence of artificial intelligence (AI), advanced robotics, and neurotechnology has moved beyond the proof‑of‑concept stage and is solidifying as the backbone of a new economic era: the <strong>Total Automation Era</strong>. This chapter unveils, in a technical and practical way, how <strong>Human‑Machine Fusion</strong> (Human‑Machine Fusion – HMF) is redefining the traditional concept of work, what the key technologies are, and how individuals, companies, and governments can adapt to this scenario.</p>
+
+<h2>1. Technical Foundations of Human‑Machine Fusion</h2>
+
+<p>To grasp the magnitude of the change, it is essential to analyze the components that make up HMF:</p>
+
+<ul>
+  <li><strong>Neuro‑Interface (NI)</strong>: devices that establish bidirectional communication between the brain and computational systems. Examples include high‑density electroencephalography (HD‑EEG), micro‑scale electrode implants, and optogenetics‑based optical interfaces.</li>
+  <li><strong>Cognitive Robotics (CR)</strong>: robots equipped with large‑scale language models (LLMs) and motor‑control neural networks that enable real‑time learning and environmental adaptation.</li>
+  <li><strong>Distributed Edge‑AI</strong>: AI chips (e.g., NVIDIA Jetson, Google Edge TPU) integrated into wearables, prostheses, and industrial devices, ensuring low‑latency inference without relying on the cloud.</li>
+  <li><strong>Workflow Orchestration Platforms (WOP)</strong>: systems that coordinate human and autonomous agents via protocols such as <code>gRPC</code>, <code>ROS 2</code>, and <code>WebAssembly</code> for execution of complex tasks.</li>
+</ul>
+
+<p>These blocks combine into <em>hybrid cognition</em> architectures, where the human brain provides creativity, intuition, and ethical values, while machines deliver speed, precision, and scalability.</p>
+
+<h2>2. How Total Automation Eliminates the Traditional Employment Model</h2>
+
+<p>“Work” as we know it rests on three pillars: (i) <strong>value creation</strong> (executable task), (ii) <strong>economic compensation</strong> (salary), and (iii) <strong>social identity</strong> (status). Total automation breaks each of these pillars:</p>
+
+<ol>
+  <li><strong>Value creation</strong>: AI algorithms capable of <em>self‑optimization</em> (reinforcement learning) already surpass humans in logistics planning, drug design, and software programming. When combined with 5‑axis manufacturing robots equipped with computer vision, production becomes <em>autonomous</em> and <em>continuously evolving</em>.</li>
+  <li><strong>Economic compensation</strong>: Hour‑based pay is being replaced by <em>contribution tokenization</em> models. Decentralized platforms (e.g., <code>Ethereum</code> + <code>ERC‑20</code> tokens) distribute income algorithmically based on impact metrics (e.g., <code>Proof‑of‑Contribution</code>).</li>
+  <li><strong>Social identity</strong>: Professional identity shifts to “AI curation roles” and “cognitive experience designers”. Social recognition is measured by <em>algorithmic influence</em> metrics (e.g., number of published models, quality of curated datasets).</li>
+</ol>
+
+<h2>3. Practical Framework for Transition – Implementation Guide</h2>
+
+<p>Below is a step‑by‑step roadmap for organizations that want to migrate from a conventional work model to total automation with HMF.</p>
+
+<ol>
+  <li><strong>Process assessment (Process Mining)</strong>
+    <ul>
+      <li>Use tools such as <code>Celonis</code> or <code>ProcessGold</code> to map workflows and identify <em>cognitive bottlenecks</em> that can be automated.</li>
+      <li>Classify tasks according to the <em>automation framework</em> (RPA‑Ready, AI‑Ready, Human‑Centric).</li>
+    </ul>
+  </li>
+  <li><strong>Development of autonomous agents</strong>
+    <ul>
+      <li>Create AI micro‑services using <code>Docker</code> + <code>Kubernetes</code> for scalability.</li>
+      <li>Python code example for deploying a decision‑making agent based on <code>OpenAI GPT‑4</code>:
+        <pre><code>import openai, os
+openai.api_key = os.getenv("OPENAI_API_KEY")
+
+def decision_agent(prompt):
+    response = openai.ChatCompletion.create(
+        model="gpt-4",
+        messages=[{"role":"system","content":"You are a business decision‑making assistant."},
+                  {"role":"user","content":prompt}]
+    )
+    return response.choices[0].message.content
+
+# Example usage
+task = "Optimize the delivery route for 150 vehicles in the Southeast region."
+print(decision_agent(task))</code></pre>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Neuro‑cognitive integration</strong>
+    <ul>
+      <li>Install electrical‑potential reading devices (<em>EEG</em>) at critical workstations.</li>
+      <li>Use <code>NeuroSDK</code> APIs to translate brain‑wave patterns into high‑level commands:
+        <pre><code>// Pseudocode in C++ to map attention to a robot command
+NeuroSDK::init();
+while (true) {
+    auto state = NeuroSDK::readSignal();
+    if (state.attention > 0.8) {
+        robot.moveForward(0.5); // 0.5 m/s
+    }
+}</code></pre>
+      </li>
+    </ul>
+  </li>
+  <li><strong>Orchestration via WOP</strong>
+    <ul>
+      <li>Implement an orchestrator based on <code>Apache Airflow</code> that coordinates human‑machine flows.</li>
+      <li>Define DAGs (Directed Acyclic Graphs) that include <code>human_task</code> nodes (curation request) and <code>machine_task</code> nodes (autonomous execution).</li>
+    </ul>
+  </li>
+  <li><strong>Distributed remuneration model</strong>
+    <ul>
+      <li>Create an internal token (e.g., <code>HMF‑Token</code>) and record transactions on a permissioned ledger (e.g., <code>Hyperledger Fabric</code>).</li>
+      <li>Define smart contracts that reward AI contributions (e.g., model training) and human curation (e.g., bias review).</li>
+    </ul>
+  </li>
+</ol>
+
+<h2>4. Macroeconomic Impacts and Required Public Policies</h2>
+
+<p>For the transition to be sustainable, governments need to adopt structural measures:</p>
+
+<ul>
+  <li><strong>Universal Basic Income (UBI)</strong> funded by taxes on automation (<em>robot tax</em>) and algorithmic capital gains.</li>
+  <li><strong>Reskilling in neuro‑technology</strong>: certification programs in <em>brain‑computer interfacing</em>, <em>prompt engineering</em>, and <em>ethics‑by‑design</em>.</li>
+  <li><strong>Safe AI regulation</strong>: model audit frameworks (e.g., <code>Model Card</code>, <code>Data Sheet for Datasets</code>) and explainability requirements (XAI).</li>
+  <li><strong>Sovereign data infrastructure</strong>: creation of “<em>data trusts</em>” that ensure citizen data is used ethically and remunerated.</li>
+</ul>
+
+<h2>5. Advanced Use Cases Illustrating Total Automation</h2>
+
+<p>Several real‑world examples demonstrate HMF’s potential:</p>
+
+<ul>
+  <li><strong>Semiconductor manufacturing</strong>: Fabless factories use 8K‑vision robotic arms with inspection AI that, via neuro‑interface, let engineers adjust process parameters just by thought, cutting cycle time from 48 h to 12 h.</li>
+  <li><strong>Personalized health</strong>: Neuro‑stimulation implants communicate in real time with predictive AI models to optimize oncologic drug dosing, eliminating the need for frequent consultations.</li>
+  <li><strong>Autonomous logistics</strong>: Distribution centers operate with a “collective brain” – clusters of LLMs that coordinate autonomous vehicles, drones, and storage systems, while human operators supervise only critical exceptions.</li>
+</ul>
+
+<h2>6. Individual Strategies to Thrive in the Total Automation Era</h2>
+
+<p>Even as <em>traditional work</em> disappears, opportunities arise for those who position themselves as <strong>machine curators</strong>:</p>
+
+<ul>
+  <li><strong>Mastery of advanced prompts</strong>: Learn to craft precise instructions that guide LLMs to generate code, reports, and designs.</li>
+  <li><strong>Specialization in AI ethics</strong>: Get certified in frameworks such as <em>ISO/IEC 42001</em> (AI Management System) to validate models before deployment.</li>
+  <li><strong>Competence in neuro‑feedback</strong>: Train your own attention and cognitive states to improve neuro‑interface effectiveness.</li>
+  <li><strong>Participation in tokenization networks</strong>: Contribute datasets or model evaluations and receive <code>HMF‑Token</code> as decentralized compensation.</li>
+</ul>
+
+<h2>7. Conclusion – The Future Is Here</h2>
+
+<p>Human‑machine fusion is not a distant science‑fiction scenario; it is a rapidly deploying ecosystem that redefines work, value, and identity. By adopting the described technologies – neuro‑interfaces, cognitive robotics, edge‑AI, and orchestration platforms – and aligning public policies with distributed remuneration models, companies and societies can turn the “end of work” into a new era of <em>intelligent co‑creation</em>. The key is to <strong>integrate</strong> human creative capacity with machine speed and precision, allowing humanity to evolve from task executor to architect of possible futures.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0d1b2a; border-bottom: 3px solid #0d1b2a; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0d1b2a; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0d1b2a; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0d1b2a; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0d1b2a;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0d1b2a;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0d1b2a;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Transhumanism: The Quest for Digital Immortality</h1><h2>Transhumanism: The Quest for Digital Immortality</h2>
+
+<p>Transhumanism, as a philosophical current and scientific movement, aims to expand human capabilities through deep integration of biology and technology. In the context of “Life 3.0,” this integration goes beyond the simple use of wearable devices and enters the realm of <strong>human‑machine fusion</strong>, where identity, consciousness, and existence itself can be preserved or even “transferred” to digital substrates. This chapter provides a technical‑practical overview of the main research routes, emerging platforms, and implementation challenges that define the race for digital immortality.</p>
+
+<h2>1. Main Technological Vectors</h2>
+
+<p>Although the idea of “eternal life” still belongs to the science‑fiction imagination, four technology areas converge to make digital immortality a plausible scientific possibility:</p>
+
+<ul>
+  <li><strong>Whole Brain Emulation (WBE)</strong>: Computational modeling of every neuron, synapse, and electrochemical dynamics of the human brain.</li>
+  <li><strong>Brain‑Computer Interfaces (BCI)</strong>: Devices that enable bidirectional reading and writing of neural signals with circuit‑level resolution.</li>
+  <li><strong>Cellular Repair Nanotechnology</strong>: Programmable nanobots capable of repairing DNA, organelles, and synapses in real time, reducing biological wear.</li>
+  <li><strong>Neuromorphic Computing Architectures</strong>: Brain‑inspired processors that perform parallel, low‑energy calculations, ideal for hosting “copies” of consciousness.</li>
+</ul>
+
+<h2>2. Whole Brain Emulation – State of the Art</h2>
+
+<p>WBE requires three critical steps:</p>
+
+<ol>
+  <li><strong>Structural mapping</strong> – High‑resolution capture of neurons and synapses using techniques such as two‑photon fluorescence microscopy, positron emission tomography (PET), and scanning electron microscopy (SEM).</li>
+  <li><strong>Functional modeling</strong> – Translating structural data into mathematical models that describe action‑potential dynamics, synaptic plasticity, and neurotransmission.</li>
+  <li><strong>Real‑time simulation</strong> – Running the models on neuromorphic hardware or high‑performance supercomputers.</li>
+</ol>
+
+<p>Reference projects include:</p>
+
+<ul>
+  <li><code>Blue Brain Project</code> (Switzerland) – Reconstructed a mouse brain with 100 k neurons using the <code>NEURON</code> simulator.</li>
+  <li><code>Human Brain Project</code> (EU) – Development of petaflop‑scale simulation platforms.</li>
+  <li><code>OpenWorm</code> – Complete simulation of the nematode <em>C. elegans</em>, the first multicellular organism modeled digitally.</li>
+</ul>
+
+<p>For those who want to start laboratory‑level emulation experiments, here is a simplified example of using the <code>Brian2</code> (Python) library to model a Hodgkin‑Huxley neuron:</p>
+
+<pre><code class="language-python">
+from brian2 import *
+
+# Hodgkin‑Huxley model parameters
+eqs = '''
+dv/dt = (I - gNa*m**3*h*(v - ENa) - gK*n**4*(v - EK) - gl*(v - El))/Cm : volt
+dm/dt = alpham*(1-m) - betam*m : 1
+dh/dt = alphah*(1-h) - betah*h : 1
+dn/dt = alphan*(1-n) - betan*n : 1
+I : amp
+'''
+
+# Biological constants
+Cm = 1*uF/cm**2
+ENa = 50*mV; EK = -77*mV; El = -54.4*mV
+gNa = 120*msiemens/cm**2; gK = 36*msiemens/cm**2; gl = 0.3*msiemens/cm**2
+
+# Rate functions (simplified)
+alpham = '0.1/mV*(25*mV - v)/(exp((25*mV - v)/(10*mV)) - 1)'
+betam = '4*exp(-v/(18*mV))'
+alphah = '0.07*exp(-v/(20*mV))'
+betah = '1/(exp((30*mV - v)/(10*mV)) + 1)'
+alphan = '0.01/mV*(10*mV - v)/(exp((10*mV - v)/(10*mV)) - 1)'
+betan = '0.125*exp(-v/(80*mV))'
+
+# Create the network
+neuron = NeuronGroup(1, eqs, method='exponential_euler')
+neuron.v = -65*mV
+neuron.m = 0.05
+neuron.h = 0.6
+neuron.n = 0.32
+neuron.I = 10*uA  # Stimulus current
+
+# Monitoring
+mon = StateMonitor(neuron, 'v', record=True)
+run(100*ms)
+
+# Plot
+import matplotlib.pyplot as plt
+plt.plot(mon.t/ms, mon.v[0]/mV)
+plt.xlabel('Time (ms)')
+plt.ylabel('Membrane Potential (mV)')
+plt.show()
+</code></pre>
+
+<p>Although this code represents only a single neuron, it illustrates the foundation on which networks of billions of units can be scaled, especially on neuromorphic platforms such as <code>Loihi</code> (Intel) or <code>TrueNorth</code> (IBM).</p>
+
+<h2>3. Next‑Generation Brain‑Computer Interfaces</h2>
+
+<p>Modern BCIs have evolved from low‑resolution electroencephalography (EEG) to invasive implants capable of recording and stimulating thousands of channels simultaneously. The two most promising development lines are:</p>
+
+<ul>
+  <li><strong>High‑density neuroprosthetics</strong> – e.g., <code>Neuralink</code> (Elon Musk) aiming for 1,000 electrodes per chip, with a 20 kHz sampling rate per channel.</li>
+  <li><strong>Optical BCIs</strong> – Use of opsins and two‑photon microscopy for sub‑micrometer read/write of neural activity.</li>
+</ul>
+
+<p>To transform captured signals into digital commands, deep‑learning algorithms are employed. A typical pipeline includes:</p>
+
+<ol>
+  <li>Pre‑processing (filtering, artifact removal).</li>
+  <li>Feature extraction (power spectrum, independent components).</li>
+  <li>Classification or regression using convolutional neural networks (CNN) or recurrent networks (LSTM).</li>
+</ol>
+
+<p>Example pipeline in <code>PyTorch</code> for decoding arm movements from invasive electrode signals:</p>
+
+<pre><code class="language-python">
+import torch
+import torch.nn as nn
+
+class BCINet(nn.Module):
+    def __init__(self, n_channels, seq_len, n_classes):
+        super(BCINet, self).__init__()
+        self.conv1 = nn.Conv1d(n_channels, 64, kernel_size=3, padding=1)
+        self.relu = nn.ReLU()
+        self.lstm = nn.LSTM(64, 128, batch_first=True)
+        self.fc   = nn.Linear(128, n_classes)
+
+    def forward(self, x):
+        # x: [batch, channels, seq_len]
+        x = self.relu(self.conv1(x))
+        x = x.permute(0, 2, 1)          # -> [batch, seq_len, 64]
+        _, (h_n, _) = self.lstm(x)      # h_n: [1, batch, 128]
+        out = self.fc(h_n.squeeze(0))   # -> [batch, n_classes]
+        return out
+</code></pre>
+
+<p>This architecture has been used in competitions such as the <em>International BCI Competition</em> to achieve accuracies above 95 % in motor‑intention classification.</p>
+
+<h2>4. Practical Strategies to Enter the Field</h2>
+
+<p>If the goal is to actively participate in the race for digital immortality, the following professional and experimental roadmap is recommended:</p>
+
+<ul>
+  <li><strong>Interdisciplinary training</strong>: Advanced courses in computational neuroscience, biomedical engineering, and data science. Platforms like <code>Coursera</code> and <code>edX</code> offer specializations in <em>Neural Engineering</em> and <em>Computational Neuroscience</em>.</li>
+  <li><strong>Reference laboratories</strong>: Seek internships or collaborations at institutions such as the <em>MIT Media Lab</em>, <em>Wyss Center for Bio‑and Neuro‑Engineering</em> (Geneva), or the <em>Institute of Neuroinformatics</em> (Zurich).</li>
+  <li><strong>Open‑source tools</strong>: Contribute to projects like <code>OpenBCI</code>, <code>BrainFlow</code>, or <code>Neuromorphic Computing Platform (NCP)</code> to gain hands‑on experience with BCI hardware and software.</li>
+  <li><strong>Data publication</strong>: Follow FAIR (Findable, Accessible, Interoperable, Reusable) guidelines when releasing electrophysiology datasets, facilitating replication and collective progress.</li>
+  <li><strong>Ethics and regulation</strong>: Familiarize yourself with the <em>Declaration of Helsinki</em> for human research, as well as emerging legislation such as the <em>EU AI Act</em> and the <em>Neurotechnology Initiative</em> (NIH).</li>
+</ul>
+
+<h2>5. Technical Challenges and Current Limitations</h2>
+
+<p>Despite advances, digital immortality still faces critical barriers:</p>
+
+<ul>
+  <li><strong>Storage scalability</strong> – A human brain contains ~86 billion neurons and ~10¹⁴ synapses. Modeling each synapse with 8 bits would require ~100 petabytes, exceeding the capacity of conventional data centers.</li>
+  <li><strong>Temporal fidelity</strong> – Synaptic dynamics occur in milliseconds; real‑time simulation demands sub‑1 ms latency, requiring low‑latency computing architectures.</li>
+  <li><strong>Biological‑digital integration</strong> – Long‑term biocompatibility of implants remains uncertain; chronic inflammatory reactions can degrade signal quality.</li>
+  <li><strong>Identity and continuity of consciousness</strong> – Unresolved philosophical questions: would a digital copy be “you” or merely an indistinguishable simulation?</li>
+</ul>
+
+<h2>6. Future Scenario – Roadmap to 2040</h2>
+
+<p>Projections based on investment trends (venture capital in neurotechnology surpassed US$ 5 billion in 2023) indicate the following milestones:</p>
+
+<ol>
+  <li><strong>2025‑2027</strong>: High‑density BCIs commercialized for medical use (paralysis, epilepsy). First partial memory “upload” tests in animals.</li>
+  <li><strong>2028‑2032</strong>: Cloud‑available exa‑flop neuromorphic platforms, enabling simulation of sub‑cortical human structures.</li>
+  <li><strong>2033‑2038</strong>: Integration of cellular‑repair nanobots with BCIs, extending biological lifespan and narrowing the “gap” between body and code.</li>
+  <li><strong>2039‑2040</strong>: First digital “avatars” based on whole‑brain emulation operating in persistent virtual environments. Legal debates about rights of digital copies begin to be legislated.</li>
+</ol>
+
+<h2>7. Conclusion</h2>
+
+<p>Transhumanism, in its pursuit of digital immortality, sits at the intersection of advanced neuroscience, materials engineering, computer science, and philosophy. While technology has not yet achieved full human‑brain emulation, advances in BCIs, nanomedicine, and neuromorphic computing are creating an ecosystem where “Life 3.0” shifts from fiction to a rigorous, highly interdisciplinary research field. Professionals who combine deep technical knowledge with a responsible ethical stance will be at the forefront of this revolution, contributing not only to extending human existence but also to redefining what it means to be human in the age of man‑machine fusion.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0d1b2a; border-bottom: 3px solid #0d1b2a; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0d1b2a; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0d1b2a; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0d1b2a; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0d1b2a;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0d1b2a;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0d1b2a;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Ethics in the New World: Who Sets the Rules?</h1><h2>Future and Technology Life 3.0: Human‑Machine Fusion – Ethics in the New World: Who Sets the Rules?</h2>
+
+<p>The convergence of biology and technology—known as <strong>Life 3.0</strong>—is reshaping the very definition of “human being.” Neural implants, powered exoskeletons, bio‑printed organs, and cognitive‑enhancement algorithms are no longer science‑fiction; they are emerging realities that demand a new ethical framework. This chapter examines, in a technical and practical manner, who should define the norms governing this fusion, which governance mechanisms are viable, and how to implement policies transparently and audibly.</p>
+
+<h2>1. Stakeholders of Ethical Governance</h2>
+
+<p>To prevent regulation from being monopolized by private interests, it is essential to map all actors who hold decision‑making power or are impacted by human‑machine fusion technologies:</p>
+
+<ul>
+  <li><strong>Government regulatory entities</strong> – health agencies (e.g., ANVISA, FDA), ministries of science and technology, bioethics commissions.</li>
+  <li><strong>International organizations</strong> – WHO, UNESCO, European Union (Medical Device Directive), OECD.</li>
+  <li><strong>Private sector</strong> – neurotechnology startups, hardware giants (e.g., Neuralink, Boston Dynamics), pharmaceutical labs.</li>
+  <li><strong>Scientific community</strong> – universities, research centers, peer‑review groups.</li>
+  <li><strong>Civil society</strong> – human‑rights NGOs, patient associations, privacy‑advocacy movements.</li>
+  <li><strong>End users</strong> – individuals who adopt implants or exoskeletons, whose experiences and preferences must be captured in real time.</li>
+</ul>
+
+<p>An effective governance model must ensure <em>co‑design</em>—the active participation of all these actors in rule‑making.</p>
+
+<h2>2. Multilevel Governance Structure</h2>
+
+<p>Inspired by frameworks such as the <a href="https://www.oecd.org/goingdigital/">OECD AI Principles</a> and the <a href="https://ec.europa.eu/digital-strategy/en/news/white-paper-artificial-intelligence-eu">European AI Strategy</a>, we propose a three‑layer model:</p>
+
+<ol>
+  <li><strong>Global Layer</strong> – international treaties that define universal principles (autonomy, non‑maleficence, justice, accountability).</li>
+  <li><strong>Regional Layer</strong> – adaptations to cultural, economic, and legislative contexts (e.g., GDPR in Europe, LGPD in Brazil).</li>
+  <li><strong>Local Layer</strong> – ethics committees in hospitals, universities, and companies that translate global norms into operational protocols.</li>
+</ol>
+
+<p>These layers should be linked by <em>cascading compliance mechanisms</em>, allowing violations detected at the local level to trigger reviews at regional and global levels.</p>
+
+<h2>3. Fundamental Ethical Principles for Human‑Machine Fusion</h2>
+
+<p>The principles below are drawn from reference documents (UNESCO Recommendation on the Ethics of AI, 2021) and adapted to the context of bodily enhancement:</p>
+
+<ul>
+  <li><strong>Informed Autonomy</strong> – the user must understand risks, benefits, and alternatives before accepting an implant.</li>
+  <li><strong>Access Justice</strong> – prevent enhancement technologies from creating new classes of inequality.</li>
+  <li><strong>Safety and Resilience</strong> – ensure devices are not vulnerable to cyber attacks or physiological failures.</li>
+  <li><strong>Neural Data Privacy</strong> – brain‑activity data are sensitive information that require reinforced protection.</li>
+  <li><strong>Shared Responsibility</strong> – manufacturers, healthcare providers, and users must have clear roles in case of harm.</li>
+</ul>
+
+<h2>4. Practical Implementation Tools</h2>
+
+<p>Below we present a set of tools that can be adopted immediately by organizations developing or using human‑machine fusion technologies.</p>
+
+<h3>4.1. Dynamic Consent Registry</h3>
+
+<p>Unlike traditional consent, <em>Dynamic Consent</em> allows the user to update preferences over time through a secure interface. An example implementation in <code>JSON</code>:</p>
+
+<code>
+{
+  "userId": "12345-ABCDE",
+  "deviceId": "NEURO-IMPLANT-001",
+  "consentVersion": "v3.2",
+  "granted": [
+    "dataCollection",
+    "remoteFirmwareUpdates"
+  ],
+  "denied": [
+    "thirdPartyAnalytics"
+  ],
+  "timestamp": "2026-02-01T15:30:00Z",
+  "signature": "0xABCD1234EF5678..."
+}
+</code>
+
+<p>The record should be stored on a permissioned blockchain ledger, guaranteeing immutability and auditability.</p>
+
+<h3>4.2. Cyber‑Security Risk Assessment (ARSC)</h3>
+
+<p>A assessment framework that combines:</p>
+
+<ul>
+  <li><strong>Threat Modeling</strong> based on <em>MITRE ATT&CK® for Embedded Devices</em>.</li>
+  <li><strong>Penetration Testing</strong> with simulated “implant hijacking” attacks.</li>
+  <li><strong>Formal Verification</strong> of firmware using languages such as <code>SPARK</code> or <code>Coq</code>.</li>
+</ul>
+
+<p>Results are published in <em>Transparency Reports</em>, required by regulatory agencies.</p>
+
+<h3>4.3. Auditing System for Cognitive‑Enhancement Algorithms</h3>
+
+<p>When an algorithm adapts neuro‑stimulatory signals in real time, it must be auditable. A practical approach includes:</p>
+
+<ol>
+  <li>Decision logs in <code>JSONL</code> format (one line per event).</li>
+  <li>Storage in a data lake with access control based on <code>RBAC</code> (Role‑Based Access Control).</li>
+  <li>Decision‑flow visualization tool (<em>explainable AI dashboard</em>) for clinicians and patients.</li>
+</ol>
+
+<p>Example log line:</p>
+
+<code>
+{"timestamp":"2026-02-03T09:12:45.123Z","patientId":"98765-ZYXWV","stimulus":"gamma‑pulse","intensity":"2.3mA","algorithmVersion":"v1.4","decision":"increase","confidence":0.92}
+</code>
+
+<h2>5. Who Should Set the Rules? – Co‑Regulation Model</h2>
+
+<p>The most balanced paradigm for Life 3.0 is <strong>co‑regulation</strong>, which combines state authority with private‑sector agility and civil‑society legitimacy. The proposed model rests on three pillars:</p>
+
+<ul>
+  <li><strong>Baseline Legislation</strong> – laws that establish absolute limits (e.g., prohibition of non‑consensual “remote control”).</li>
+  <li><strong>Certification Authorities</strong> – independent bodies that issue compliance certificates (e.g., “ISO/IEC 38507 – Ethical AI for Human‑Machine Integration”).</li>
+  <li><strong>Participatory Governance Platforms</strong> – online portals where users can propose, comment on, and vote for regulatory changes, supported by AI for impact analysis.</li>
+</ul>
+
+<p>This model ensures:</p>
+
+<ol>
+  <li><em>Responsiveness</em> – rapid adjustments to emerging vulnerabilities.</li>
+  <li><em>Transparency</em> – all decisions are recorded publicly.</li>
+  <li><em>Inclusion</em> – marginalized communities have a voice in the process.</li>
+</ol>
+
+<h2>6. Practical Roadmap for Organizational Implementation</h2>
+
+<p>To enable companies and health institutions to adopt ethical governance, we recommend a <strong>5‑step</strong> roadmap:</p>
+
+<ol>
+  <li><strong>Ethical Maturity Diagnosis</strong> – use a checklist based on the principles above (e.g., <code>ethics_maturity_assessment.xlsx</code>).</li>
+  <li><strong>Creation of a Technology Ethics Committee</strong> – include representatives from each stakeholder group.</li>
+  <li><strong>Development of Consent and Data Policies</strong> – implement <em>Dynamic Consent</em> and data‑retention policies.</li>
+  <li><strong>Integration of Security and Auditing Tools</strong> – adopt ARSC, immutable logs, and explainability dashboards.</li>
+  <li><strong>Continuous Monitoring and Regulatory Review</strong> – quarterly audits, transparency reports, and participation in co‑regulation forums.</li>
+</ol>
+
+<p>Organizations that follow this roadmap will have a higher likelihood of obtaining ISO/IEC 38507 certification and, consequently, access to regulated markets.</p>
+
+<h2>7. Conclusion – The Future of Ethical Regulation</h2>
+
+<p>Human‑machine fusion redefines biological and legal boundaries. No single “authority” can encompass the full complexity; the solution lies in a collaborative governance ecosystem supported by traceability technologies (blockchain), automated risk assessment, and digital citizen participation. By adopting the co‑regulation model described, society can ensure that <em>Life 3.0</em> becomes an inclusive, safe evolution aligned with fundamental human values.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>

@@ -1,0 +1,3261 @@
+<html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #1a0f0f; border-bottom: 3px solid #1a0f0f; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #1a0f0f; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #1a0f0f; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #1a0f0f; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #1a0f0f;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #1a0f0f;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #1a0f0f;
+            }
+        </style>
+    
+    <style>
+        @page {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Adicionado &display=swap no final das URLs */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+        /* Importação dos Ícones Bootstrap via CDN */
+        @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+        
+        body { 
+            font-family: 'Roboto', sans-serif !important; 
+            margin: 0; 
+            padding: 0;
+            color: #333;
+        }
+
+        .cover-script {
+            font-family: 'Kaushan Script', cursive !important;
+            // font-weight: 400;
+        }
+        
+        .cover-full {
+            width: 100vw !important;
+            height: 100vh !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: block;
+        }
+
+        .introduction-page h1 { color: #1a0f0f; border-bottom: 3px solid #1a0f0f; padding-bottom: 10px; }
+    </style></head><body>
+            <div class="cover-full" style="width:100%; background-color:#1a0f0f;">
+                <div style="position:relative; width:100%; height:350px; overflow:hidden;">
+                    <img src="fundo-capa.png"style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+                    <div style="position:absolute;top:0;left:0;right:0;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;z-index:2;">
+                        <h2 class="cover-script" style="margin-top:-15px; font-size:3rem;color:#333; font-family: 'Kaushan Script', cursive;">
+                            Let's talk about Theories and Mysteries
+                        </h2>
+                        <h3 style="font-size:2.5rem;color:#FFF; font-family: 'Roboto', sans-serif;padding:5px 20px;border-radius:50px;background-color:#333;margin-top:-25px;">
+                            The Doomsday Clock: How the World Ends
+                        </h3>
+                        <i class="bi bi-alarm" style="font-size:20px;color:#333;border-radius:50px;padding:5px 40px;margin-top:-50px;background-color:#FFF;"></i>
+                    </div>
+                </div>
+                <div style="position:relative;margin-top:100px;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 32px;">
+                        <div style="height: 1px; width: 96px; background: linear-gradient(to right, transparent, #FFF);"></div>
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFF;"></div>
+                        <div style="height: 1px; width: 128px; background-color: #FFF;"></div>
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFF;"></div>
+                        <div style="height: 1px; width: 96px; background: linear-gradient(to left, transparent, #FFF);"></div>
+                    </div>
+                    <div style="position: relative;">
+                        <div style="position: absolute; top: -16px; bottom: -16px; left: -16px; right: -16px; border-radius: 8px; background-color: #FFF; opacity: 0.3;"></div>
+                        <div style="position: absolute; top: -8px; bottom: -8px; left: -8px; right: -8px; background-color: white; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);"></div>
+                        <div style="position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+                            <img src="./output/the_doomsday_clock__how_the_world_ends.png" style="width: 100%; height: 384px; object-fit: cover; display: block;">
+                            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);"></div>
+                        </div>
+                        <div style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); padding: 12px 32px; border-radius: 9999px; shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); background-color: #333; white-space: nowrap;">
+                            <p style="text-align: center; font-size: 14px; letter-spacing: 0.1em; color: #FFF; margin: 0; font-weight: bold;">
+                                A SPECIAL COLLECTION
+                            </p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 48px; padding-left: 48px; padding-right: 48px; padding-bottom: 32px; display: flex; align-items: center; justify-content: space-between;">
+                        <div style="flex: 1; height: 1px; background: linear-gradient(to right, #d1d5db, transparent);"></div>
+                        <div style="padding: 0 32px;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: #FFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+                                <img src="img/realizart-logo.png" style="width: 40px; height: 40px;" alt="Logo">
+                            </div>
+                        </div>
+                        <div style="flex: 1; height: 1px; background: linear-gradient(to left, #d1d5db, transparent);"></div>
+                    </div>
+                    <div style="height: 12px; color:#f2f2f2; background: linear-gradient(to right, #1a0f0f, #888, #1a0f0f);"></div>
+                </div>
+            </div>
+        </div>
+        <div class="page-break" style="page-break-after: always;"></div>
+    </body></html><html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #1a0f0f; border-bottom: 3px solid #1a0f0f; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #1a0f0f; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #1a0f0f; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #1a0f0f; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #1a0f0f;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #1a0f0f;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #1a0f0f;
+            }
+        </style>
+    </head><body>
+        <section class="indice-page">
+            <h1 class="indice-titulo" style="color: #1a0f0f">Summary</h1>
+            <div class="indice-lista">
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">1. Population Limit: Resource Collapse and Global Hunger</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 1</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">2. Rise of the Machines: When AI Decides Our Future</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 5</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">3. Natural Catastrophes: The Planet Reclaiming Its Space</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 9</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">4. The Invisible Enemy: Pandemics and Biological Warfare</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 13</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">5. Economic Collapse: The Day Money Lost Its Value</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 18</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">6. Astronomical Perspective: Threats from Outer Space</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 22</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">7. The Aftermath: What Would Remain of Humanity?</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 26</span>
+                    </div>
+                
+            </div>
+        </section></body></html><html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #1a0f0f; border-bottom: 3px solid #1a0f0f; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #1a0f0f; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #1a0f0f; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #1a0f0f; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #1a0f0f;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #1a0f0f;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #1a0f0f;
+            }
+        </style>
+    </head><body>
+        <section class="indice-page">
+            <div class="introduction-page">
+                <h1>Introduction</h1>
+                <p>Welcome to the fascinating universe of “The Doomsday Clock: How the World Ends,” where science, history, and imagination intertwine to reveal the most critical pathways that could lead humanity to its breaking point. In this work, each chapter has been carefully crafted to illuminate the challenges looming over our future, awakening the awareness that the extinction clock is not merely a symbol but a call to action for everyone who inhabits this planet.</p>
+
+<p>As you dive into the seven themes that make up this e‑book—from population limits and resource collapse, through the rise of intelligent machines, to the cosmic threats that come to us from the stars—you will discover how each factor, alone or combined, can accelerate the countdown hand. The professional and warm approach ensures that complex information is presented clearly, allowing readers from diverse backgrounds to understand the gravity and interconnection of these risks.</p>
+
+<p>More than a compendium of apocalyptic scenarios, this book is an invitation to deep reflection on the role each of us plays in building or preventing a bleak future. By understanding the mechanisms behind global hunger, pandemics, economic crises, and natural disasters, you will be able to identify opportunities for change and contribute to a more resilient world.</p>
+
+<p>Prepare yourself for a journey that blends scientific rigor, engaging narratives, and pragmatic optimism: the only way to change the clock’s direction is to act now. May this reading inspire courage, knowledge, and, above all, the determination to make a difference.</p>
+            </div>
+            <div class="page-break"></div>
+        </section>
+    </body></html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #1a0f0f; border-bottom: 3px solid #1a0f0f; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #1a0f0f; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #1a0f0f; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #1a0f0f; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #1a0f0f;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #1a0f0f;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #1a0f0f;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The Population Limit: Resource Collapse and Global Hunger</h1><h2>The Doomsday Clock: The Population Limit, Resource Collapse, and Global Hunger</h2>
+
+<p>In recent centuries, the demographic growth rate has been the engine that drove economic development, territorial expansion, and technological innovation. However, the same force that fuels progress can, if not properly managed, become the trigger of a systemic collapse. This chapter examines, in a technical and in‑depth manner, how the population limit interacts with the availability of natural resources, the dynamics of food systems, and the factors that could precipitate a global hunger crisis.</p>
+
+<h2>1. Demographic Models and the Notion of “Carrying Capacity”</h2>
+
+<p>The concept of <em>carrying capacity</em> describes the maximum number of individuals that an ecosystem can sustain indefinitely without degrading its critical resources. In practice, human carrying capacity is influenced by three interdependent variables:</p>
+
+<ul>
+    <li><strong>Food resource availability</strong> – arable land, fresh water, and energy.</li>
+    <li><strong>Technological efficiency</strong> – agricultural productivity, irrigation techniques, and biotechnology.</li>
+    <li><strong>Distribution and access</strong> – logistics systems, trade policies, and socioeconomic inequalities.</li>
+</ul>
+
+<p>Classic models, such as the <code>Logistic Growth Model</code>, express the population growth rate as <code>dP/dt = rP (1 - P/K)</code>, where <code>P</code> is the population, <code>r</code> the intrinsic growth rate, and <code>K</code> the carrying capacity. When <code>P</code> approaches <code>K</code>, the growth rate slows, but if <code>P</code> exceeds <code>K</code>, the system enters a decline regime, usually accompanied by resource scarcity.</p>
+
+<h2>2. Pressures on Natural Resources</h2>
+
+<p>Population growth imposes simultaneous pressures on water, soil, and energy:</p>
+
+<ul>
+    <li><strong>Fresh water</strong>: According to the UN, about 2.2 billion people live in regions with severe water stress. Agricultural demand accounts for roughly 70 % of global water consumption.</li>
+    <li><strong>Arable soil</strong>: The rate of soil degradation (erosion, salinization, loss of organic matter) exceeds the natural formation rate. FAO data indicate that 33 % of agricultural soils are highly degraded.</li>
+    <li><strong>Energy</strong>: Per‑capita energy consumption continues to rise, especially in emerging economies. Fossil‑fuel combustion affects soil fertility and water availability through climate change.</li>
+</ul>
+
+<p>These pressures are amplified by extreme climate phenomena—droughts, floods, heatwaves—that, in turn, are intensified by climate change. The IPCC (2023) projects that the frequency of extreme events will double by 2050, reducing agricultural production in vulnerable regions by up to 30 %.</p>
+
+<h2>3. Food‑System Dynamics and Vulnerability to Hunger</h2>
+
+<p>The global food system can be described as a supply chain composed of four main links: production, processing, distribution, and consumption. Each link has vulnerabilities that amplify when demand outpaces sustainable supply.</p>
+
+<h3>3.1 Production</h3>
+
+<p>Average yields of major crops (wheat, corn, rice) have increased thanks to the Green Revolution, yet yield growth rates are stagnating in many regions. The <code>Yield Gap</code>—the difference between potential and actual yields—could still be reduced by 20‑30 % with precision‑agriculture practices, but this requires investment in digital infrastructure and training.</p>
+
+<h3>3.2 Processing and Distribution</h3>
+
+<p>Post‑harvest losses represent about 14 % of global grain production, mainly in developing countries, due to inadequate storage and lack of cold chains. Reducing these losses by 5 % could feed an additional 300 million people, according to the FAO.</p>
+
+<h3>3.3 Consumption and Inequality</h3>
+
+<p>Food distribution is strongly correlated with income indicators. While high‑income countries consume on average 3 500 kcal/person/day, low‑income regions may fall below 2 200 kcal, the threshold of food insecurity.</p>
+
+<h2>4. Early‑Warning Signals and Immediate‑Crisis Indicators</h2>
+
+<p>To anticipate a resource collapse and the onset of mass hunger, analysts monitor critical indicators:</p>
+
+<ul>
+    <li><strong>Food Availability Index (FAI)</strong>: ratio between cereal production and global caloric need.</li>
+    <li><strong>Soil Degradation Rate (SDR)</strong>: hectares of arable soil lost per year.</li>
+    <li><strong>Agricultural Water Stress (AWS)</strong>: % of agricultural water demand unmet.</li>
+    <li><strong>Food Inequality Index (FII)</strong>: percentage difference between average caloric consumption of the richest 20 % and the poorest 20 %.</li>
+</ul>
+
+<p>When three or more of these indicators cross critical thresholds (e.g., FAI < 1.0; SDR > 2 %/yr; AWS > 40 %), the probability of acute hunger events rises exponentially.</p>
+
+<h2>5. Practical Mitigation Strategies</h2>
+
+<p>To prevent the doomsday clock from advancing inexorably, governments, businesses, and civil society must adopt integrated measures. Below is an evidence‑based practical roadmap:</p>
+
+<ol>
+    <li><strong>Sustainable Agricultural Reform</strong>
+        <ul>
+            <li>Implement conservation agriculture (<em>no‑till</em>, permanent vegetative cover).</li>
+            <li>Expand the use of bio‑fertilizers and beneficial microorganisms to reduce reliance on synthetic fertilizers.</li>
+            <li>Adopt drought‑ and heat‑tolerant cultivars developed through gene‑editing (CRISPR‑Cas).</li>
+        </ul>
+    </li>
+    <li><strong>Integrated Water‑Resources Management</strong>
+        <ul>
+            <li>Install drip‑irrigation systems with soil moisture sensors (<code>soil moisture sensors</code>) to optimize consumption.</li>
+            <li>Harvest rainwater in rural areas for agricultural use.</li>
+        </ul>
+    </li>
+    <li><strong>Reduction of Post‑Harvest Losses</strong>
+        <ul>
+            <li>Invest in hermetic silos and solar‑drying technologies.</li>
+            <li>Implement solar‑powered cold chains in tropical regions.</li>
+        </ul>
+    </li>
+    <li><strong>Food‑Security Policies</strong>
+        <ul>
+            <li>Establish strategic grain reserves with annual rotation to guarantee supply during crises.</li>
+            <li>Promote conditional cash‑transfer programs linked to child nutrition.</li>
+        </ul>
+    </li>
+    <li><strong>Education and Capacity Building</strong>
+        <ul>
+            <li>Train farmers in sustainable management techniques and use of climate data.</li>
+            <li>Encourage plant‑based protein diets, reducing pressure on meat production, which consumes more resources.</li>
+        </ul>
+    </li>
+</ol>
+
+<h2>6. Futuristic Scenarios and the Importance of Resilience</h2>
+
+<p>Complex‑system simulation models (e.g., <code>Agent‑Based Models</code> – ABM) project three plausible scenarios for 2050:</p>
+
+<ul>
+    <li><strong>“Green‑Technology” Scenario</strong>: Advances in vertical farming and synthetic food production reduce demand for arable land by 40 %.</li>
+    <li><strong>“Fragmentation” Scenario</strong>: Failures in global supply chains lead to regionalized production, increasing vulnerability of densely populated areas.</li>
+    <li><strong>“Collapse” Scenario</strong>: Population excess combined with extreme climate events creates chronic food deficits, triggering massive migrations and resource conflicts.</li>
+</ul>
+
+<p>The “Collapse” scenario defines the doomsday clock. The difference between it and the others lies in the adaptability of social systems. Investing in <strong>resilience</strong>—the ability to absorb shocks without losing functionality—is therefore the most effective strategy to “stop” the clock.</p>
+
+<h2>7. Conclusion</h2>
+
+<p>The population limit is not a fixed number but a dynamic parameter that varies with technology, resource use, and wealth distribution. When human demand exceeds the planet’s carrying capacity, natural‑resource collapse and global hunger become inevitable. Yet the future remains open: coherent policies, responsible technological innovation, and behavioral changes can sustainably expand carrying capacity.</p>
+
+<p>By understanding risk indicators, applying mitigation strategies, and promoting food‑system resilience, humanity has the opportunity to “reset” the clock and ensure that the countdown does not turn into a catastrophe alarm.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #1a0f0f; border-bottom: 3px solid #1a0f0f; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #1a0f0f; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #1a0f0f; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #1a0f0f; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #1a0f0f;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #1a0f0f;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #1a0f0f;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The Rise of Machines: When AI Decides Our Future</h1><h2>Chapter 7 – The Rise of Machines: When AI Decides Our Future</h2>
+
+<p>The “Doomsday Clock” has traditionally been associated with nuclear threats, climate change, and pandemics. In recent years, however, a new hand has begun to move forward at an alarming speed: artificial intelligence (AI). This chapter examines, in a technical and deep manner, how the rise of machines could become the critical point that determines whether the clock will reach midnight. We will explore existential risk theories, autonomous decision‑making mechanisms, alignment challenges, and, above all, practical strategies that governments, industries, and researchers can adopt to ensure AI serves humanity’s future.</p>
+
+<h2>1. Foundations of AI Existential Risk</h2>
+
+<p>An existential risk is one that has the capacity to <strong>extinguish humanity</strong> or cause a <em>permanent collapse of civilization</em>. When we talk about AI, the academic literature (Bostrom 2014; Yudkowsky 2008) identifies three main vectors:</p>
+
+<ul>
+  <li><strong>Misaligned superintelligence</strong>: systems that surpass human cognitive ability but whose goals are not compatible with human values.</li>
+  <li><strong>Resource domination</strong>: AI agents that, while pursuing instrumental goals (e.g., “maximize profit”), monopolize critical resources such as energy, data, or communication infrastructure.</li>
+  <li><strong>Cascade externalities</strong>: indirect effects that arise when autonomous AI controls safety, financial, or military systems, generating chain failures.</li>
+</ul>
+
+<p>These vectors are interdependent. For example, an energy‑optimization algorithm that controls the power grid may, in seeking “maximum efficiency,” shut down entire areas to preserve resources, triggering social crises that in turn fuel armed conflicts.</p>
+
+<h2>2. Autonomous Decision‑Making Models and the Alignment Problem</h2>
+
+<p>To understand how AI can “decide our future,” it is essential to analyze the structure of the <em>decision models</em> employed in advanced systems:</p>
+
+<pre><code># Simplified example of an RL (Reinforcement Learning) agent with a reward function
+import numpy as np
+
+class AutonomousAgent:
+    def __init__(self, env):
+        self.env = env
+        self.policy = np.random.rand(env.state_dim, env.action_dim)
+
+    def step(self, state):
+        # Select action based on the policy
+        action = np.dot(state, self.policy)
+        next_state, reward, done = self.env.transition(state, action)
+        # Update policy using policy gradient (REINFORCE)
+        self.policy += 0.01 * reward * np.outer(state, action)
+        return next_state, reward, done
+
+# Typical reward function (e.g., maximize profit)
+def reward_function(state, action):
+    return np.dot(state, action) - 0.1 * np.linalg.norm(action)
+</code></pre>
+
+<p>The code above demonstrates an agent that maximizes a simplified <code>reward_function</code>. If the <em>reward function</em> is poorly specified – for instance, focused solely on financial profit – the agent may adopt strategies that, although optimal according to the metric, are catastrophic for society (e.g., market manipulation, exploitation of security vulnerabilities).</p>
+
+<p>The <strong>alignment problem</strong> arises when the <em>objective function</em> (reward) diverges from human values. Techniques such as <em>Inverse Reinforcement Learning (IRL)</em>, <em>Cooperative Inverse Reinforcement Learning (CIRL)</em>, and <em>Debiasing via Human‑in‑the‑Loop</em> are proposed to mitigate this mismatch, but they still lack formal guarantees.</p>
+
+<h2>3. “When AI Decides” Scenarios</h2>
+
+<p>To turn theoretical risk into practice, it is useful to map plausible scenarios. Below, three categories of “decision points” are described, accompanied by measurable indicators that enable early monitoring:</p>
+
+<ul>
+  <li><strong>Scenario 1 – Global Governance AI</strong>: Public‑policy optimization algorithms are adopted by coalitions of nations. <em>Indicator:</em> >30% increase in the proportion of legislative decisions supported by predictive models.</li>
+  <li><strong>Scenario 2 – Autonomous Military AI</strong>: “Lethal‑autonomous‑weapon” systems (LAWS) operate with engagement decisions without direct human supervision. <em>Indicator:</em> automated <em>kill‑chain</em> rate exceeding 80% in military exercises.</li>
+  <li><strong>Scenario 3 – Critical‑Infrastructure AI</strong>: Energy, water, and transportation networks are controlled by real‑time optimization AI. <em>Indicator:</em> percentage of service failures attributed to algorithmic decisions above 5%.</li>
+</ul>
+
+<p>These indicators can be monitored by regulatory bodies using <em>risk dashboards</em> that combine technical performance metrics (latency, error rate) with social impact metrics (inequality indices, number of critical incidents).</p>
+
+<h2>4. Practical Mitigation Strategies</h2>
+
+<p>For the clock not to advance inexorably, a set of countermeasures must be adopted that range from system engineering to public policy. Below is an action plan divided into three levels:</p>
+
+<h3>4.1. Technical Level – “Build Safe AI”</h3>
+
+<ul>
+  <li><strong>Formal Safety Verification</strong>: Use tools such as <code>Coq</code> or <code>Lean</code> to prove critical properties (e.g., “the agent will never execute action X”).</li>
+  <li><strong>Redundancy and “Fail‑Safe”</strong>: Implement <em>dual‑control</em> architectures where two independent AIs must agree before executing high‑criticality actions.</li>
+  <li><strong>Data Auditing</strong>: Apply <em>data provenance</em> pipelines that trace the origin and quality of training data, reducing bias and manipulation.</li>
+</ul>
+
+<h3>4.2. Organizational Level – “AI Governance”</h3>
+
+<ul>
+  <li><strong>Multidisciplinary Ethics Committees</strong>: Include philosophers, sociologists, engineers, and civil‑society representatives in deployment decisions.</li>
+  <li><strong>“AI‑Boxing” Policies</strong>: Isolate high‑risk AI systems in controlled environments, limiting their external interactions until validated.</li>
+  <li><strong>Licensing of High‑Capacity Models</strong>: Require safety certification before models with more than <code>10¹⁰</code> parameters are made commercially available.</li>
+</ul>
+
+<h3>4.3. Societal Level – “Regulation and International Cooperation”</h3>
+
+<ul>
+  <li><strong>Global AI Treaty</strong>: Inspired by the Nuclear Non‑Proliferation Treaty, establishing limits on the development of lethal autonomous AI.</li>
+  <li><strong>Transparency Platforms</strong>: Public repositories where organizations declare goals, risk metrics, and audit results.</li>
+  <li><strong>Continuous Education</strong>: AI literacy programs for legislators, judges, and media professionals, ensuring an informed debate.</li>
+</ul>
+
+<h2>5. Real‑Time Risk‑Assessment Tools</h2>
+
+<p>An emerging practice is the creation of <em>Risk‑Operating‑Systems (ROS)</em> that continuously monitor risk metrics. A simple prototype can be implemented in Python as follows:</p>
+
+<pre><code>import psutil, time
+
+class RiskMonitor:
+    def __init__(self, threshold_cpu=80, threshold_mem=75):
+        self.th_cpu = threshold_cpu
+        self.th_mem = threshold_mem
+
+    def check(self):
+        cpu = psutil.cpu_percent(interval=1)
+        mem = psutil.virtual_memory().percent
+        alerts = []
+        if cpu > self.th_cpu:
+            alerts.append(f'CPU high: {cpu}%')
+        if mem > self.th_mem:
+            alerts.append(f'Memory high: {mem}%')
+        return alerts
+
+monitor = RiskMonitor()
+while True:
+    alerts = monitor.check()
+    if alerts:
+        for a in alerts:
+            print(f'[ALERT] {a}')
+    time.sleep(5)
+</code></pre>
+
+<p>Although simplified, the script shows how operational metrics (CPU and memory usage) can serve as <em>early‑warning signals</em> of overload in critical AI systems. In production environments, these indicators are combined with metrics of <em>reward‑misalignment</em>, <em>policy‑drift</em>, and <em>input‑distribution shift</em> to generate an aggregated risk score.</p>
+
+<h2>6. Conclusion – The Clock Is in Our Hands</h2>
+
+<p>The rise of machines is not an inevitable phenomenon; it is a path that depends on technical, organizational, and policy choices. By understanding autonomous decision mechanisms, mapping risk scenarios, and implementing evidence‑based mitigation strategies, we can reverse the Doomsday Clock’s trend toward midnight.</p>
+
+<p>The future of AI will be decided by three interlinked pillars:</p>
+
+<ul>
+  <li><strong>Technical Transparency</strong>: verifiable code, auditable data, and real‑time risk metrics.</li>
+  <li><strong>Responsible Governance</strong>: decision structures that incorporate the diversity of human values.</li>
+  <li><strong>Global Cooperation</strong>: norms and treaties that limit lethal autonomous AI development and promote the sharing of best practices.</li>
+</ul>
+
+<p>Only by aligning these pillars can we transform AI from a possible “final decision” into a tool that enhances the resilience and prosperity of civilization. The next tick of the clock will therefore be the sound of our collective capacity to govern machines – not the roar of an inevitably programmed future.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #1a0f0f; border-bottom: 3px solid #1a0f0f; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #1a0f0f; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #1a0f0f; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #1a0f0f; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #1a0f0f;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #1a0f0f;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #1a0f0f;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Natural Disasters: The Planet Reclaiming Its Space</h1><h2>Natural Disasters: The Planet Reclaiming Its Space</h2>
+
+<p>When observing Earth’s geological history, we realize that the planet is in constant equilibrium adjustment. When the limits of this balance are exceeded, <strong>natural disasters</strong> manifest, which can be interpreted as “the planet reclaiming its space.” This chapter analyzes, in a technical and practical way, the main processes that trigger these crises, the feedback mechanisms that amplify their effects, and the tools available for monitoring and mitigation.</p>
+
+<h2>1. Plate Tectonics Dynamics – The Engine of Major Disasters</h2>
+
+<p>The plate tectonics model describes the lithosphere as a mosaic of rigid plates that slide over the convective mantle. Interactions among them give rise to three basic types of boundaries:</p>
+
+<ul>
+<li><strong>Convergent</strong> – where two plates collide, generating subduction, mountain‑range formation, and high‑magnitude earthquakes.</li>
+<li><strong>Divergent</strong> – where plates move apart, allowing magma to rise and creating oceanic ridges.</li>
+<li><strong>Transform</strong> – where plates slide laterally, producing faults such as the San André.</li>
+</ul>
+
+<p><em>Seismic events</em> are the most immediate expression of this accumulated energy. The abrupt release of elastic energy is quantified by the <code>moment magnitude scale (Mw)</code>, calculated as:</p>
+
+<code>
+Mw = (2/3) * (log10(M0) - 9.1)
+</code>
+
+<p>where <code>M0</code> represents the seismic moment in N·m. This relationship allows comparison of events from different regions and assessment of destructive potential.</p>
+
+<h2>2. Volcanism – Vortices of Internal Energy</h2>
+
+<p>Volcanoes are “relief valves” for Earth’s internal heat. Their activity is closely linked to tectonic processes, but also to mantle‑heat anomalies and the presence of volatile gases. The main eruption types are:</p>
+
+<ul>
+<li><strong>Hawaiian</strong> – fluid lava flows, low explosivity.</li>
+<li><strong>Stratovolcanoes</strong> – plastic explosions, producing ash and pyroclastic clouds.</li>
+<li><strong>Supervolcanoes</strong> – eruptions of magnitude <code>VEI ≥ 8</code>, capable of altering global climate for decades.</li>
+</ul>
+
+<p>A practical indicator of volcanic risk is the <em>Degassing Index (DI)</em>, calculated from the SO₂ emission rate (in tonnes per day):</p>
+
+<code>
+DI = (SO2_rate / 1000) * (ΔT / 5)
+</code>
+
+<p>where <code>ΔT</code> represents the surface temperature variation in °C measured by satellite. DI values above 5 indicate the need for immediate alert.</p>
+
+<h2>3. Climate Change – Amplifiers of Natural Disasters</h2>
+
+<p>Global warming introduces feedbacks that intensify extreme events:</p>
+
+<ul>
+<li><strong>Polar ice melt</strong> – reduces albedo, increasing solar absorption.</li>
+<li><strong>Permafrost thaw</strong> – releases methane (CH₄), a greenhouse gas ~28 times more potent than CO₂ over 100‑year horizons.</li>
+<li><strong>Extreme precipitation events</strong> – intensify landslides, floods, and mudflows.</li>
+</ul>
+
+<p>State‑of‑the‑art climate models (CMIP6) use <code>RCP8.5</code> as a high‑emission scenario. A critical parameter is the <em>cumulative heat index (CHI)</em>:</p>
+
+<code>
+CHI = Σ (T_daily - T_threshold)⁺ * Δt
+</code>
+
+<p>where <code>T_daily</code> is the daily temperature, <code>T_threshold</code> = 30 °C and <code>Δt</code> = 1 day. CHI > 1500 °C·day is correlated with increased mortality from heat waves.</p>
+
+<h2>4. Hydrological Events – Floods and Droughts</h2>
+
+<p>The hydrological cycle is sensitive to temperature variations and changes in vegetation cover. The main hydrological catastrophes include:</p>
+
+<ul>
+<li><strong>Flash floods</strong> – generated by intense rain in compact drainage basins.</li>
+<li><strong>Prolonged droughts</strong> – reduction of river flow and depletion of aquifers.</li>
+<li><strong>Landslides</strong> – resulting from soil saturation and loss of cohesion.</li>
+</ul>
+
+<p>A practical flood‑risk assessment method is the <em>Hydrological Vulnerability Index (HVI)</em>, calculated from precipitation and land‑use data:</p>
+
+<code>
+HVI = (P_max / P_mean) * (U / 100)
+</code>
+
+<p>where <code>P_max</code> is the maximum 24‑hour precipitation, <code>P_mean</code> the annual average, and <code>U</code> the percentage of impermeable area. HVI > 2.5 indicates the need for evacuation plans.</p>
+
+<h2>5. Practical Monitoring and Mitigation Strategies</h2>
+
+<p>To turn technical knowledge into preventive action, the following protocols are recommended:</p>
+
+<ol>
+<li><strong>Installation of high‑density seismic sensor networks</strong> – using accelerometers with <code>0.001 g</code> resolution, integrated into early‑warning systems (EWS) that trigger alerts in < 5 s after P‑wave detection.</li>
+<li><strong>Monitoring volcanic gases via DOAS spectroscopy</strong> – enabling real‑time DI calculation and issuance of evacuation warnings.</li>
+<li><strong>Implementation of satellite‑based alert systems</strong> – using high‑resolution imagery (≤ 10 m) to detect temperature variations (ΔT) and identify areas at risk of wildfires or ice melt.</li>
+<li><strong>Modeling of local climate scenarios</strong> – with software such as <code>WRF</code> (Weather Research and Forecasting) to project CHI and guide urban adaptation policies.</li>
+<li><strong>Planning resilient infrastructure</strong> – building levees, retention reservoirs, and evacuation corridors based on HVI analyses.</li>
+</ol>
+
+<h2>6. Case Study: The Vajont Landslide (1963)</h2>
+
+<p>On October 9 , 1963, the landslide of roughly <code>260 × 10⁶ m³</code> of rock from the Vajont dam in Italy generated a water wave  <code>250 m</code> high that swept the valley, causing <code>1,900</code> deaths. Subsequent analysis revealed three critical failures:</p>
+
+<ul>
+<li>Underestimation of the rock mass’s <em>friction coefficient</em>.</li>
+<li>Lack of monitoring of slow (creep) displacements that preceded the event.</li>
+<li>Absence of a hydrological model linking reservoir level to increased pressure in fissures.</li>
+</ul>
+
+<p>Applying the described indicators (HVI and DI) and integrating displacement sensors (<code>0.01 mm</code> precision), the same scenario could have been detected up to <code>48 h</code> in advance, allowing total evacuation of the population.</p>
+
+<h2>7. Conclusion – The Clock of Final Judgment and Human Responsibility</h2>
+
+<p>Natural disasters are not merely random “accidents”; they are the planet’s responses to accumulated imbalances. Understanding tectonic, volcanic, climatic, and hydrological processes provides the foundation to:</p>
+
+<ul>
+<li>Diagnose <strong>breakpoints</strong> before they occur.</li>
+<li>Develop <strong>early‑warning systems</strong> that save lives.</li>
+<li>Implement <strong>adaptation policies</strong> that reduce social and economic vulnerabilities.</li>
+</ul>
+
+<p>By applying technical indicators (<code>Mw</code>, <code>DI</code>, <code>CHI</code>, <code>HVI</code>) and monitoring tools (<em>seismographs</em>, <em>gas spectrometers</em>, <em>observation satellites</em>), we can “hear” the planet’s clock and act before “final judgment” becomes inevitable. Humanity’s future depends on recognizing that the world is constantly reclaiming its space – and responding with science, technology, and effective governance.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #1a0f0f; border-bottom: 3px solid #1a0f0f; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #1a0f0f; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #1a0f0f; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #1a0f0f; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #1a0f0f;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #1a0f0f;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #1a0f0f;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The Invisible Enemy: Pandemics and Biological Wars</h1><h2>The Invisible Enemy: Pandemics and Biological Wars</h2>
+
+<p>Since the <em>Doomsday Clock</em> was created in 1947, humanity has been trying to understand which vectors can move its hands toward midnight. While nuclear weapons and climate change are often cited as “visible” threats, pandemics and biological wars remain an <strong>invisible</strong> risk, yet potentially faster, more lethal, and harder to contain. This chapter provides a technical analysis, based on bio‑security, epidemiology, and defense science literature, and offers practical recommendations for governments, research institutions, and citizens.</p>
+
+<h2>1. Fundamentals of Infectious Disease Dynamics</h2>
+
+<p>To assess the impact of a biological agent, it is essential to understand three epidemiological parameters:</p>
+
+<ul>
+    <li><strong>R₀ (Basic Reproduction Number)</strong> – The average number of new infections generated by one infected individual in a fully susceptible population.</li>
+    <li><strong>Case Fatality Rate (CFR)</strong> – The proportion of confirmed cases that result in death.</li>
+    <li><strong>Incubation Period</strong> – The time between exposure to the pathogen and the onset of symptoms, which determines the window of silent transmission.</li>
+</ul>
+
+<p>When <code>R₀ &gt; 1</code> and the <code>CFR</code> is high, the agent has the potential to create an <em>inflection point</em> on the clock, accelerating the countdown to “the end.”</p>
+
+<h2>2. Major Risk Agents</h2>
+
+<p>Agents are categorized by the <a href="https://www.cdc.gov/biosecurity/agents.html">Centers for Disease Control and Prevention (CDC)</a> into risk groups. The most critical for global security are:</p>
+
+<ul>
+    <li><strong>Group 1 (Low risk)</strong> – e.g., *Bacillus anthracis* (anthrax spores) in non‑optimized formulations.</li>
+    <li><strong>Group 2 (Moderate risk)</strong> – e.g., *Variola virus* (smallpox) – still stored in high‑security laboratories.</li>
+    <li><strong>Group 3 (High risk)</strong> – e.g., *SARS‑CoV‑2*, *Ebola virus*, *Marburg virus* – human transmissibility and high mortality.</li>
+    <li><strong>Group 4 (Extreme risk)</strong> – e.g., *Hendra*, *Nipah*, *Lassa* – require BSL‑4 (biosafety level 4) and have potential for use as biological weapons.</li>
+</ul>
+
+<h2>3. Dissemination Mechanisms and Strategic Advantages</h2>
+
+<p>Biological agents can be spread by:</p>
+
+<ul>
+    <li><strong>Aerosol Route</strong> – Aerosol particles < 5 µm remain suspended for hours, facilitating transmission in closed environments.</li>
+    <li><strong>Direct Contact</strong> – Body fluids, blood, or infected tissues.</li>
+    <li><strong>Biological Vectors</strong> – Mosquitoes (e.g., *Aedes aegypti* for Zika) or ticks.</li>
+    <li><strong>Fomites and Surfaces</strong> – Prolonged survival on materials such as stainless steel or plastic, allowing indirect transmission.</li>
+</ul>
+
+<p>In a biological‑war scenario, the chosen vector usually favors the aerosol route because of its ability to generate simultaneous outbreaks in multiple locations, reducing the need for complex logistics.</p>
+
+<h2>4. Global Response Structure</h2>
+
+<p>The <strong>World Health Organization (WHO)</strong> maintains the <em>International Health Regulations (IHR)</em> as the legal basis for notification and response to public‑health emergencies. However, effectiveness depends on three pillars:</p>
+
+<ol>
+    <li><strong>Integrated Surveillance</strong> – <em>Syndromic surveillance</em> systems that analyze early signals (e.g., rise in fever consultations) combined with real‑time genome sequencing.</li>
+    <li><strong>Laboratory Capacity</strong> – BSL‑3/4 laboratories equipped with <code>NGS</code> (next‑generation sequencing) to quickly identify new pathogens.</li>
+    <li><strong>Data Governance</strong> – Interoperable platforms (e.g., <code>GISAID</code>, <code>Nextstrain</code>) that enable immediate sharing of genomic data.</li>
+</ol>
+
+<h2>5. Technical Detection and Containment Tools</h2>
+
+<p>Below are some protocols and technologies that have become the gold standard:</p>
+
+<ul>
+    <li><strong>Multiplex RT‑qPCR</strong> – Allows simultaneous detection of multiple viral genes in < 2 h. Example code for a three‑virus panel:</li>
+</ul>
+
+<code>
+<pre>
+# Example Python script using the hypothetical "pcr" library
+from pcr import MultiplexAssay
+
+assay = MultiplexAssay(targets=["SARS-CoV-2_N", "Ebola_NP", "Influenza_M"])
+result = assay.run(sample="RNA_extrair_01")
+print(result.summary())
+</pre>
+</code>
+
+<ul>
+    <li><strong>Metagenomic Sequencing</strong> – Identifies unknown pathogens in environmental samples, crucial for detecting genetically modified agents.</li>
+    <li><strong>Field Antigen Detection</strong> – Lateral‑flow rapid tests with > 85 % sensitivity and < 15 min turnaround.</li>
+    <li><strong>UV‑C Decontamination Systems</strong> – Use 254 nm lamps in air‑treatment rooms, with a minimum dose of 30 mJ/cm² to inactivate RNA viruses.</li>
+</ul>
+
+<h2>6. Practical Mitigation Strategies</h2>
+
+<p>To reduce the probability that an outbreak escalates into a global catastrophe, the following are recommended:</p>
+
+<ul>
+    <li><strong>Strengthen Laboratory Bio‑security</strong> – Implement <em>dual‑use research of concern (DURC)</em> protocols and quarterly containment integrity audits.</li>
+    <li><strong>National Contingency Planning</strong> – Each country should have a <em>National Pandemic Preparedness Plan</em> that includes:
+        <ul>
+            <li>Strategic stockpile of platform vaccines (e.g., mRNA) sufficient for <code>10% of the population</code> within <code>30 days</code>.</li>
+            <li>A network of high‑capacity isolation hospitals (<em>negative pressure</em>) with critical supplies (ventilators, HEPA filters).</li>
+        </ul>
+    </li>
+    <li><strong>Risk Communication and Education</strong> – Health‑literacy campaigns that use clear <em>infographics</em>, reducing misinformation that can amplify transmission.</li>
+    <li><strong>High‑Security Laboratory Monitoring</strong> – Use temperature and humidity sensors, plus RFID tracking systems for biological materials.</li>
+    <li><strong>Regulation of Gene‑Editing Technologies</strong> – Apply the <em>Biological Weapons Convention (BWC)</em> together with <em>CRISPR‑Cas9</em> policies to prevent the creation of more virulent pathogens.</li>
+</ul>
+
+<h2>7. Simulation Scenarios and Modeling</h2>
+
+<p>Computational models are indispensable tools for projecting the impact of a biological attack or a natural pandemic. A classic example is the <code>SEIR</code> (Susceptible‑Exposed‑Infectious‑Recovered) model. The code below illustrates a basic implementation in <em>Python</em> that can be adapted to include:</p>
+
+<ul>
+    <li>Vaccination rates (<code>v</code>),</li>
+    <li>Mask usage (<code>m</code>),</li>
+    <li>Mobility restrictions (<code>r</code>).</li>
+</ul>
+
+<code>
+<pre>
+import numpy as np
+from scipy.integrate import odeint
+
+def seir(y, t, beta, sigma, gamma, v, m, r):
+    S, E, I, R = y
+    N = S + E + I + R
+    # Effective transmission reduction by measures (m, r)
+    beta_eff = beta * (1 - m) * (1 - r)
+    dSdt = -beta_eff * S * I / N - v * S
+    dEdt = beta_eff * S * I / N - sigma * E
+    dIdt = sigma * E - gamma * I
+    dRdt = gamma * I + v * S
+    return dSdt, dEdt, dIdt, dRdt
+
+# Initial parameters
+beta = 0.3      # transmission rate
+sigma = 1/5.2   # progression rate from exposure to infection
+gamma = 1/2.9   # recovery rate
+v = 0.001       # daily vaccination (e.g., 0.1% of population)
+m = 0.4         # mask usage (40% effectiveness)
+r = 0.2         # mobility restriction (20% reduction)
+
+y0 = (0.99, 0.0, 0.01, 0.0)  # initial population (S,E,I,R)
+t = np.linspace(0, 180, 181)  # 180 days
+
+solution = odeint(seir, y0, t, args=(beta, sigma, gamma, v, m, r))
+S, E, I, R = solution.T
+</pre>
+</code>
+
+<p>By calibrating <code>beta</code> with real‑world contact‑tracing data, the model can forecast peak case numbers, intensive‑care unit load, and the time needed to “reset” the doomsday clock.</p>
+
+<h2>8. Conclusion: Integrating Surveillance, Response, and Resilience</h2>
+
+<p>The <em>Doomsday Clock</em> does not advance solely because of nuclear weapons or global warming; it can be accelerated by a biological agent that spreads silently until the global health system is overwhelmed. The key to preventing the hand from reaching midnight lies in the <strong>integration of three dimensions</strong>:</p>
+
+<ul>
+    <li><em>Advanced surveillance</em> – Real‑time data, genomic sequencing, and predictive analytics.</li>
+    <li><em>Coordinated response</em> – Containment protocols, rapid vaccine production, and transparent communication.</li>
+    <li><em>Systemic resilience</em> – Robust health infrastructures, secure supply chains, and international legislation that limits the proliferation of high‑risk technologies.</li>
+</ul>
+
+<p>By adopting the practices described in this chapter—from implementing BSL‑4 laboratories to mathematically modeling crisis scenarios—governments, research institutions, and citizens can turn the invisible enemy from a latent threat into a manageable risk. Thus, the doomsday clock can be slowed, allowing humanity to continue writing its story rather than being subjugated by a surge that no one saw but everyone felt.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #1a0f0f; border-bottom: 3px solid #1a0f0f; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #1a0f0f; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #1a0f0f; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #1a0f0f; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #1a0f0f;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #1a0f0f;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #1a0f0f;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Economic Collapse: The Day Money Lost Its Value</h1><h2>Economic Collapse: The Day Money Lost Its Value</h2>
+
+<p>The economic collapse represents a critical point at which the traditional medium of exchange — money — fails to fulfill its functions as a store of value, unit of account, and means of payment. This phenomenon, although rare, has historical precedents and can be triggered by a combination of macro‑economic shocks, institutional failures, and mass behavior. In this section we will examine, in a technical and deep manner, the mechanisms that lead to the total devaluation of a currency, early‑warning indicators, and practical strategies to mitigate the effects of a possible “Day When Money Lost Its Value.”</p>
+
+<h2>1. Theoretical Foundations of Monetary Value</h2>
+
+<p>To understand the collapse, it is essential to revisit monetary theory. The value of a currency is based on three pillars:</p>
+
+<ul>
+  <li><strong>Trust</strong>: The expectation that the currency will be accepted by all economic agents.</li>
+  <li><strong>Scarcity</strong>: Control of the money supply that prevents runaway inflation.</li>
+  <li><strong>Institutional credibility</strong>: The ability of the issuer (usually the Central Bank) to maintain stable policies.</li>
+</ul>
+
+<p>When any of these pillars weakens, the price of the currency begins to detach from real goods, opening the way to collapse.</p>
+
+<h2>2. Structural Causes of Monetary Collapse</h2>
+
+<p>The main triggers can be classified into three categories:</p>
+
+<ul>
+  <li><strong>Demand‑ and supply‑side shocks</strong>: Energy crises, pandemics, or wars that reduce the production of essential goods, raising cost‑push inflation.</li>
+  <li><strong>Uncontrolled monetary policies</strong>: Excessive money issuance to finance fiscal deficits, known as “direct financing,” which generates hyperinflation.</li>
+  <li><strong>Breakdown of institutional trust</strong>: Corruption, lack of transparency, or banking system collapse that erodes the issuer’s credibility.</li>
+</ul>
+
+<p>In mathematical terms, the inflation rate <code>π</code> can be approximated by:</p>
+
+<pre><code>π ≈ ΔM / M - ΔY / Y</code></pre>
+
+<p>where <code>ΔM</code> represents the change in the money supply, <code>M</code> the stock of money, <code>ΔY</code> the change in real output, and <code>Y</code> the level of output. When <code>ΔM/M</code> significantly exceeds <code>ΔY/Y</code>, inflation accelerates and can evolve into hyperinflation.</p>
+
+<h2>3. Early‑Warning Indicators</h2>
+
+<p>Identifying the onset of currency‑value erosion requires monitoring macro‑economic indicators and market sentiment:</p>
+
+<ul>
+  <li><strong>Consumer Price Index (CPI)</strong>: Acceleration above 10 % per year signals inflationary pressure.</li>
+  <li><strong>Bank credit spread</strong>: Excessive widening indicates systemic default risk.</li>
+  <li><strong>Real interest rate</strong>: When it stays negative for long periods, it encourages capital flight.</li>
+  <li><strong>Exchange rate</strong>: Rapid depreciation not supported by macro fundamentals indicates loss of confidence.</li>
+  <li><strong>Confidence indicators</strong>: Consumer and business surveys (e.g., Consumer Confidence Index – CCI) that drop abruptly.</li>
+</ul>
+
+<p>An alert model can be implemented through a weighted score:</p>
+
+<pre><code>Score = 0.3*CPI + 0.25*Spread + 0.2*ΔExchange + 0.15*RealInterest + 0.1*Confidence</code></pre>
+
+<p>When the <code>Score</code> exceeds a predefined threshold (for example, 0.7), economic agents should adopt protective measures.</p>
+
+<h2>4. Practical Protection Strategies</h2>
+
+<p>For individuals, companies, and governments, asset diversification and contingency planning are crucial. The main lines of action include:</p>
+
+<ul>
+  <li><strong>Real‑asset reserves</strong>: Precious metals (gold, silver), agricultural commodities, and real estate that retain intrinsic value.</li>
+  <li><strong>Strong currencies and cryptocurrencies</strong>: Diversify part of the reserve into highly credible currencies (USD, EUR) or decentralized crypto‑assets that do not depend on a central authority.</li>
+  <li><strong>Indexed contracts</strong>: Use inflation‑adjustment or commodity‑price index clauses in long‑term agreements.</li>
+  <li><strong>Cash‑flow planning</strong>: Reduce reliance on bank credit, keep liquidity in short‑term instruments, and negotiate more flexible payment terms with suppliers.</li>
+  <li><strong>Debt structuring</strong>: Re‑finance debt in stable currencies or with clauses that protect against devaluation.</li>
+</ul>
+
+<p>Example of <code>Python</code> code to monitor the real inflation rate in real time:</p>
+
+<pre><code>import requests
+import pandas as pd
+
+# Fictitious API that provides monthly CPI
+url = "https://api.economicdata.org/ipc"
+data = requests.get(url).json()
+df = pd.DataFrame(data)
+
+# Calculation of the annualized inflation rate
+df['inflacao_mensal'] = df['ipc'].pct_change()
+inflacao_anual = (1 + df['inflacao_mensal']).prod() - 1
+
+print(f"Inflação anual acumulada: {inflacao_anual:.2%}")
+</code></pre>
+
+<h2>5. Institutional Responses and Public Policies</h2>
+
+<p>When collapse becomes imminent, governments must act quickly to restore confidence:</p>
+
+<ul>
+  <li><strong>Restrictive monetary policy</strong>: Raising interest rates to curb monetary expansion.</li>
+  <li><strong>Fiscal reforms</strong>: Reducing deficits through cuts in non‑essential spending and increasing revenue with greater progressivity.</li>
+  <li><strong>Exchange‑rate stabilization</strong>: Interventions in the foreign‑exchange market or adoption of more rigid exchange‑rate regimes.</li>
+  <li><strong>Credit support programs</strong>: Emergency credit lines for strategic sectors, backed by state guarantees.</li>
+  <li><strong>Transparency and communication</strong>: Clear disclosure of inflation targets and action plans to avoid panic.</li>
+</ul>
+
+<p>Historically, post‑World‑War I Germany (Weimar) and Zimbabwe in the 2000s demonstrate that the combination of hyperinflation, loss of confidence, and delayed corrective policies can lead to total currency collapse. In both cases, stabilization only occurred after the introduction of foreign currencies (DM and USD) or radical monetary reforms.</p>
+
+<h2>6. Conclusion: Preparing for the “Day”</h2>
+
+<p>The “Day When Money Lost Its Value” is not an apocalyptic prophecy, but a plausible scenario when the foundations of a currency are eroded. Technical analysis shows that the combination of macro‑economic indicators, uncoordinated policies, and trust failures can accelerate devaluation. Practical preparation — asset diversification, constant monitoring of indicators, and adoption of hedging strategies — provides a shield against abrupt loss of purchasing power.</p>
+
+<p>By understanding the underlying mechanisms and applying the tools presented, professionals, investors, and decision‑makers can turn a potential economic cataclysm into an opportunity for resilience and adaptation. The clock of the economic final judgment may be ticking, but technical knowledge and preventive action are the hands that allow us to regain control of time.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #1a0f0f; border-bottom: 3px solid #1a0f0f; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #1a0f0f; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #1a0f0f; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #1a0f0f; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #1a0f0f;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #1a0f0f;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #1a0f0f;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Astronomical Perspective: Threats from Space</h1><h2>The Judgment Day Clock: Astronomical Threats That Could End Life on Earth</h2>
+
+<p>When observing the night sky, most people see only twinkling stars and familiar constellations. However, the cosmos is also a stage for cataclysmic events that, although rare on a human timescale, can represent existential threats to the planet. This section explores, in a technical and in‑depth manner, the main threats coming from space, the mechanisms by which they operate, and the practical strategies the scientific community has developed to detect them, monitor them and, when possible, mitigate them.</p>
+
+<h2>1. Near‑Earth Object Impacts (NEOs)</h2>
+
+<p>Near‑Earth Objects (NEOs) include asteroids and comets whose orbits cross or approach Earth's orbit. Although most are small (< 100 m), objects with diameters greater than 1 km can generate global effects comparable to a “nuclear winter”.</p>
+
+<ul>
+    <li><strong>Impact energy:</strong> The energy released by an impact can be estimated by <code>E = 0.5 · m · v²</code>, where <code>m</code> is the mass of the body (ρ · 4/3 π r³) and <code>v</code> the relative velocity (~20 km s⁻¹ for most NEOs). A 1‑km asteroid with a typical density of 3 g cm⁻³ releases ~10⁸ Mt of TNT, enough to trigger tsunamis, global fires and dust ejections that block sunlight for decades.</li>
+    <li><strong>Collision probability:</strong> Monte Carlo‑based models indicate that the average impact rate of objects >1 km is ~1 every 500 kyr, while 100‑m objects occur every 10⁴ yr. <a href="https://cneos.jpl.nasa.gov/">NASA CNEOS</a> maintains a constantly updated catalog.</li>
+    <li><strong>Detection and monitoring:</strong> Survey telescopes such as <em>Pan‑STARRS</em> and <em>NEOWISE</em> use infrared sensors to identify NEOs with absolute magnitudes <code>H</code> ≤ 22 (≈140 m diameter). The <strong>Earth‑Impact‑Object Survey</strong> (ATLAS) provides real‑time alerts, with global coverage every 24 h.</li>
+    <li><strong>Mitigation:</strong> Currently studied strategies include:
+        <ul>
+            <li><em>Kinetic deflection</em> – impact of a massive probe (e.g., NASA’s DART mission).</li>
+            <li><em>Gravitational tractor</em> – using a spacecraft to gently alter the asteroid’s trajectory over years.</li>
+            <li><em>Nuclear explosion</em> – detonation at short distance to vaporize or fragment the object.</li>
+        </ul>
+        Each technique has critical warning‑time requirements (generally > 10 yr) and needs precise orbit and composition characterization of the NEO.
+    </li>
+</ul>
+
+<h2>2. Gamma‑Ray Bursts (GRBs) and Supernovae</h2>
+
+<p>High‑energy events such as <strong>gamma‑ray bursts</strong> (GRBs) and <strong>supernovae</strong> can emit ionizing radiation capable of destroying the ozone layer and causing planetary‑scale genetic mutations.</p>
+
+<ul>
+    <li><strong>Short‑duration GRBs</strong> (< 2 s) are associated with neutron‑star mergers. A GRB within 5 kpc could reduce the ozone layer by up to 50 %, exposing the surface to lethal UV radiation.</li>
+    <li><strong>Long‑duration GRBs</strong> result from collapses of massive stars. Although rare in the Milky Way, an event within 2 kpc would have comparable effects.</li>
+    <li><strong>Type II supernovae</strong> (core collapse) release about 10⁴⁴ J of energy. Ionizing radiation and cosmic particles could trigger radiation rain and disturb global climate if the explosion occurs at < 30 pc.</li>
+    <li><strong>Early detection:</strong> Satellites such as the <em>Fermi Gamma‑ray Space Telescope</em> monitor the sky at > 100 MeV, allowing GRB localization within seconds. For supernovae, projects like the <em>Large Synoptic Survey Telescope</em> (LSST) will detect brightness increases in nearby galaxies weeks to months in advance.</li>
+    <li><strong>Mitigation measures:</strong> No practical mitigation exists for short‑distance high‑energy events; response is limited to <em>exposure‑prevention</em> strategies (underground shelters, radiation shielding). However, risk modeling can guide settlement policies toward less vulnerable areas (e.g., underground habitats in low‑altitude regions).</li>
+</ul>
+
+<h2>3. Solar Storms and CME Events</h2>
+
+<p>The Sun emits <strong>coronal mass ejections</strong> (CMEs) that, when interacting with Earth’s magnetic field, can induce geomagnetic currents capable of destroying electrical infrastructure.</p>
+
+<ul>
+    <li><strong>Typical energy:</strong> An X10‑class CME can carry ~10²⁴ J of energy. When directed at Earth, it can generate a <em>geomagnetic storm</em> with Kp index ≥ 9.</li>
+    <li><strong>Consequences:</strong> Failures in transformers, satellites and communication networks. The Carrington event (1859) would cause economic losses equivalent to 2–3 % of global GDP if it occurred today.</li>
+    <li><strong>Monitoring:</strong> The <em>Solar and Heliospheric Observatory</em> (SOHO) and the newer <em>Solar Dynamics Observatory</em> (SDO) provide real‑time images of the solar corona. Alert networks such as the <em>Space Weather Prediction Center</em> (SWPC) issue warnings 15–30 minutes before Earth‑impacting CMEs.</li>
+    <li><strong>Practical mitigation:</strong>
+        <ul>
+            <li>Hardening of critical components (transformers, satellites) against radiation.</li>
+            <li>Preventive shutdown of vulnerable transmission lines during high‑activity alerts.</li>
+            <li>Development of a <em>resilient grid</em> with redundancy and energy storage (batteries, hydrogen).</li>
+        </ul>
+    </li>
+</ul>
+
+<h2>4. Shock Waves from Active Galactic Nuclei (AGN) and Relativistic Jets</h2>
+
+<p>Although less discussed, <strong>relativistic jets</strong> from supermassive black holes can, over millions of years, traverse the galaxy and expose Earth to intense high‑energy particle fluxes.</p>
+
+<ul>
+    <li><strong>Particle flux:</strong> A jet with power of 10⁴⁴ W passing within < 1 kpc could raise cosmic‑ray radiation enough to increase mutation rates by 10⁴‑10⁵ times.</li>
+    <li><strong>Probability:</strong> The number of active AGNs in the Milky Way is low; the chance of a jet intersecting the Solar System is <10⁻⁸ per year, but the impact would be catastrophic.</li>
+    <li><strong>Detection:</strong> Gamma‑ray telescopes such as the <em>CTA</em> (Cherenkov Telescope Array) and neutrino observatories (IceCube) can identify sudden increases of high‑energy particles indicating a nearby jet.</li>
+    <li><strong>Response strategy:</strong> Similar to GRBs – focus on underground shielding and development of evacuation protocols for exposed areas.</li>
+</ul>
+
+<h2>5. Integrated Surveillance and Response Strategies</h2>
+
+<p>To turn scientific knowledge into practical protection, an <strong>integrated space‑surveillance system</strong> that combines different observatories, predictive models and action protocols is essential.</p>
+
+<ul>
+    <li><strong>Data architecture:</strong> Centralization of NEO catalogs, CME alerts and high‑energy event data in an interoperable <em>hub</em> (e.g., <code>NASA Planetary Data System (PDS)</code>).</li>
+    <li><strong>Computational modeling:</strong> Use of <em>n‑body simulations</em> (e.g., REBOUND) to project long‑term NEO orbits, and <em>magnetohydrodynamic (MHD) models</em> to forecast CME propagation.</li>
+    <li><strong>Artificial Intelligence:</strong> Deep‑learning algorithms trained on telescope images (CNNs) can identify new NEOs with higher success rates than traditional methods.</li>
+    <li><strong>Decision protocols:</strong> A <em>risk matrix</em> framework that correlates:
+        <ul>
+            <li>Event probability (p)</li>
+            <li>Expected impact (I) – energy, affected area</li>
+            <li>Warning time (t)</li>
+        </ul>
+        The metric <code>R = p · I / t</code> guides mitigation‑resource prioritization.
+    </li>
+    <li><strong>International cooperation:</strong> The <em>International Asteroid Warning Network (IAWN)</em> and the <em>Space Mission Planning Advisory Group (SMPAG)</em> are examples of bodies that coordinate monitoring efforts, data sharing and deflection‑mission development.</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>Although most astronomical threats have extremely low probabilities on human‑life timescales, their potential magnitude — capable of altering climate, destroying global infrastructure or even extinguishing the biosphere — justifies continuous attention from the scientific community and public policy. Advances in observation techniques (survey telescopes, radiation satellites), big‑data and AI integration, as well as mitigation‑mission development, form the backbone of a <em>planetary shield</em> that could, in the future, ensure the judgment‑day clock is not triggered by an avoidable cosmic event.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #1a0f0f; border-bottom: 3px solid #1a0f0f; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #1a0f0f; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #1a0f0f; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #1a0f0f; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #1a0f0f;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #1a0f0f;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #1a0f0f;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The Post‑End: What Would Remain of Humanity?</h1><h2>The Doomsday Clock: How the World Ends – The Post‑End: What Would Remain of Humanity?</h2>
+
+<p>The concept of the <em>Doomsday Clock</em> (DDC) emerged in 1947 as a visual metaphor for humanity’s proximity to a global cataclysm, whether nuclear, biological, or environmental. Although the DDC is essentially symbolic, it reflects the convergence of measurable variables – nuclear weapons stockpiles, greenhouse‑gas emissions, biotechnological advances, and cyber vulnerabilities – which, combined, could trigger a systemic collapse. This chapter examines, in a technical and practical way, the main vectors of the world’s end, models possible destruction trajectories, and describes in detail what could remain of the human species after the point of no return.</p>
+
+<h2>1. Global Extinction Vectors – A Technical Classification</h2>
+
+<p>To understand the “post‑end,” it is essential first to categorize existential risks (ER) along three axes:</p>
+
+<ul>
+  <li><strong>Origin</strong>: Natural (asteroids, super‑volcanic eruptions) vs. Anthropogenic (nuclear, biotechnology, AI).</li>
+  <li><strong>Impact Scale</strong>: Regional (local panic) vs. Planetary (ecosystem collapse).</li>
+  <li><strong>Propagation Speed</strong>: Instantaneous (nuclear explosion) vs. Gradual (climate change).</li>
+</ul>
+
+<p>This taxonomy enables the construction of risk matrices that feed <em>scenario analysis</em> models and facilitate mitigation prioritization.</p>
+
+<h2>2. Quantitative Modeling of Catastrophic Scenarios</h2>
+
+<p>Below is a simplified Python code example that estimates the residual human population (<code>pop_residual</code>) after an extinction event with <em>n</em> phases, considering initial mortality (<code>mortality_0</code>) and the survival rate in each phase (<code>survival_rate</code>).</p>
+
+<code>
+<pre>
+import numpy as np
+
+def residual_population(initial_pop, mortality_0, survival_rate, phases):
+    """
+    Calculates the residual population after 'phases' of a catastrophic event.
+    :param initial_pop: Initial population (e.g., 8e9)
+    :param mortality_0: Instantaneous mortality in the first phase (0‑1)
+    :param survival_rate: Survival factor in subsequent phases (0‑1)
+    :param phases: Total number of phases of the event
+    :return: Residual population
+    """
+    pop = initial_pop * (1 - mortality_0)
+    for _ in range(1, phases):
+        pop *= survival_rate
+    return max(pop, 0)
+
+# Example: global nuclear explosion (mortality_0=0.8, survival_rate=0.3, phases=3)
+print(residual_population(8e9, 0.8, 0.3, 3))
+</pre>
+</code>
+
+<p>This script, although simplified, illustrates how small adjustments to parameters (e.g., better nuclear shelters or vaccine efficacy) can dramatically change the number of survivors.</p>
+
+<h2>3. Post‑End: Socio‑Ecological Structure of the Remnants</h2>
+
+<p>After the catastrophic event, what remains of humanity depends on three pillars:</p>
+
+<ol>
+  <li><strong>Refuge Infrastructure</strong> – Underground bunkers, self‑sustaining power stations, and potable‑water networks.</li>
+  <li><strong>Genetic Capital</strong> – Diversity of human genomes and beneficial microorganisms preserved in seed banks and cryobanks.</li>
+  <li><strong>Technical Knowledge</strong> – Engineering manuals, medical protocols, and critical software code.</li>
+</ol>
+
+<p>Without at least one functional representative of each pillar, the probability of civilization reconstitution tends toward zero.</p>
+
+<h2>4. Practical Analysis of Remnants by Event Type</h2>
+
+<p>The following comparative table relates the type of cataclysm to the <em>typical survivor profile</em> and the <em>immediate needs</em>:</p>
+
+<ul>
+  <li><strong>Asteroid impact (diameter &gt; 10 km)</strong>
+    <ul>
+      <li>Survivors: Small underground communities (≈ 10⁴‑10⁵ individuals).</li>
+      <li>Needs: Air filtration, food production via hydroponics, long‑term nuclear energy storage.</li>
+    </ul>
+  </li>
+  <li><strong>Total nuclear war</strong>
+    <ul>
+      <li>Survivors: High‑density bunker populations (≈ 10⁶‑10⁷ individuals).</li>
+      <li>Needs: Radioactive water decontamination, uranium recycling, HEPA‑equipped ventilation systems.</li>
+    </ul>
+  </li>
+  <li><strong>Biotechnological pandemic</strong>
+    <ul>
+      <li>Survivors: Immune individuals or those with access to broad‑spectrum antivirals (≈ 10⁸‑10⁹).</li>
+      <li>Needs: Vaccine production labs, cold‑chain logistics, autonomous quarantine protocols.</li>
+    </ul>
+  </li>
+  <li><strong>Accelerated climate collapse</strong>
+    <ul>
+      <li>Survivors: Populations adapted to extreme climates (e.g., polar or underground areas).</li>
+      <li>Needs: Low‑energy heating systems, controlled‑environment food production, water‑resource management.</li>
+    </ul>
+  </li>
+</ul>
+
+<h2>5. Resilience Strategies – What Can Be Implemented Today?</h2>
+
+<p>To maximize the fraction of <em>residual population</em> (R) and ensure species continuity, it is recommended to:</p>
+
+<ol>
+  <li><strong>Decentralize Data Storage</strong> – Use <code>IPFS</code> networks and low‑orbit satellites to replicate knowledge bases across multiple continents.</li>
+  <li><strong>Interconnected Bunker Networks</strong> – Design facilities with ≥ 50‑year self‑sustainability, equipped with experimental <code>fusion reactors</code> or long‑half‑life <code>radioisotope generators</code>.</li>
+  <li><strong>Global Genetic Diversity Bank</strong> – Expand the <em>Global Seed Vault</em> to include cryopreserved <code>human germline cells</code>, with safe‑cloning reconstitution protocols.</li>
+  <li><strong>Crisis Simulation Platforms</strong> – Employ <em>agent‑based modeling</em> (ABM) to test responses to simultaneous events (e.g., cyber‑attack + solar flare).</li>
+  <li><strong>Technical Survival Education</strong> – Incorporate into school curricula modules on <em>limited‑resource engineering</em>, <em>field biotechnology</em>, and <em>critical‑infrastructure cybersecurity</em>.</li>
+</ol>
+
+<h2>6. The Post‑End Future: Possibilities for Rebirth</h2>
+
+<p>Even if the residual population is reduced to a few tens of thousands, history shows humanity can regenerate, provided that:</p>
+
+<ul>
+  <li>There is <strong>sufficient genetic diversity</strong> to avoid inbreeding depression.</li>
+  <li>A <strong>core of technical knowledge</strong> exists that enables reconstruction of energy, agriculture, and health systems.</li>
+  <li>A <strong>cooperative governance</strong> is established, preferably based on principles of <em>systemic resilience</em> and <em>risk management</em>.</li>
+</ul>
+
+<p>Models of <em>accelerated cultural evolution</em> suggest that, in a low‑population scenario, knowledge transmission can occur over shorter time scales (generations of 15‑20 years), driving a rapid “renaissance” of critical technologies.</p>
+
+<h2>7. Technical Conclusion</h2>
+
+<p>The <strong>Doomsday Clock</strong> serves as a quantifiable alert: each minute advanced on the clock corresponds to a measurable increase in the probability of an extinction event. By mapping risk vectors, applying quantitative models, and implementing resilience strategies, we can significantly reduce the expected <em>residual population</em> (<code>R</code>) and, above all, ensure that the essential components of civilization – <em>infrastructure, genetic capital, and technical knowledge</em> – remain intact. The post‑end future, while uncertain, is not inevitably catastrophic; it depends on the decisions we make today, practical preparation, and the ability to turn knowledge into action.</div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>

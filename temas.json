@@ -1,240 +1,459 @@
 [
   {
     "id": 1,
-    "principal": "Vamos de Desenvolvimento de Software",
-    "main": "Let's talk about Software Development",
-    "nome": "Conhecendo a Programação",
-    "name": "Understanding Programming",
-    "prompt_image": "A highly detailed digital artwork representing the concept of Understanding Programming. A translucent, intricate brain is superimposed over a modern circuit board, with glowing neural pathways mirroring the golden traces on the board. Binary code (1s and 0s) and elegant snippets of Python-like syntax flow like a gentle river through both structures. Simple, clean geometric shapes—cubes, spheres, pyramids—materialize from this flow of data, assembling into a stable structure. The scene is illuminated by a soft, ethereal blue and amber light, suggesting clarity and intelligence. The style is sleek, futuristic, and conceptual, with a focus on depth, light, and symbolic connection. No text, letters, or words are visible in the image.",
-    "cor": "#102A43",
-    "cor_fonte": "#FFFFFF",
-    "subtitulo": "Do zero absoluto à maestria na lógica de construção de sistemas",
+    "principal": "Vamos de Teorias e Mistérios",
+    "main": "Let's talk about Theories and Mysteries",
+    "nome": "O Relógio do Juízo Final: Como o Mundo Acaba",
+    "name": "The Doomsday Clock: How the World Ends",
+    "icone": "bi-alarm",
+    "prompt_image": "Cinematic surrealism, giant clock face showing midnight, apocalypse landscape background, collapsing skyscrapers, dying sun, deep red and cold blue lighting, hyper-realistic, 8k, no text.",
+    "cor": "#1a0f0f",
+    "cor_fonte": "#f2f2f2",
+    "subtitulo": "As perspectivas científicas, tecnológicas e sociais sobre o fim da nossa era",
+    "feito": false,
     "estrutura": {
+      "totalItens": 7,
       "capitulos": [
         [
-          "O Universo da Programação: O Que Realmente Acontece no Processador",
-          "The Programming Universe: What Really Happens in the CPU",
+          "O Limite Populacional: O Colapso dos Recursos e a Fome Global",
+          "Population Limit: Resource Collapse and Global Hunger",
+          true
+        ],
+        [
+          "A Ascensão das Máquinas: Quando a IA Decide o Nosso Futuro",
+          "Rise of the Machines: When AI Decides Our Future",
           false
         ],
         [
-          "História da Computação: De Ada Lovelace aos Modelos de IA",
-          "History of Computing: From Ada Lovelace to AI Models",
+          "Catástrofes Naturais: O Planeta Reclamando seu Espaço",
+          "Natural Catastrophes: The Planet Reclaiming Its Space",
           false
         ],
         [
-          "Compiladores vs Interpretadores: Como o Código Vira Ação",
-          "Compilers vs Interpreters: How Code Becomes Action",
+          "O Inimigo Invisível: Pandemias e Guerras Biológicas",
+          "The Invisible Enemy: Pandemics and Biological Warfare",
           false
         ],
         [
-          "Pensamento Computacional: Decomposição e Reconhecimento de Padrões",
-          "Computational Thinking: Decomposition and Pattern Recognition",
+          "Colapso Econômico: O Dia em que o Dinheiro Perdeu o Valor",
+          "Economic Collapse: The Day Money Lost Its Value",
           false
         ],
         [
-          "Algoritmos no Mundo Real: O Passo a Passo da Lógica",
-          "Real-World Algorithms: The Step-by-Step Logic",
+          "Perspectiva Astronômica: Ameaças que Vêm do Espaço",
+          "Astronomical Perspective: Threats from Outer Space",
           false
         ],
         [
-          "Arquitetura de Dados: Variáveis, Constantes e Escopo",
-          "Data Architecture: Variables, Constants and Scope",
-          false
-        ],
-        [
-          "Tipagem Primitiva: Inteiros, Floats, Bools e Strings",
-          "Primitive Typing: Integers, Floats, Bools and Strings",
-          false
-        ],
-        [
-          "Operadores Aritméticos e a Precedência Matemática",
-          "Arithmetic Operators and Mathematical Precedence",
-          false
-        ],
-        [
-          "Lógica Booleana: A Magia das Portas AND, OR e NOT",
-          "Boolean Logic: The Magic of AND, OR and NOT Gates",
-          false
-        ],
-        [
-          "Estruturas Condicionais Simples e Compostas",
-          "Simple and Compound Conditional Structures",
-          false
-        ],
-        [
-          "Seleção Múltipla com Switch Case: Organizando Decisões",
-          "Multiple Selection with Switch Case: Organizing Decisions",
-          false
-        ],
-        [
-          "Laços de Repetição I: O Ciclo de Vida do While",
-          "Looping Structures I: The While Lifecycle",
-          false
-        ],
-        [
-          "Laços de Repetição II: Iteração Profissional com For",
-          "Looping Structures II: Professional Iteration with For",
-          false
-        ],
-        [
-          "Tratamento de Exceções: O Que Fazer Quando Tudo Dá Errado",
-          "Exception Handling: What to Do When Everything Goes Wrong",
-          false
-        ],
-        [
-          "Abstração de Funções: Reaproveitando Inteligência",
-          "Function Abstraction: Reusing Intelligence",
-          false
-        ],
-        [
-          "Parâmetros, Argumentos e Retornos de Valores",
-          "Parameters, Arguments and Value Returns",
-          false
-        ],
-        [
-          "Arrays e Listas: Gerenciando Coleções de Dados",
-          "Arrays and Lists: Managing Data Collections",
-          false
-        ],
-        [
-          "Matrizes e Vetores Multidimensionais",
-          "Matrices and Multidimensional Vectors",
-          false
-        ],
-        [
-          "Introdução à Modularização: Bibliotecas e Pacotes",
-          "Introduction to Modularization: Libraries and Packages",
-          false
-        ],
-        [
-          "O Futuro do Desenvolvedor: Roadmap e Próximos Passos",
-          "The Developer's Future: Roadmap and Next Steps",
+          "O Pós-Fim: O que Restaria da Humanidade?",
+          "The Aftermath: What Would Remain of Humanity?",
           false
         ]
-      ],
-      "totalItens": 20,
-      "estiloExibicao": "tecnico-terminal"
-    },
-    "icone": "bi-code-square",
-    "feito": true
+      ]
+    }
   },
   {
     "id": 2,
-    "principal": "Vamos de Desenvolvimento de Software",
-    "main": "Let's talk about Software Development",
-    "nome": "Dominando o Terminal Linux & Bash",
-    "name": "Mastering Linux Terminal & Bash",
-    "prompt_image": "A high-end cinematic digital art of a professional developer's workspace at night. A large, sleek monitor displays a sophisticated Linux terminal with glowing green and cyan code. A holographic projection of a Linux Tux penguin logo and abstract networking nodes floats subtly above the keyboard. The lighting is moody, dominated by deep blues and neon accents, reflecting off a polished dark desk. Intricate digital particles and data streams flow in the background, symbolizing high-speed computation and mastery. Ultra-realistic, 8k resolution, futuristic aesthetic, no text or words.",
-    "cor": "#19334C",
-    "cor_fonte": "#FFFFFF",
-    "subtitulo": "O guia definitivo para produtividade máxima e automação de sistemas",
+    "principal": "Vamos de Futuro e Tecnologia",
+    "main": "Let's talk about Future and Technology",
+    "nome": "Vida 3.0: A Fusão Humano-Máquina",
+    "name": "Life 3.0: The Human-Machine Fusion",
+    "icone": "bi-cpu",
+    "prompt_image": "Futuristic cyborg profile, human face merging with glowing circuit boards, fiber optics neural network, neon cyan and violet lighting, sleek tech aesthetic, macro detail, 8k, no text.",
+    "cor": "#0d1b2a",
+    "cor_fonte": "#e0e1dd",
+    "subtitulo": "Estamos nos tornando deuses ou apenas peças de um novo sistema?",
+    "feito": false,
     "estrutura": {
+      "totalItens": 6,
       "capitulos": [
         [
-          "A Filosofia Unix: Tudo é Arquivo",
-          "The Unix Philosophy: Everything is a File",
+          "Biohacking: O Upgrade do Corpo Humano",
+          "Biohacking: Upgrading the Human Body",
           false
         ],
         [
-          "Anatomia do Shell: Como o Terminal se Comunica com o Kernel",
-          "Shell Anatomy: How the Terminal Communicates with the Kernel",
+          "A Singularidade: O Ponto de Não Retorno",
+          "The Singularity: The Point of No Return",
           false
         ],
         [
-          "Navegação de Elite: Atalhos e Comandos de Movimentação",
-          "Elite Navigation: Shortcuts and Movement Commands",
+          "Cidades Inteligentes e o Controle Total",
+          "Smart Cities and Total Control",
           false
         ],
         [
-          "Gestão de Arquivos e Diretórios via CLI",
-          "File and Directory Management via CLI",
+          "O Fim do Trabalho: A Era da Automação Total",
+          "The End of Work: The Age of Total Automation",
           false
         ],
         [
-          "Permissões de Usuário e Grupos: O Poder do Chmod e Chown",
-          "User Permissions and Groups: The Power of Chmod and Chown",
+          "Transumanismo: A Busca pela Imortalidade Digital",
+          "Transhumanism: The Search for Digital Immortality",
           false
         ],
         [
-          "Editores de Texto de Terminal: A Guerra entre Vim e Nano",
-          "Terminal Text Editors: The War between Vim and Nano",
-          false
-        ],
-        [
-          "Pipes e Redirecionamentos: Encadeando a Inteligência dos Comandos",
-          "Pipes and Redirection: Chaining Command Intelligence",
-          false
-        ],
-        [
-          "Filtros Poderosos: Manipulação de Texto com Grep, Sed e Awk",
-          "Powerful Filters: Text Manipulation with Grep, Sed, and Awk",
-          false
-        ],
-        [
-          "Gestão de Processos: Monitorando e Finalizando Tarefas",
-          "Process Management: Monitoring and Killing Tasks",
-          false
-        ],
-        [
-          "O Sistema de Arquivos Linux: Hierarquia e Montagem",
-          "The Linux File System: Hierarchy and Mounting",
-          false
-        ],
-        [
-          "Redes no Terminal: Diagnóstico e Transferência de Dados",
-          "Networking on the Terminal: Diagnosis and Data Transfer",
-          false
-        ],
-        [
-          "SSH e Acesso Remoto: Administrando Servidores com Segurança",
-          "SSH and Remote Access: Securely Managing Servers",
-          false
-        ],
-        [
-          "Introdução ao Bash Scripting: Automatizando o Repetitivo",
-          "Introduction to Bash Scripting: Automating the Repetitive",
-          false
-        ],
-        [
-          "Variáveis e Estruturas de Dados em Scripts Bash",
-          "Variables and Data Structures in Bash Scripts",
-          false
-        ],
-        [
-          "Lógica de Programação no Shell: If, Case e Loops",
-          "Programming Logic in the Shell: If, Case, and Loops",
-          false
-        ],
-        [
-          "Funções e Modularização de Scripts Profissionais",
-          "Functions and Modularization of Professional Scripts",
-          false
-        ],
-        [
-          "Agendamento de Tarefas com Cron e Anacron",
-          "Task Scheduling with Cron and Anacron",
-          false
-        ],
-        [
-          "Gestão de Pacotes e Repositórios: Apt, Yum e Pacman",
-          "Package and Repository Management: Apt, Yum, and Pacman",
-          false
-        ],
-        [
-          "Customização Extrema: Aliases, Funções de Shell e .bashrc",
-          "Extreme Customization: Aliases, Shell Functions, and .bashrc",
-          false
-        ],
-        [
-          "Segurança no Terminal: Hardening e Melhores Práticas",
-          "Terminal Security: Hardening and Best Practices",
+          "Ética no Novo Mundo: Quem Define as Regras?",
+          "Ethics in the New World: Who Defines the Rules?",
           false
         ]
-      ],
-      "totalItens": 20,
-      "estiloExibicao": "tecnico-terminal"
-    },
-    "icone": "bi-terminal-fill",
-    "feito": false
+      ]
+    }
+  },
+  {
+    "id": 3,
+    "principal": "Vamos de Exploração Espacial",
+    "main": "Let's talk about Space Exploration",
+    "nome": "Exoplanetas: A Nossa Próxima Casa",
+    "name": "Exoplanets: Our Next Home",
+    "icone": "bi-rocket-takeoff",
+    "prompt_image": "Breathtaking exoplanet surface view, two moons in indigo sky, bioluminescent magenta plants, futuristic geodesic domes colony, deep space nebulae, cinematic wide shot, 8k, no text.",
+    "cor": "#1b263b",
+    "cor_fonte": "#ffffff",
+    "subtitulo": "A jornada da humanidade para além do sistema solar",
+    "feito": false,
+    "estrutura": {
+      "totalItens": 6,
+      "capitulos": [
+        [
+          "A Busca por Marte: O Primeiro Passo",
+          "The Search for Mars: The First Step",
+          false
+        ],
+        [
+          "Terráqueos em Outros Sóis: Candidatos à Colonização",
+          "Earthlings in Other Suns: Colonization Candidates",
+          false
+        ],
+        [
+          "A Física das Viagens Interestelares: Buracos de Minhoca e Dobra",
+          "Interstellar Travel Physics: Wormholes and Warp Drive",
+          false
+        ],
+        [
+          "O Paradoxo de Fermi: Por que Ainda Estamos Sozinhos?",
+          "The Fermi Paradox: Why Are We Still Alone?",
+          false
+        ],
+        [
+          "Astrobiologia: Como Seriam os Alienígenas Reais?",
+          "Astrobiology: What Would Real Aliens Look Like?",
+          false
+        ],
+        [
+          "O Futuro da Terra como Planeta de Origem",
+          "The Future of Earth as the Home Planet",
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "id": 4,
+    "principal": "Vamos de Psicologia Aplicada",
+    "main": "Let's talk about Applied Psychology",
+    "nome": "A Arte da Engenharia Social",
+    "name": "The Art of Social Engineering",
+    "icone": "bi-person-bounding-box",
+    "prompt_image": "Digital art of social influence, human silhouette made of golden clockwork, glowing strings connecting people, charcoal background, dramatic spotlight, conceptual symbolism, high contrast, no text.",
+    "cor": "#0F172A",
+    "cor_fonte": "#F8FAFC",
+    "subtitulo": "Como ler mentes, influenciar decisões e entender a lógica invisível das pessoas",
+    "feito": false,
+    "estrutura": {
+      "totalItens": 7,
+      "capitulos": [
+        [
+          "Linguagem Corporal: O Que o Corpo Fala Antes da Boca",
+          "Body Language: What the Body Says Before the Mouth",
+          false
+        ],
+        [
+          "Gatilhos Mentais: As Chaves de Acesso ao Subconsciente",
+          "Mental Triggers: Access Keys to the Subconscious",
+          false
+        ],
+        [
+          "A Neurociência da Persuasão e do Carisma",
+          "The Neuroscience of Persuasion and Charisma",
+          false
+        ],
+        [
+          "Detecção de Mentiras: Sinais de Incongruência",
+          "Lie Detection: Signs of Incongruity",
+          false
+        ],
+        [
+          "Engenharia Social no Dia a Dia: Proteção e Aplicação",
+          "Social Engineering in Daily Life: Protection and Application",
+          false
+        ],
+        [
+          "A Psicologia das Cores e dos Ambientes",
+          "The Psychology of Colors and Environments",
+          false
+        ],
+        [
+          "Ética e Manipulação: O Limite Invisível",
+          "Ethics and Manipulation: The Invisible Boundary",
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "id": 5,
+    "principal": "Vamos de Saúde e Biohacking",
+    "main": "Let's talk about Health and Biohacking",
+    "nome": "Protocolo de Longevidade: Células Imortais",
+    "name": "Longevity Protocol: Immortal Cells",
+    "icone": "bi-capsule",
+    "prompt_image": "Microscopic view of golden DNA strand, glowing cells, energy sparks, medical biotech aesthetic, deep teal background, volumetric lighting, hyper-realistic biology, 8k, no text.",
+    "cor": "#064E3B",
+    "cor_fonte": "#ECFDF5",
+    "subtitulo": "A ciência para reverter a idade biológica e otimizar o corpo humano",
+    "feito": false,
+    "estrutura": {
+      "totalItens": 6,
+      "capitulos": [
+        [
+          "A Biologia do Envelhecimento: Por que Morremos?",
+          "The Biology of Aging: Why Do We Die?",
+          false
+        ],
+        [
+          "Alimentação Estratégica: Nutrientes que Ativam a Autofagia",
+          "Strategic Nutrition: Nutrients that Activate Autophagy",
+          false
+        ],
+        [
+          "O Poder do Sono Profundo na Reparação Celular",
+          "The Power of Deep Sleep in Cellular Repair",
+          false
+        ],
+        [
+          "Suplementação Avançada: Do Magnésio aos Nootrópicos",
+          "Advanced Supplementation: From Magnesium to Nootropics",
+          false
+        ],
+        [
+          "Exposição ao Frio e Calor: Hormese e Resistência",
+          "Cold and Heat Exposure: Hormesis and Resilience",
+          false
+        ],
+        [
+          "Mente Sã, Corpo Eterno: O Impacto do Estresse nos Telômeros",
+          "Sound Mind, Eternal Body: The Impact of Stress on Telomeres",
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "id": 6,
+    "principal": "Vamos de Geopolítica e Poder",
+    "main": "Let's talk about Geopolitics and Power",
+    "nome": "A Economia das Sombras: Quem Manda no Mundo?",
+    "name": "The Shadow Economy: Who Runs the World?",
+    "icone": "bi-bank",
+    "prompt_image": "Dark boardroom silhouette, high skyscraper window, global gold data map background, holographic spinning globe, financial flow lines, moody lighting, black and gold palette, cinematic, no text.",
+    "cor": "#111827",
+    "cor_fonte": "#D1D5DB",
+    "subtitulo": "As forças invisíveis que moldam o mercado, as guerras e o seu bolso",
+    "feito": false,
+    "estrutura": {
+      "totalItens": 7,
+      "capitulos": [
+        [
+          "A História Oculta do Sistema Bancário Moderno",
+          "The Hidden History of the Modern Banking System",
+          false
+        ],
+        [
+          "Criptomoedas vs CBDCs: A Batalha pela Liberdade Financeira",
+          "Cryptocurrencies vs CBDCs: The Battle for Financial Freedom",
+          false
+        ],
+        [
+          "Paraísos Fiscais e a Rota do Dinheiro Invisível",
+          "Tax Havens and the Invisible Money Trail",
+          false
+        ],
+        [
+          "O Papel da Tecnologia na Vigilância Global",
+          "The Role of Technology in Global Surveillance",
+          false
+        ],
+        [
+          "Recursos Naturais: A Verdadeira Razão dos Conflitos",
+          "Natural Resources: The Real Reason for Conflicts",
+          false
+        ],
+        [
+          "A Quarta Revolução Industrial e o Grande Reset",
+          "The Fourth Industrial Revolution and the Great Reset",
+          false
+        ],
+        [
+          "Como se Proteger em um Cenário de Instabilidade Global",
+          "How to Protect Yourself in a Global Instability Scenario",
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "id": 7,
+    "principal": "Vamos de Arqueologia Proibida",
+    "main": "Let's talk about Forbidden Archaeology",
+    "nome": "Gênese Proibida: O Que a História Esconde",
+    "name": "Forbidden Genesis: What History Hides",
+    "icone": "bi-compass",
+    "prompt_image": "Ancient advanced city ruins in jungle, giant stone monoliths with glowing gold symbols, massive weathered pyramid, twilight sky with constellations, cinematic sunbeams, archaeological mystery, 8k, no text.",
+    "cor": "#1C1917",
+    "cor_fonte": "#E7E5E4",
+    "subtitulo": "Evidências de tecnologias ancestrais e o mistério do apagão histórico",
+    "feito": false,
+    "estrutura": {
+      "totalItens": 7,
+      "capitulos": [
+        [
+          "O Mistério do Dilúvio: Mitos ou Memória Global?",
+          "The Flood Mystery: Myths or Global Memory?",
+          false
+        ],
+        [
+          "Tecnologia de Pedra: Como Cortar Granito com Som",
+          "Stone Technology: How to Cut Granite with Sound",
+          false
+        ],
+        [
+          "Mapas de Outras Eras: O Enigma de Piri Reis",
+          "Maps from Other Eras: The Piri Reis Enigma",
+          false
+        ],
+        [
+          "A Cidade Perdida na Amazônia: O Real Eldorado",
+          "The Lost City in the Amazon: The Real El Dorado",
+          false
+        ],
+        [
+          "Astronomia Ancestral: Alinhamentos Impossíveis",
+          "Ancient Astronomy: Impossible Alignments",
+          false
+        ],
+        [
+          "O Grande Apagão: Por que a História foi Reescrita?",
+          "The Great Blackout: Why Was History Rewritten?",
+          false
+        ],
+        [
+          "O Que nos Espera: O Ciclo de Catástrofes se Repete?",
+          "What Awaits Us: Does the Catastrophe Cycle Repeat?",
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "id": 8,
+    "principal": "Vamos de Alta Performance",
+    "main": "Let's talk about High Performance",
+    "nome": "Cérebro Sem Limites: O Fim da Névoa Mental",
+    "name": "Limitless Brain: The End of Brain Fog",
+    "icone": "bi-lightning-charge",
+    "prompt_image": "Human head silhouette, brain made of vibrant galaxy and electric neural connections, luminous waves of light, deep navy blue background, sharp focus, cognitive peak performance art, 8k, no text.",
+    "cor": "#0F172A",
+    "cor_fonte": "#60A5FA",
+    "subtitulo": "Hackeando o foco, a memória e a dopamina na era da distração",
+    "feito": false,
+    "estrutura": {
+      "totalItens": 6,
+      "capitulos": [
+        [
+          "A Ciência do Fluxo: Entrando no Estado de Deep Work",
+          "The Science of Flow: Entering the Deep Work State",
+          false
+        ],
+        [
+          "Nootrópicos Naturais: Vitaminas para um QI Otimizado",
+          "Natural Nootropics: Vitamins for an Optimized IQ",
+          false
+        ],
+        [
+          "Desintoxicação de Dopamina: Reativando o Prazer de Criar",
+          "Dopamine Detox: Reactivating the Pleasure of Creation",
+          false
+        ],
+        [
+          "Neuroplasticidade: Como Moldar seu Cérebro em Qualquer Idade",
+          "Neuroplasticity: How to Shape Your Brain at Any Age",
+          false
+        ],
+        [
+          "O Inimigo Oculto: Alimentos que Causam Inflamação Cerebral",
+          "The Hidden Enemy: Foods that Cause Brain Inflammation",
+          false
+        ],
+        [
+          "Protocolo de Foco Absoluto: 4 Horas de Trabalho em 1",
+          "Absolute Focus Protocol: 4 Hours of Work in 1",
+          false
+        ]
+      ]
+    }
+  },
+  {
+    "id": 9,
+    "principal": "Vamos de Guia de Sobrevivência",
+    "main": "Let's talk about Survival Guide",
+    "nome": "O Manual do Sobrevivente Urbano",
+    "name": "The Urban Survivor Manual",
+    "icone": "bi-shield-lock",
+    "prompt_image": "Tactical survival gear on wet dark asphalt, compass and flashlight, blurred city blackout background with fire embers, moody olive green and emergency orange lighting, gritty realism, 8k, no text.",
+    "cor": "#14532D",
+    "cor_fonte": "#F0FDF4",
+    "subtitulo": "Como proteger sua família e seus bens em cenários de crise real",
+    "feito": false,
+    "estrutura": {
+      "totalItens": 7,
+      "capitulos": [
+        [
+          "Os Primeiros 15 Minutos: O Que Fazer no Caos",
+          "The First 15 Minutes: What to Do in Chaos",
+          false
+        ],
+        [
+          "Kit de Emergência: O Que Realmente Salva Vidas",
+          "Emergency Kit: What Really Saves Lives",
+          false
+        ],
+        [
+          "Segurança Residencial: Tornando sua Casa uma Fortaleza",
+          "Home Security: Making Your Home a Fortress",
+          false
+        ],
+        [
+          "Comunicação Fora da Rede: Quando a Internet Cai",
+          "Off-Grid Communication: When the Internet Goes Down",
+          false
+        ],
+        [
+          "Defesa Pessoal e Mentalidade de Combate",
+          "Self-Defense and Combat Mindset",
+          false
+        ],
+        [
+          "Armazenamento Estratégico de Alimentos e Água",
+          "Strategic Food and Water Storage",
+          false
+        ],
+        [
+          "A Arte da Evasão: Como Sair da Cidade com Segurança",
+          "The Art of Evasion: How to Leave the City Safely",
+          false
+        ]
+      ]
+    }
   }
 ]

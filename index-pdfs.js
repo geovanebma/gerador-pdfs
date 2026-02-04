@@ -101,6 +101,28 @@ function marcarComoConcluido(id) {
     }
 }
 
+function ajustarTextoCapa(texto, tipo) {
+    const len = texto.length;
+    let fontSize, tag;
+
+    if (tipo === 'principal') {
+        // Lógica para o campo "Vamos de..."
+        tag = 'h2';
+        if (len <= 20) fontSize = '3.5rem';
+        else if (len <= 30) fontSize = '3.2rem';
+        else { fontSize = '3rem'; tag = 'h3'; } // Reduz a tag se for muito longo
+    } else {
+        // Lógica para o Título do Ebook
+        tag = 'h3';
+        if (len <= 20) fontSize = '2.5rem';
+        else if (len <= 30) fontSize = '2.2rem';
+        else if (len <= 45) fontSize = '2rem';
+        else { fontSize = '3rem'; tag = 'h4'; } // Títulos muito longos
+    }
+
+    return { fontSize, tag };
+}
+
 async function planejarEstruturaDetalhada(principal, temaNome) {
     const prompt = `
         Aja como um autor especialista em e-books. 
@@ -135,36 +157,48 @@ async function planejarEstruturaDetalhada(principal, temaNome) {
 }
 
 async function escreverTopicoProfundo(temaPrincipal, subtema, topicoEspecifico) {
-    if (topicoEspecifico) {
-        var prompt = `
-            Você está escrevendo uma seção de um e-book profissional sobre "${temaPrincipal} - ${subtema}".
-            Agora, foque EXCLUSIVAMENTE em escrever sobre o subtópico: "${topicoEspecifico}".
-            
-            REGRAS:
-            - Seja técnico, profundo e traga informações práticas.
-            - Mínimo de 600 palavras para este tópico específico.
-            - Use HTML para formatar (<h2> para o título do tópico, <p> para parágrafos, <ul> para listas).
-            - Não faça introduções genéricas ao e-book, vá direto ao assunto do tópico.
-        `;
-    } else {
-        var prompt = `
-            Você está escrevendo uma seção de um e-book profissional sobre "${temaPrincipal} - ${subtema}", agora, foque EXCLUSIVAMENTE em escrever sobre esse capítulo.
+    const prompt = topicoEspecifico 
+        ? `Você está escrevendo uma seção de um e-book profissional sobre "${temaPrincipal} - ${subtema}". Foque EXCLUSIVAMENTE em escrever sobre o subtópico: "${topicoEspecifico}". REGRAS: - Seja técnico, profundo e praga informações práticas. - Mínimo de 600 palavras. - Use HTML (<h2>, <p>, <ul>, <code>).`
+        : `Você está escrevendo uma seção de um e-book profissional sobre "${temaPrincipal} - ${subtema}". Foque EXCLUSIVAMENTE em escrever sobre esse capítulo. REGRAS: - Seja técnico, profundo e traga informações práticas. - Mínimo de 600 palavras. - Use HTML (<h2>, <p>, <ul>, <code>).`;
 
-            REGRAS:
-            - Seja técnico, profundo e traga informações práticas.
-            - Mínimo de 600 palavras para este tópico específico.
-            - Use HTML para formatar (<h2> para o título do tópico, <p> para parágrafos, <ul> para listas).
-            - Não faça introduções genéricas ao e-book, vá direto ao assunto do tópico.
-        `;
+    let sucesso = false;
+    let resultado = "";
+
+    while (!sucesso) {
+        try {
+            const response = await groq.chat.completions.create({
+                model: "openai/gpt-oss-120b",
+                messages: [{ role: "user", content: prompt }],
+                temperature: 0.8,
+            });
+
+            resultado = response.choices[0].message.content;
+            sucesso = true; // Sai do loop se der certo
+        } catch (error) {
+            if (error.status === 429) {
+                // Extrai o tempo de espera da mensagem ou usa um padrão de 60 segundos
+                console.log(`\n⏳ [RATE LIMIT] Limite atingido no capítulo: ${topicoEspecifico || subtema}`);
+                
+                // Pega o tempo sugerido pelo erro (retry-after) ou espera 90 segundos por segurança
+                const tempoEsperaSegundos = error.headers && error.headers['retry-after'] 
+                    ? parseInt(error.headers['retry-after']) + 5 
+                    : 90;
+
+                console.warn(`🕒 Aguardando ${tempoEsperaSegundos} segundos para liberar tokens... Não feche o terminal.`);
+                
+                // Faz o script "dormir"
+                await new Promise(resolve => setTimeout(resolve, tempoEsperaSegundos * 1000));
+                
+                console.log("🚀 Retomando geração...");
+            } else {
+                // Se for outro erro (ex: internet caida), tenta de novo em 10s
+                console.error("❌ Erro de conexão ou API:", error.message);
+                await new Promise(resolve => setTimeout(resolve, 10000));
+            }
+        }
     }
 
-    const response = await groq.chat.completions.create({
-        model: "openai/gpt-oss-120b",
-        messages: [{ role: "user", content: prompt }],
-        temperature: 0.8,
-    });
-
-    return response.choices[0].message.content;
+    return resultado;
 }
 
 async function traduzirParaIngles(conteudo) {
@@ -191,17 +225,31 @@ async function generateImage(titulo, prompt, HF_TOKEN) {
     const hf = new HfInference(HF_TOKEN);
     
     try {
-        const fileName = `${titulo.toLowerCase().replace(/\s+/g, '-')}.png`;
-        // const prompt = `Can you generete a image that represents "${titulo}" without phases, text etc, just the representation.`;
-
+        const fileName = `${titulo.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.png`;
+        
         console.log(`🚀 Tentando gerar via Serverless API: ${titulo}...`);
 
-        const blob = await hf.textToImage({
-            model: "black-forest-labs/FLUX.1-schnell", 
-            inputs: prompt,
-        });
+        // const blob = await hf.textToImage({
+        //     model: "stabilityai/stable-diffusion-xl-base-1.0",
+        //     inputs: prompt,
+        //     provider: "hf-inference"
+        // });
 
-        const buffer = Buffer.from(await blob.arrayBuffer());
+        const response = await fetch(
+            "https://api.cloudflare.com/client/v4/accounts/ACCOUNT_ID/ai/run/@cf/stabilityai/stable-diffusion-xl-base-1.0",
+            {
+                method: "POST",
+                headers: {
+                "Authorization": "Bearer CLOUDFLARE_API_TOKEN",
+                "Content-Type": "application/json"
+                },
+                body: JSON.stringify({ prompt })
+            }
+        );
+
+        console.log(response);
+
+        const buffer = Buffer.from(await response.arrayBuffer());
 
         if (!fs.existsSync('output')) fs.mkdirSync('output');
         fs.writeFileSync(`output/${fileName}`, buffer);
@@ -215,23 +263,51 @@ async function generateImage(titulo, prompt, HF_TOKEN) {
 }
 
 async function gerarImagem(titulo, promptImagem) {
-    const fileName = `${titulo.toLowerCase()}.png`;
+    const fileName = `${titulo.replace(/[^a-z0-9]/gi, '_').toLowerCase()}.png`;
+    const promptCurto = encodeURIComponent(promptImagem.substring(0, 500));
+    
+    const apis = [
+        {
+            nome: "Pixart AI",
+            url: `https://pixart.pollinations.ai/prompt/${promptCurto}?width=1024&height=1024`
+        },
+        {
+            nome: "Unsplash (Fallback Real)",
+            // Se as IAs falharem, busca uma imagem real excelente baseada no título
+            url: `https://source.unsplash.com/1024x1024/?${encodeURIComponent(titulo)},technology`
+        },
+        {
+            nome: "Pollinations AI 2",
+            url: `https://image.pollinations.ai/prompt/${promptCurto}?width=1024&height=1024&nologo=true&seed=${Math.floor(Math.random() * 1000)}`
+        }
+    ];
 
-    // const promptImagem = `Ultra realistic photograph of the following topic: ${titulo}`;
-    // const promptImagem = `Can you generete a image that represents "${titulo}" without phases, text etc, just the realistic representation.`;
+    for (const api of apis) {
+        try {
+            console.log(`🎨 Tentando gerar via ${api.nome}...`);
+            
+            const response = await axios({
+                method: 'get',
+                url: api.url,
+                responseType: 'arraybuffer',
+                timeout: 30000, // 30 segundos por tentativa
+                headers: { 'User-Agent': 'Mozilla/5.0' }
+            });
 
-    const encodedPrompt = encodeURIComponent(promptImagem);
-    const url = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&nologo=true&seed=${Math.floor(Math.random() * 1000)}`;
-    // const url = `https://image.pollinations.ai/prompt/${encodedPrompt}?width=1024&height=1024&model=flux&nologo=true&seed=${Math.floor(Math.random() * 1000)}`;
-
-    try {
-        const response = await axios.get(url, { responseType: 'arraybuffer', timeout: 400000 });
-        fs.writeFileSync(`output/${fileName}`, response.data);
-        return fileName;
-    } catch (error) {
-        console.error("❌ Erro na Pollinations AI:", error.message);
-        return null;
+            if (response.data && response.data.byteLength > 0) {
+                if (!fs.existsSync('output')) fs.mkdirSync('output');
+                fs.writeFileSync(`output/${fileName}`, response.data);
+                console.log(`✅ Sucesso via ${api.nome}: output/${fileName}`);
+                return fileName;
+            }
+        } catch (error) {
+            console.warn(`⚠️ ${api.nome} falhou (Status: ${error.response?.status || 'Timeout'})...`);
+            // Continua para a próxima iteração do loop
+        }
     }
+
+    console.error("❌ Todas as APIs de imagem falharam.");
+    return null;
 }
 
 async function gerarIntroducaoDinamica(tema, conteudosAcumulados) {
@@ -347,7 +423,7 @@ async function gerarPDF(tema, capitulosAcumulados, idioma = "pt", pastaTema, ima
     const tituloCapa = (idioma == "pt") ? tema.nome : tema.name;
     const icone = tema.icone;
     const sufixo = idioma === "en" ? "english" : "portugues";
-    const nomeArquivo = `${tema.nome.replace(/[:*?"<>|/\\]/g, '-')}-${sufixo}.pdf`;
+    const nomeArquivo = `${tema.nome.replace(/[:*?"<>|/\\]/g, '-')}-${sufixo}`;
     const outputPath = path.join(pastaTema, nomeArquivo);
     const caminhosTemporarios = [];
     const dadosParaIndice = [];
@@ -577,6 +653,10 @@ async function gerarPDF(tema, capitulosAcumulados, idioma = "pt", pastaTema, ima
             .topicos-div h1, h2, h3, h4, h5, h6, strong {
                 color: ${corTema};
             }
+
+            .topicos-div h2 {
+                margin-top: 40px;
+            }
         </style>
     `;
 
@@ -685,18 +765,22 @@ async function gerarPDF(tema, capitulosAcumulados, idioma = "pt", pastaTema, ima
             </div>
         </section>`;
 
+    const estiloPrincipal = ajustarTextoCapa(principalCapa, 'principal');
+    const estiloTitulo = ajustarTextoCapa(tituloCapa, 'titulo');
+
     const htmlCapa = `
             <div class="cover-full" style="width:100%; background-color:${corTema};">
                 <div style="position:relative; width:100%; height:350px; overflow:hidden;">
                     <img src="fundo-capa.png"style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;">
                     <div style="position:absolute;top:0;left:0;right:0;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;z-index:2;">
-                        <h2 class="cover-script" style="margin-top:-35px; font-size:3rem;color:#333; font-family: 'Kaushan Script', cursive;">
+                        <${estiloPrincipal.tag} class="cover-script" style="margin-top:-15px; font-size:${estiloPrincipal.fontSize} !important; color:#333; font-family: 'Kaushan Script', cursive; line-height: 1.1;">
                             ${principalCapa}
-                        </h2>
-                        <h3 style="font-size:3rem;color:#FFF; font-family: 'Roboto', sans-serif;padding:5px 20px;border-radius:50px;background-color:#333;margin-top:-45px;">
+                        </${estiloPrincipal.tag}>
+                        
+                        <${estiloTitulo.tag} style="font-size:${estiloTitulo.fontSize} !important; color:#FFF; font-family: 'Roboto', sans-serif; padding:5px 20px; border-radius:50px; background-color:#333; margin-top:-15px; display: inline-block; max-width: 90%;">
                             ${tituloCapa}
-                        </h3>
-                        <i class="bi ${icone}" style="font-size:20px;color:#333;border-radius:50px;padding:5px 40px;margin-top:-50px;background-color:#FFF;"></i>
+                        </${estiloTitulo.tag}>
+                        <i class="bi ${icone}" style="font-size:20px;color:#333;border-radius:50px;padding:5px 40px;margin-top:-30px;background-color:#FFF;"></i>
                     </div>
                 </div>
                 <div style="position:relative;margin-top:100px;">
@@ -816,44 +900,159 @@ async function executarGeracaoProfunda(tema, capituloNome, precisaSubtopicos) {
     return htmlCapitulo;
 }
 
+// Salva o progresso atual do tema para não perder dados se o script cair
+function salvarProgressoLocal(temaId, dados) {
+    const backupPath = path.join('output', `progresso_tema_${temaId}.json`);
+    fs.writeFileSync(backupPath, JSON.stringify(dados, null, 2));
+}
+
+// Carrega o progresso se ele existir
+function carregarProgressoLocal(temaId) {
+    const backupPath = path.join('output', `progresso_tema_${temaId}.json`);
+    if (fs.existsSync(backupPath)) {
+        return JSON.parse(fs.readFileSync(backupPath, 'utf8'));
+    }
+    return { pt: [], en: [] };
+}
+
+// Atualiza o arquivo temas.json marcando o capítulo como concluído (true)
+function marcarCapituloConcluido(temaId, indiceCapitulo) {
+    const temasPath = './temas.json'; // Ajuste o caminho se necessário
+    const temas = JSON.parse(fs.readFileSync(temasPath, 'utf8'));
+    
+    const temaIndex = temas.findIndex(t => t.id === temaId);
+    if (temaIndex !== -1) {
+        temas[temaIndex].estrutura.capitulos[indiceCapitulo][2] = true;
+        fs.writeFileSync(temasPath, JSON.stringify(temas, null, 2));
+    }
+}
+
+async function gerarReferenciasIA(tema, idioma = "pt") {
+    const prompt = `
+        Aja como um bibliotecário e pesquisador. 
+        Gere uma lista de 5 referências bibliográficas (livros, artigos ou sites de autoridade) que dariam suporte ao e-book "${tema.principal} - ${tema.nome}".
+        
+        REGRAS:
+        - O título da seção deve ser "${idioma === 'pt' ? 'Referências' : 'References'}".
+        - Use o formato de citação padrão.
+        - Para cada item, invente um link fictício mas realista que aponte para domínios como .org, .edu ou .gov.
+        - Retorne APENAS o conteúdo em HTML usando <h2> para o título e <ul>/<li> para a lista.
+        - Idioma: ${idioma === 'pt' ? 'Português' : 'Inglês'}.
+    `;
+
+    try {
+        const response = await groq.chat.completions.create({
+            model: "openai/gpt-oss-120b",
+            messages: [{ role: "user", content: prompt }],
+            temperature: 0.6,
+        });
+
+        return response.choices[0].message.content.replace(/```html|```/g, "").trim();
+    } catch (error) {
+        console.error("❌ Erro ao gerar referências:", error.message);
+        return `<h2>${idioma === 'pt' ? 'Referências' : 'References'}</h2><ul><li>Wikipedia.org</li><li>Britannica.com</li></ul>`;
+    }
+}
+
 async function processarTema(tema) {
     console.log(`\n🚀 Iniciando processamento do Tema: ${tema.nome} (ID: ${tema.id})`);
-    const imagemCapa = await gerarImagem(tema.name, tema.prompt_image);
-    // const imagemCapa = await generateImage(tema.name, tema.prompt_image, HF_TOKEN);
+    
+    // 1. Tenta carregar progresso anterior
+    let progresso = carregarProgressoLocal(tema.id);
+    const capitulosAcumuladosPT = progresso.pt;
+    const capitulosAcumuladosEN = progresso.en;
+
+    var imagemCapa = null
+
+    while (!imagemCapa) {
+        // imagemCapa = await gerarImagem(tema.name, tema.prompt_image);
+        imagemCapa = await generateImage(tema.name, tema.prompt_image, HF_TOKEN);
+    }
 
     const blueprint = tema.estrutura;
 
-    const capitulosAcumuladosPT = [];
-    const capitulosAcumuladosEN = [];
-
     for (let i = 1; i <= blueprint.totalItens; i++) {
-        const [capituloNome, chapterName, precisaSubtopicos] = blueprint.capitulos[i - 1];
+        const [capituloNome, chapterName, jaConcluido] = blueprint.capitulos[i - 1];
 
-        const htmlPT = await executarGeracaoProfunda(tema, capituloNome, precisaSubtopicos);
-        capitulosAcumuladosPT.push({ titulo: capituloNome, html: htmlPT });
+        // 2. Se o capítulo já está marcado como true no JSON, nós pulamos a geração
+        if (jaConcluido && capitulosAcumuladosPT[i-1]) {
+            console.log(` ✅ Pulando (já concluído): ${capituloNome}`);
+            continue; 
+        }
 
-        const tituloEN = chapterName;
+        console.log(`\n ✍️ Gerando capítulo ${i}/${blueprint.totalItens}: ${capituloNome}`);
+
+        // 3. Gera Português (com a lógica de espera que passamos antes)
+        const htmlPT = await executarGeracaoProfunda(tema, capituloNome, false);
+        capitulosAcumuladosPT[i-1] = { titulo: capituloNome, html: htmlPT };
+
+        // 4. Traduz para Inglês
+        console.log(` 🌐 Traduzindo para Inglês...`);
         const htmlEN = await traduzirParaIngles(htmlPT);
-        capitulosAcumuladosEN.push({ titulo: tituloEN, html: htmlEN });
+        capitulosAcumuladosEN[i-1] = { titulo: chapterName, html: htmlEN };
+
+        // 5. Salva backup imediato para o caso de queda
+        salvarProgressoLocal(tema.id, { pt: capitulosAcumuladosPT, en: capitulosAcumuladosEN });
+        
+        // 6. Marca no seu temas.json principal como concluído
+        marcarCapituloConcluido(tema.id, i - 1);
     }
 
-    const pastaTema = criarPastaTema(tema);
+    console.log(` 📚 Gerando bibliografia e referências...`);
+    const refsPT = await gerarReferenciasIA(tema, "pt");
+    const refsEN = await gerarReferenciasIA(tema, "en");
 
+    capitulosAcumuladosPT.push({ titulo: "Referências", html: refsPT });
+    capitulosAcumuladosEN.push({ titulo: "References", html: refsEN });
+
+    // 7. Finalização do PDF
+    const pastaTema = criarPastaTema(tema);
     await gerarPDF(tema, capitulosAcumuladosPT, "pt", pastaTema, imagemCapa);
     await gerarPDF({ ...tema, nome: tema.name }, capitulosAcumuladosEN, "en", pastaTema, imagemCapa);
 
-    marcarComoConcluido(tema.id);
+    if (imagemCapa) {
+        const caminhoAntigo = path.join('output', imagemCapa);
+        const novoCaminho = path.join(pastaTema, imagemCapa);
+        
+        try {
+            if (fs.existsSync(caminhoAntigo)) {
+                fs.renameSync(caminhoAntigo, novoCaminho);
+                console.log(`📸 Imagem da capa movida para: ${pastaTema}`);
+            }
+        } catch (err) {
+            console.error("❌ Erro ao mover a imagem da capa:", err.message);
+        }
+    }
 
+    // 8. Limpa o arquivo de backup após concluir tudo
+    const backupPath = path.join('output', `progresso_tema_${tema.id}.json`);
+    if (fs.existsSync(backupPath)) fs.unlinkSync(backupPath);
+
+    marcarComoConcluido(tema.id);
     console.log(`\n✔ PDF ${tema.nome} finalizado com sucesso!`);
 }
 
 (async () => {
-    const tema = buscarProximoTema();
+    try {
+        const dados = fs.readFileSync('temas.json', 'utf8');
+        let dados_parse = JSON.parse(dados);
 
-    if (!tema) {
-        console.log("✅ Todos os temas do arquivo JSON já foram concluídos!");
-        return;
-    }else{
-        processarTema(tema)
+        console.log(`🚀 Iniciando processamento de ${dados_parse.length} temas...`);
+
+        for (let index = 0; index < dados_parse.length; index++) {
+            // Busca sempre o próximo disponível para garantir sincronia com o arquivo físico
+            const tema = buscarProximoTema();
+        
+            if (!tema) {
+                console.log("✅ Todos os temas do arquivo JSON já foram concluídos!");
+                break; // Use break para sair do loop corretamente
+            } else {
+                // O 'await' aqui é a chave: ele trava o loop até o PDF ser finalizado
+                await processarTema(tema); 
+                console.log(`\n--- [${index + 1}/${dados_parse.length}] Tema concluído com sucesso ---\n`);
+            }
+        }
+    } catch (error) {
+        console.error("❌ Erro crítico no loop de execução:", error.message);
     }
 })();

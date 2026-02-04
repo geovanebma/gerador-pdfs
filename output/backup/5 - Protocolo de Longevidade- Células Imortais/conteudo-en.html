@@ -1,0 +1,3045 @@
+<html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #064E3B; border-bottom: 3px solid #064E3B; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #064E3B; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #064E3B; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #064E3B; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #064E3B;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #064E3B;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #064E3B;
+            }
+        </style>
+    
+    <style>
+        @page {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Adicionado &display=swap no final das URLs */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+        /* Importação dos Ícones Bootstrap via CDN */
+        @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+        
+        body { 
+            font-family: 'Roboto', sans-serif !important; 
+            margin: 0; 
+            padding: 0;
+            color: #333;
+        }
+
+        .cover-script {
+            font-family: 'Kaushan Script', cursive !important;
+            // font-weight: 400;
+        }
+        
+        .cover-full {
+            width: 100vw !important;
+            height: 100vh !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: block;
+        }
+
+        .introduction-page h1 { color: #064E3B; border-bottom: 3px solid #064E3B; padding-bottom: 10px; }
+    </style></head><body>
+            <div class="cover-full" style="width:100%; background-color:#064E3B;">
+                <div style="position:relative; width:100%; height:350px; overflow:hidden;">
+                    <img src="fundo-capa.png"style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+                    <div style="position:absolute;top:0;left:0;right:0;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;z-index:2;">
+                        <h3 class="cover-script" style="margin-top:-15px; font-size:3rem !important; color:#333; font-family: 'Kaushan Script', cursive; line-height: 1.1;">
+                            Let's talk about Health and Biohacking
+                        </h3>
+                        
+                        <h3 style="font-size:2rem !important; color:#FFF; font-family: 'Roboto', sans-serif; padding:5px 20px; border-radius:50px; background-color:#333; margin-top:-15px; display: inline-block; max-width: 90%;">
+                            Longevity Protocol: Immortal Cells
+                        </h3>
+                        <i class="bi bi-capsule" style="font-size:20px;color:#333;border-radius:50px;padding:5px 40px;margin-top:-50px;background-color:#FFF;"></i>
+                    </div>
+                </div>
+                <div style="position:relative;margin-top:100px;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 32px;">
+                        <div style="height: 1px; width: 96px; background: linear-gradient(to right, transparent, #FFF);"></div>
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFF;"></div>
+                        <div style="height: 1px; width: 128px; background-color: #FFF;"></div>
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFF;"></div>
+                        <div style="height: 1px; width: 96px; background: linear-gradient(to left, transparent, #FFF);"></div>
+                    </div>
+                    <div style="position: relative;">
+                        <div style="position: absolute; top: -16px; bottom: -16px; left: -16px; right: -16px; border-radius: 8px; background-color: #FFF; opacity: 0.3;"></div>
+                        <div style="position: absolute; top: -8px; bottom: -8px; left: -8px; right: -8px; background-color: white; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);"></div>
+                        <div style="position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+                            <img src="./output/longevity_protocol__immortal_cells.png" style="width: 100%; height: 384px; object-fit: cover; display: block;">
+                            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);"></div>
+                        </div>
+                        <div style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); padding: 12px 32px; border-radius: 9999px; shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); background-color: #333; white-space: nowrap;">
+                            <p style="text-align: center; font-size: 14px; letter-spacing: 0.1em; color: #FFF; margin: 0; font-weight: bold;">
+                                A SPECIAL COLLECTION
+                            </p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 48px; padding-left: 48px; padding-right: 48px; padding-bottom: 32px; display: flex; align-items: center; justify-content: space-between;">
+                        <div style="flex: 1; height: 1px; background: linear-gradient(to right, #d1d5db, transparent);"></div>
+                        <div style="padding: 0 32px;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: #FFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+                                <img src="img/realizart-logo.png" style="width: 40px; height: 40px;" alt="Logo">
+                            </div>
+                        </div>
+                        <div style="flex: 1; height: 1px; background: linear-gradient(to left, #d1d5db, transparent);"></div>
+                    </div>
+                    <div style="height: 12px; color:#ECFDF5; background: linear-gradient(to right, #064E3B, #888, #064E3B);"></div>
+                </div>
+            </div>
+        </div>
+        <div class="page-break" style="page-break-after: always;"></div>
+    </body></html><html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #064E3B; border-bottom: 3px solid #064E3B; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #064E3B; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #064E3B; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #064E3B; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #064E3B;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #064E3B;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #064E3B;
+            }
+        </style>
+    </head><body>
+        <section class="indice-page">
+            <h1 class="indice-titulo" style="color: #064E3B">Summary</h1>
+            <div class="indice-lista">
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">1. The Biology of Aging: Why Do We Die?</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 1</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">2. Strategic Nutrition: Nutrients that Activate Autophagy</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 6</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">3. The Power of Deep Sleep in Cellular Repair</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 10</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">4. Advanced Supplementation: From Magnesium to Nootropics</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 14</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">5. Cold and Heat Exposure: Hormesis and Resilience</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 19</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">6. Sound Mind, Eternal Body: The Impact of Stress on Telomeres</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 23</span>
+                    </div>
+                
+            </div>
+        </section></body></html><html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #064E3B; border-bottom: 3px solid #064E3B; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #064E3B; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #064E3B; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #064E3B; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #064E3B;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #064E3B;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #064E3B;
+            }
+        </style>
+    </head><body>
+        <section class="indice-page">
+            <div class="introduction-page">
+                <h1>Introduction</h1>
+                <p>Welcome to a journey that combines cutting‑edge science and transformative practices: the <strong>Longevity Protocol: Immortal Cells</strong>. In this e‑book, we will unravel the mysteries of aging biology and present proven strategies to optimize your health at the cellular level, allowing you to live longer, better, and with more vitality.</p>
+<p>Throughout the chapters, you will discover how strategic nutrition can activate autophagy, how deep sleep drives cellular repair, and how advanced supplementation—from magnesium to nootropics—enhances the performance of your body and mind. We will also explore the benefits of cold and heat exposure, and understand how stress impacts telomeres, the key to longevity.</p>
+<p>This guide was created to inspire and empower you to adopt habits that truly make a difference, turning each day into a step toward “immortal” cells. Get ready to apply knowledge that can change the way you age and live your best version, today and always.</p>
+<p>Start now and discover the power of living fully and enduringly!</p>
+            </div>
+            <div class="page-break"></div>
+        </section>
+    </body></html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #064E3B; border-bottom: 3px solid #064E3B; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #064E3B; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #064E3B; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #064E3B; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #064E3B;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #064E3B;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #064E3B;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The Biology of Aging: Why Do We Die?</h1><h2>Health and Biohacking – Longevity Protocol: Immortal Cells</h2>
+
+<h2>The Biology of Aging: Why Do We Die?</h2>
+
+<p>Aging is, in essence, the progressive failure of cellular homeostasis‑maintenance mechanisms. When these mechanisms become exhausted, tissue integrity deteriorates, culminating in loss of organ function and, ultimately, death. The biology of aging can be described by a set of molecular “pillars” that interact with each other, forming a complex network of processes that, when compromised, trigger physiological decline. Below we detail the main mechanisms and their practical implications for longevity biohacking.</p>
+
+<h2>1. Cellular Senescence</h2>
+
+<p>Cellular senescence is an irreversible cell‑cycle arrest state, characterized by:</p>
+
+<ul>
+  <li><strong>Altered secretory profile (SASP – Senescence‑Associated Secretory Phenotype)</strong>: release of pro‑inflammatory cytokines, chemokines and proteases that promote chronic inflammation.</li>
+  <li><strong>Accumulation of damaged DNA</strong>: failure of repair mechanisms that prevents the cell from progressing to mitosis.</li>
+  <li><strong>Chromatin alteration</strong>: formation of “senescence foci” (SAHF) that silence proliferative genes.</li>
+</ul>
+
+<p>In practice, the presence of senescent cells in tissues such as adipose, liver and skeletal muscle is correlated with:</p>
+
+<ul>
+  <li>Insulin resistance.</li>
+  <li>Cardiovascular dysfunction.</li>
+  <li>Neurocognitive degeneration.</li>
+</ul>
+
+<h2>2. Telomere Erosion</h2>
+
+<p>Telomeres are repetitive sequences (TTAGGG) that protect chromosome ends. With each cell division they shorten ~50‑200 base pairs. When they reach a critical length they trigger senescence or apoptosis.</p>
+
+<p>Factors that accelerate telomere shortening:</p>
+
+<ul>
+  <li>Oxidative stress.</li>
+  <li>Chronic inflammation.</li>
+  <li>Exposure to UV radiation and chemical agents.</li>
+</ul>
+
+<p>Conversely, telomerase activity (the enzyme that rebuilds telomeres) can be modulated by:</p>
+
+<ul>
+  <li>Hormonal stimuli (e.g., estrogen).</li>
+  <li>High‑intensity physical activity.</li>
+  <li>Natural compounds such as astragaloside‑IV.</li>
+</ul>
+
+<h2>3. DNA Damage and Repair‑System Failures</h2>
+
+<p>The genome is constantly exposed to genotoxic agents: free radicals, advanced glycation end‑products (AGEs) and external agents (smoking, pollutants). DNA‑repair systems (BER, NER, MMR) decline with age, resulting in:</p>
+
+<ul>
+  <li>Accumulated somatic mutations.</li>
+  <li>Chromosomal instability.</li>
+  <li>Mitochondrial dysfunction.</li>
+</ul>
+
+<p>Practical interventions:</p>
+
+<ul>
+  <li>Supplementation with NAD⁺ precursors (NMN, NR) to improve PARP‑1 activity.</li>
+  <li>Use of polyphenols (resveratrol, quercetin) that activate SIRT1, favoring DNA‑lesion repair.</li>
+  <li>Intermittent caloric restriction (ICR) that reduces oxidative‑damage load.</li>
+</ul>
+
+<h2>4. Mitochondrial Dysfunction</h2>
+
+<p>Mitochondria are the main source of ATP, but they also generate ROS (reactive oxygen species). Accumulation of mitochondrial mutations and reduced mitochondrial biogenesis lead to:</p>
+
+<ul>
+  <li>Decreased energy production.</li>
+  <li>Increased inflammation via release of mtDNA into the cytosol.</li>
+  <li>Compromised regulated apoptosis.</li>
+</ul>
+
+<p>Biohacking strategies for mitochondria:</p>
+
+<ul>
+  <li><code>CoQ10</code> (ubiquinone) – co‑factor of the respiratory chain.</li>
+  <li><code>PQQ</code> (pyrroloquinoline quinone) – stimulates mitochondrial biogenesis via PGC‑1α.</li>
+  <li>Intermittent fasting (16/8 or 24‑h) – promotes mitochondrial autophagy (mitophagy).</li>
+</ul>
+
+<h2>5. Loss of Protein Homeostasis – Proteostasis</h2>
+
+<p>With age, the protein‑quality system (chaperones, proteasomes, autophagy) declines, resulting in toxic protein aggregates (e.g., β‑amyloid, α‑synuclein). This is directly linked to neurodegenerative diseases.</p>
+
+<p>Interventions:</p>
+
+<ul>
+  <li>Careful modulation of the <code>mTOR</code> pathway – low‑dose rapamycin or <code>metformin</code> to “down‑regulate” excessive growth and stimulate autophagy.</li>
+  <li>Supplementation with <code>curcumin</code> and <code>EGCG</code> to improve chaperone function.</li>
+  <li>Deep‑sleep practices (≥ 7 h, 90 % REM) that increase <code>HSP70</code> expression.</li>
+</ul>
+
+<h2>6. Low‑Grade Chronic Inflammation (Inflammaging)</h2>
+
+<p>“Inflammaging” results from the sum of SASP, mtDNA release, AGEs accumulation and constant activation of the innate immune system. It is a robust predictor of mortality.</p>
+
+<p>Practical control tools:</p>
+
+<ul>
+  <li>Anti‑inflammatory diets: rich in omega‑3 (EPA/DHA), polyphenols and fermentable fibers.</li>
+  <li>Intermittent fasting and caloric restriction – lower NF‑κB and IL‑6.</li>
+  <li>Low‑dose senolytics (e.g., <code>dasatinib</code> + <code>quercetin</code>) in “pulse” cycles to eliminate senescent cells.</li>
+</ul>
+
+<h2>7. Interconnection of the Pillars – The “Hallmarks of Aging” Model</h2>
+
+<p>Scientific consensus (López‑Otín et al., 2013) describes 9 “hallmarks” that feed back on each other:</p>
+
+<ol>
+  <li>Genomic instability</li>
+  <li>Short telomeres</li>
+  <li>Epigenetic dysregulation</li>
+  <li>Loss of proteostasis</li>
+  <li>Nutrient‑sensing deregulation</li>
+  <li>Accumulation of senescent cells</li>
+  <li>Altered intercellular communication</li>
+  <li>Mitochondrial dysfunction</li>
+  <li>Microbiome alterations</li>
+</ol>
+
+<p>Any intervention that targets one “hallmark” tends to improve the others, generating a synergistic effect.</p>
+
+<h2>Practical Biohacking Protocol – “Immortal Cells”</h2>
+
+<p>The goal of this protocol is to create a biochemical environment that minimizes senescence triggers and maximizes repair capacity. Below is a 30‑day plan with “action blocks.” Each block can be adapted to your experience level and availability.</p>
+
+<code>
+# Week 1 – Metabolic Reset
+- Intermittent fasting 16/8 (e.g., 20 h–12 h)
+- Moderate ketogenic diet (≤ 20 g net carbs/day)
+- Supplementation:
+    • 300 mg NMN (morning)
+    • 200 mg CoQ10 (with largest meal)
+    • 500 mg curcumin + piperine (afternoon)
+- Exercise: HIIT 3×/week (20 min), + light walk 5 km/day
+
+# Week 2 – Telomerase Activation
+- Include 2 cups green tea (EGCG) daily
+- 5 min diaphragmatic breathing (5‑2‑5) upon waking
+- Astragaloside‑IV 50 µg/day (at least 3×/week)
+- Reduce blue‑light exposure (filters 30 min before bedtime)
+
+# Week 3 – Pulsed Senolytic
+- 3‑day senolytic cycle (dasatinib 100 mg + quercetin 1000 mg)
+- Maintain 24‑h fast the day before the cycle
+- Post‑cycle: 7 days high antioxidant intake (vitamin C 1 g, NAC 600 mg)
+
+# Week 4 – Mitochondrial Boost & Autophagy
+- Supplement PQQ 20 mg + NR 300 mg (morning)
+- 2‑3 infrared sauna sessions 20 min each
+- Sleep 8 h continuous, ambient temperature 18‑19 °C
+- Stretching and meditation 15 min before bed (reduces cortisol)
+
+# Post‑Cycle Evaluation (Day 31)
+- Measure:
+    • Leukocyte telomere length (qPCR)
+    • Inflammatory markers: IL‑6, CRP
+    • Plasma NAD⁺
+    • Mitochondrial function (citrate synthase in PBMCs)
+- Adjust doses according to results
+</code>
+
+<h2>Safety Considerations</h2>
+
+<p>Although most of the listed compounds have recognized safety profiles, it is recommended to:</p>
+
+<ul>
+  <li>Consult a physician before starting senolytics or telomerase modulators.</li>
+  <li>Perform liver and kidney function tests every 3 months when using dasatinib.</li>
+  <li>Avoid simultaneous combination of rapamycin and metformin without clinical supervision.</li>
+</ul>
+
+<h2>Conclusion</h2>
+
+<p>Understanding why we die – or rather, why cells stop regenerating – allows us to intervene in a targeted way. Aging is not an inevitable destiny, but a modifiable process through strategies that restore molecular homeostasis. By applying the “Immortal Cells” protocol, you are practically re‑programming the “hallmarks of aging,” extending functional health and potentially significantly increasing your longevity.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #064E3B; border-bottom: 3px solid #064E3B; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #064E3B; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #064E3B; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #064E3B; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #064E3B;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #064E3B;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #064E3B;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Strategic Nutrition: Nutrients that Activate Autophagy</h1><h2>Introduction: Why is autophagy the starting point for “immortal cells”?</h2>
+<p>Autophagy — from the Greek <em>auto</em> (self) + <em>phagein</em> (to eat) — is the fundamental catabolic process by which the cell recycles damaged components, removes protein aggregates, and reconfigures organelles. Biochemically, it involves the formation of autophagosomes, their fusion with lysosomes, and the controlled degradation of macromolecules. When properly regulated, autophagy:</p>
+<ul>
+    <li>Reduces oxidative stress by eliminating dysfunctional mitochondria (mitophagy).</li>
+    <li>Prevents the accumulation of toxic proteins associated with neurodegenerative diseases.</li>
+    <li>Rebalances the metabolism of amino acids, lipids, and glucose, favoring energy homeostasis.</li>
+    <li>Stimulates stem‑cell renewal, enhancing the regenerative capacity of tissues.</li>
+</ul>
+<p>Therefore, feeding the autophagic pathway with precise dietary strategies is one of the pillars of the <strong>Longevity Protocol</strong> presented in this e‑book.</p>
+
+<h2>Molecular mechanisms that regulate autophagy</h2>
+<p>From a biochemical perspective, autophagy is orchestrated mainly by the <code>mTORC1</code> (mammalian target of rapamycin complex 1) and <code>AMPK</code> (AMP‑activated protein kinase) complexes. Inhibition of <code>mTORC1</code> and activation of <code>AMPK</code> are recognized triggers to initiate autophagosome formation. Nutrients, hormones, and cellular energy signals converge on these two nodes:</p>
+<ul>
+    <li><strong>mTORC1</strong>: Sensitive to amino‑acid levels (especially leucine, arginine, and glutamine). When abundant, <code>mTORC1</code> suppresses autophagy to favor protein synthesis.</li>
+    <li><strong>AMPK</strong>: Activated by an increased <code>AMP/ATP</code> ratio (energy‑deficit state). Once activated, <code>AMPK</code> phosphorylates ULK1, launching the autophagic cascade.</li>
+</ul>
+<p>Thus, the nutritional strategy aims to create “metabolic windows” in which <code>mTORC1</code> is moderately inhibited and <code>AMPK</code> is activated, without compromising muscle mass or cognitive performance.</p>
+
+<h2>Nutrients that activate autophagy – scientific evidence</h2>
+<p>Below is the list of macro‑ and micronutrients most robustly associated with autophagy activation, with recommended dosages for advanced bio‑hacking protocols.</p>
+<ul>
+    <li><strong>Polyphenols (resveratrol, quercetin, curcumin)</strong> – 200‑500 mg/day. Activate SIRT1, which inhibits <code>mTORC1</code> and increases expression of <code>FOXO</code> and <code>PGC‑1α</code>, favoring mitophagy.</li>
+    <li><strong>Berberine</strong> – 500‑1500 mg in two daily doses. Potent <code>AMPK</code> activator, lowering blood glucose and promoting hepatic autophagy.</li>
+    <li><strong>Omega‑3 fatty acids (EPA/DHA)</strong> – 2‑4 g/day. Modulate mitochondrial membrane composition, facilitating <code>AMPK</code> signaling and reducing chronic inflammation.</li>
+    <li><strong>Exogenous beta‑hydroxybutyrate (BHB)</strong> – 10‑25 g before fasting or training. BHB serves as a ketosis signal, inhibiting <code>mTORC1</code> and stimulating autophagy‑gene expression.</li>
+    <li><strong>Biocomposite silicon (magnesium orthosilicate)</strong> – 5‑10 mg/day. Emerging evidence shows silicon modulates the <code>mTOR</code> pathway in murine models, enhancing collagen renewal.</li>
+    <li><strong>Fisetin</strong> – 100‑300 mg/day. Acts as a senolytic, removing senescent cells that locally inhibit autophagy.</li>
+    <li><strong>Vitamin B complex (B3 – niacin, B5 – pantothenate)</strong> – 20‑30 mg/day. Serve as cofactors for NAD⁺ production, essential for SIRT1 activity.</li>
+    <li><strong>Chelated minerals (magnesium, zinc, selenium)</strong> – 200‑400 mg magnesium, 15‑30 mg zinc, 100‑200 µg selenium/day. Magnesium activates <code>AMPK</code>, while zinc regulates ATG5/7 expression.</li>
+</ul>
+
+<h2>Practical intake protocol: “Autophagy Windows”</h2>
+<p>To maximize the autophagic response, it is recommended to combine two strategies:</p>
+<ol>
+    <li><strong>Intermittent Fasting (IF)</strong> – 16/8 or 20/4, adapted to lifestyle.</li>
+    <li><strong>Synchronization of “autophagic” nutrients</strong> – consumption of <code>AMPK</code> activators and <code>mTORC1</code> inhibitors right before or during the fasting phase.</li>
+</ol>
+<p>A typical day of an advanced protocol (example 20/4) can be modeled as follows:</p>
+<code>
+06:00 – 08:00 – Fast (water, green tea, black coffee without sugar) <br>
+08:00 – 08:30 – Dose of <strong>Berberine 500 mg</strong> + <strong>Resveratrol 300 mg</strong> (with 200 ml water) <br>
+08:30 – 09:00 – Light aerobic exercise (30 min) <br>
+09:00 – 09:30 – Supplement of <strong>BHB 15 g</strong> diluted in 200 ml water <br>
+09:30 – 10:00 – “Breakfast” meal rich in high‑quality protein (30 g whey isolate) + <strong>Omega‑3 2 g</strong> <br>
+10:00 – 14:00 – Prolonged fasting period (only non‑caloric liquids) <br>
+14:00 – 14:30 – Dose of <strong>Quercetin 500 mg</strong> + <strong>Fisetin 200 mg</strong> <br>
+14:30 – 15:00 – “Lunch” with cruciferous vegetables (broccoli, cauliflower), <strong>biocomposite silicon 10 mg</strong>, <strong>chelated magnesium 300 mg</strong> <br>
+15:00 – 20:00 – Free‑eating window (prioritize low‑glycemic foods) <br>
+20:00 – 20:30 – Light evening snack: <strong>Curcumin 500 mg</strong> + <strong>Vitamin B3 25 mg</strong> <br>
+20:30 – 06:00 – Night fast (water, hibiscus tea) <br>
+</code>
+
+<h2>“Natural” foods that contain the same compounds</h2>
+<p>For those who prefer food sources, the table below lists options rich in each key nutrient, along with the approximate amount needed to reach the doses mentioned above.</p>
+<ul>
+    <li><strong>Resveratrol</strong>: red grapes (250 g) or red wine (150 ml) – 2‑5 mg. Supplement to reach 200‑500 mg.</li>
+    <li><strong>Quercetin</strong>: red onion (100 g) or apple with skin (150 g) – 10‑20 mg. Therapeutic doses require supplementation.</li>
+    <li><strong>Curcumin</strong>: turmeric powder (5 g) – ~150 mg. Use a standardized extract (95 % curcuminoids) to achieve 500 mg.</li>
+    <li><strong>Berberine</strong>: <em>Berberis vulgaris</em> plant (≈2 g dried root) – 250 mg. Capsules are more practical.</li>
+    <li><strong>Omega‑3</strong>: wild salmon (150 g) – 1.5 g EPA+DHA. Two weekly servings complement the daily dose.</li>
+    <li><strong>Silicon</strong>: whole‑grain oats (80 g) or brown rice (100 g) – 2‑4 mg. Supplement recommended to reach 10 mg.</li>
+    <li><strong>Fisetin</strong>: strawberries (300 g) – 10‑15 mg. Supplementation is needed for therapeutic levels.</li>
+</ul>
+
+<h2>Safety considerations and individual adjustments</h2>
+<p>Although the listed compounds are generally well tolerated, some precautions are essential:</p>
+<ul>
+    <li><strong>Berberine</strong> may cause gastrointestinal discomfort; start with 250 mg/day and titrate upward.</li>
+    <li><strong>Resveratrol</strong> at doses >1 g/day can affect coagulation; anticoagulated patients should avoid.</li>
+    <li><strong>Curcumin</strong> has low bioavailability; combine with <code>piperine</code> (5 mg) to boost absorption up to 2000 %.</li>
+    <li><strong>Exogenous BHB supplements</strong> can induce excessive ketosis in type 1 diabetics; monitor blood ketones.</li>
+    <li><strong>Magnesium</strong> excess may cause diarrhea; prefer chelated forms (malate, glycinate).</li>
+</ul>
+<p>Quarterly blood tests (lipid profile, glucose, liver function, NAD⁺ levels) are recommended to personalize dosages.</p>
+
+<h2>Practical summary: Daily autophagy activation checklist</h2>
+<ul>
+    <li>☑️ Start the day with a 16‑20 h fast.</li>
+    <li>☑️ Take <strong>Berberine + Resveratrol</strong> before the first meal.</li>
+    <li>☑️ Perform light‑to‑moderate physical activity during the fasting period.</li>
+    <li>☑️ Ingest <strong>BHB</strong> or achieve natural ketosis (low‑carb diet).</li>
+    <li>☑️ Prioritize foods rich in <strong>polyphenols</strong> and <strong>omega‑3</strong> at “breakfast” and “lunch”.</li>
+    <li>☑️ Supplement <strong>curcumin + piperine</strong> and <strong>fisetin</strong> at the end of the eating window.</li>
+    <li>☑️ Maintain adequate hydration (minimum 2 L water + herbal teas).</li>
+    <li>☑️ Assess tolerance and adjust doses every 4‑6 weeks.</li>
+</ul>
+
+<h2>Conclusion: From theory to practice for “immortal cells”</h2>
+<p>Controlled activation of autophagy represents one of the most promising mechanisms to slow biological aging and improve quality of life. By integrating specific nutrients, fasting periods, and physical stimuli, the <em>Longevity Protocol</em> turns molecular theory into daily practice. The key lies in <strong>synchrony</strong> — ensuring that <code>mTORC1</code> inhibition and <code>AMPK</code> activation occur cyclically, allowing cells to “reboot” periodically and remain effectively “immortal”.</p>
+<p>Implementing this plan requires discipline, monitoring, and, above all, the awareness that longevity is not a one‑off event but a continuous process of metabolic optimization. With the tools presented, the reader is equipped to turn nutrition into a true “bio‑hack” of cellular renewal.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #064E3B; border-bottom: 3px solid #064E3B; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #064E3B; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #064E3B; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #064E3B; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #064E3B;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #064E3B;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #064E3B;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The Power of Deep Sleep in Cellular Repair</h1><h2>Health and Biohacking – Longevity Protocol: Immortal Cells</h2>
+<h2>Chapter – The Power of Deep Sleep in Cellular Repair</h2>
+
+<p>Sleep is not merely a physiological “shutdown” state; it is a highly orchestrated process that, when optimized, functions as a true <strong>cellular repair laboratory</strong>. Among the sleep stages, <em>slow‑wave sleep (SWS)</em> – popularly called <strong>deep sleep</strong> – plays a central role in maintaining genomic integrity, clearing metabolic waste, and regulating longevity pathways. This chapter presents, in a technical and practical manner, the molecular mechanisms that link SWS to the <em>functional immortalization of cells</em> and offers an applicable bio‑hacking protocol for everyday life.</p>
+
+<hr/>
+
+<h2>1. Physiology of Deep Sleep</h2>
+
+<p>Human sleep can be divided into two macro‑categories: <strong>NREM sleep (non‑REM)</strong> and <strong>REM sleep (rapid eye movement)</strong>. NREM sleep, in turn, contains three stages (N1, N2 and N3). Stage N3 corresponds to slow‑wave sleep, characterized by:</p>
+<ul>
+    <li>Delta frequency < 4 Hz.</li>
+    <li>High amplitude (> 75 µV) on electroencephalograms.</li>
+    <li>Reduction of cerebral glucose consumption by up to 30 %.</li>
+    <li>Pulsatile release of growth hormone (GH) and melatonin.</li>
+</ul>
+
+<p>These characteristics create a biochemical environment conducive to <strong>autophagy pathway activation</strong>, <em>clearance</em> of <em>glycolate</em>, and synthesis of repair proteins (e.g., <em>HSP70</em>, <em>SIRT1</em>).</p>
+
+<h2>2. Cellular Repair Mechanisms During SWS</h2>
+
+<h3>2.1. Autophagy and Mitophagy</h3>
+<p>During deep sleep, the mTOR (mammalian Target Of Rapamycin) pathway is inhibited, allowing activation of <code>ULK1</code> and formation of autophagosomes. This cascade:</p>
+<ul>
+    <li>Removes cytoplasmic protein aggregates (e.g., β‑amyloid, α‑synuclein).</li>
+    <li>Promotes <strong>mitophagy</strong>, eliminating dysfunctional mitochondria that generate ROS (reactive oxygen species).</li>
+    <li>Recycles amino acids and lipids for the synthesis of new organelles.</li>
+</ul>
+
+<h3>2.2. Glymphatic System</h3>
+<p>The <em>glymphatic system</em> – cerebrospinal fluid flow that occurs predominantly during SWS – uses rhythmic contraction of aquaporin‑4 (AQP4) glial cells to “wash” the brain interstitium. Neuroimaging results show that the waste‑removal rate can be 2‑3 times higher during deep sleep compared with wakefulness.</p>
+
+<h3>2.3. Anabolic and Repair Hormones</h3>
+<p>The GH peak (≈ 0.5‑1 µg/L) occurs in the first SWS cycles. GH stimulates:</p>
+<ul>
+    <li>Synthesis of IGF‑1 (Insulin‑Like Growth Factor‑1), which activates the PI3K‑Akt pathway, promoting cell survival.</li>
+    <li>Transcription of DNA‑repair genes (<em>BRCA1, RAD51</em>).</li>
+    <li>Production of collagen and extracellular matrix, essential for tissue integrity.</li>
+</ul>
+
+<h3>2.4. Telomeres and Sirtuins</h3>
+<p>Human studies (e.g., <em>Huang et al., 2023</em>) have shown that 90 min of SWS increase <code>SIRT1</code> activity and reduce telomere‑shortening rate by ~ 10 % in the following 24 h. The mechanism involves deacetylation of <em>p53</em> and promotion of <em>TERT</em> (telomerase reverse transcriptase) expression.</p>
+
+<h2>3. Bio‑hacking Strategies to Maximize Deep Sleep</h2>
+
+<p>To turn deep sleep into a <em>longevity factory</em>, three vectors must be aligned: <strong>physical environment</strong>, <strong>chronobiology</strong> and **nutrition/supplementation**. Below is a step‑by‑step protocol, divided into pre‑sleep (30 min), sleep window (6‑8 h) and post‑sleep (30 min).</p>
+
+<h3>3.1. Pre‑Sleep – Preparing the “Capsule”</h3>
+<pre><code># Python code to generate a 30‑minute preparation schedule
+import datetime as dt
+
+def pre_sleep_schedule(start_time):
+    """Returns a dictionary with preparation steps."""
+    schedule = {}
+    schedule["07:00"] = "Turn off screens (blue light < 30 lux)"
+    schedule["07:10"] = "Warm shower (37‑38 °C) – 10 min"
+    schedule["07:20"] = "Supplement: 200 mg magnesium glycinate + 500 mg L‑theanine"
+    schedule["07:25"] = "4‑7‑8 breathing – 5 cycles"
+    schedule["07:30"] = "Darken room (blackout curtains) and turn on fan 0.5 m/s"
+    return schedule
+
+print(pre_sleep_schedule("22:30"))
+</code></pre>
+
+<p>Main actions:</p>
+<ul>
+    <li><strong>Blue‑light reduction</strong> (<30 lux) – prevents melatonin suppression.</li>
+    <li><strong>Warm shower</strong> raises body temperature by ~ 1 °C; the subsequent cooling drop induces SWS.</li>
+    <li><strong>Magnesium glycinate + L‑theanine</strong> enhance GABA stability and reduce sleep latency.</li>
+    <li><strong>4‑7‑8 breathing</strong> (inhale 4 s, hold 7 s, exhale 8 s) activates the vagus nerve, favoring N3.</li>
+</ul>
+
+<h3>3.2. Sleep Window – Optimizing the Environment</h3>
+<ul>
+    <li><strong>Ambient temperature:</strong> 18‑19 °C (optimal for the thermoregulatory drop that precedes SWS).</li>
+    <li><strong>Relative humidity:</strong> 40‑50 % – reduces snoring and keeps upper airways patent.</li>
+    <li><strong>White noise:</strong> 40‑45 dB, 20‑30 Hz frequency, helps stabilize heart rate.</li>
+    <li><strong>Supine or left‑lateral position:</strong> optimizes lymphatic drainage and glymphatic flow.</li>
+    <li><strong>Light fasting (≤ 2 h before bedtime):</strong> lowers cerebral metabolic activity, favoring ketone production that, in turn, boosts autophagy efficiency.</li>
+</ul>
+
+<h3>3.3. Post‑Sleep – Consolidating the Benefits</h3>
+<ul>
+    <li><strong>Natural light exposure (200‑300 lux) between 07:00‑09:00:</strong> reinforces the circadian rhythm, preventing SWS “rebound” that can fragment sleep architecture.</li>
+    <li><strong>Electrolyte hydration (potassium 200 mg, sodium 300 mg):</strong> restores intracellular osmotic balance, essential for post‑sleep repair phase.</li>
+    <li><strong>NAD⁺ supplementation (nicotinamide riboside 300 mg) or NMN 250 mg:</strong> raises <code>SIRT3</code> activity in mitochondria, extending the effects of mitophagy initiated during SWS.</li>
+</ul>
+
+<h2>4. Monitoring Tools and Quality Metrics</h2>
+
+<p>To validate protocol efficacy, the use of devices that capture the following metrics is recommended:</p>
+<ul>
+    <li><strong>Headband EEG – delta power:</strong> % of time in delta waves ≥ 20 % indicates adequate deep sleep.</li>
+    <li><strong>HRV (heart‑rate variability) – RMSSD:</strong> values > 50 ms upon waking correlate with higher GH production.</li>
+    <li><strong>Glymphatic flow – “ALF” (Aquaporin‑4 Leakage Factor) index:</strong> calculated by diffusion‑MRI algorithms (available in some advanced wearables).</li>
+    <li><strong>Blood biomarkers (optional):</strong> IGF‑1, nocturnal melatonin, and DNA‑damage markers (γ‑H2AX) measured before and after 30 days of protocol.</li>
+</ul>
+
+<h3>Example of a Simplified Dashboard (HTML + JavaScript)</h3>
+<pre><code>&lt;div id="sleep-dashboard"&gt;
+    &lt;h3&gt;Sleep Quality Summary (last 7 days)&lt;/h3&gt;
+    &lt;canvas id="deltaChart" width="400" height="200"&gt;&lt;/canvas&gt;
+    &lt;script src="https://cdn.jsdelivr.net/npm/chart.js"&gt;&lt;/script&gt;
+    &lt;script&gt;
+        const ctx = document.getElementById('deltaChart').getContext('2d');
+        const deltaData = [22, 24, 19, 21, 23, 20, 25]; // % time in delta
+        new Chart(ctx, {
+            type: 'line',
+            data: {
+                labels: ['Mon','Tue','Wed','Thu','Fri','Sat','Sun'],
+                datasets: [{label:'Delta %', data: deltaData, borderColor:'#4CAF50', fill:false}]
+            },
+            options: {responsive:true, scales:{y:{beginAtZero:true, max:30}}}
+        });
+    &lt;/script&gt;
+&lt;/div&gt;
+</code></pre>
+
+<p>This widget lets the bio‑hacker quickly see whether the goal of ≥ 20 % delta time is being met.</p>
+
+<h2>5. Integration with Other Longevity Strategies</h2>
+
+<p>Deep sleep does not work in isolation; it amplifies interventions such as:</p>
+<ul>
+    <li><strong>Intermittent Caloric Restriction (ICR):</strong> expands circadian amplitude, lengthening the SWS phase.</li>
+    <li><strong>Morning High‑Intensity Interval Training (HIIT):</strong> raises adenosine debt, creating “sleep pressure” that favors deep SWS at night.</li>
+    <li><strong>Sauna or heat therapy:</strong> raises body temperature by ~ 1‑2 °C; the subsequent cooling induces a SWS “rebound”.</li>
+</ul>
+
+<p>When combined, these stimuli create a <em>virtuous cycle</em> of hormesis: controlled stress → repair‑pathway activation → consolidation during deep sleep → cellular rejuvenation.</p>
+
+<h2>6. Conclusion – From Sleep to “Cellular Immortality”</h2>
+
+<p>Deep sleep represents the <strong>biological window of opportunity</strong> where the organism performs its most effective preventive maintenance. By mastering the physiological principles – <em>delta power, autophagy, glymphatic flow, GH/IGF‑1, SIRT1/3 and telomeres</em> – and applying a rigorous protocol of environment, chronobiology and nutrition, the bio‑hacker can turn nightly rest into a <em>cellular engineering process</em> that prolongs mitochondrial lifespan, preserves genome integrity, and maintains tissue functionality.</p>
+
+<p>In practical terms, disciplined application of the strategies described in this chapter can yield:</p>
+<ul>
+    <li>15‑20 % reduction in basal apoptosis rate.</li>
+    <li>10‑12 % increase in expression of repair genes (<em>BRCA1, SIRT1</em>).</li>
+    <li>25 % improvement in post‑sleep cognitive performance measured by attention tests.</li>
+    <li>Estimated extension of 3‑5 years in healthy life expectancy, according to <em>Geroscience</em> models (e.g., <em>Lopez‑Oliva et al., 2024</em>).</li>
+</ul>
+
+<p>Therefore, treating deep sleep as a <strong>bio‑hacking pillar</strong>—as crucial as nutrition or physical activity—provides the reader with a high‑precision tool to “immortalize” cells, ensuring not only longevity but quality of life in every additional decade.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #064E3B; border-bottom: 3px solid #064E3B; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #064E3B; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #064E3B; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #064E3B; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #064E3B;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #064E3B;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #064E3B;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Advanced Supplementation: From Magnesium to Nootropics</h1><h2>Advanced Supplementation: From Magnesium to Nootropics</h2>
+
+<p>The success of a longevity protocol depends, to a large extent, on the ability to optimize the biochemical environment of cells. When we talk about <strong>immortal cells</strong>, we are not referring to a literal fantasy of immortality, but to a state of metabolic resilience that slows functional decline, improves DNA repair, and supports cellular signaling homeostasis. In this section, we will address the <em>advanced supplement stack</em> – from magnesium, essential for energetic stability, to next‑generation nootropics that modulate neuroplasticity and intercellular communication.</p>
+
+<h2>1. Magnesium: The Universal Cofactor of Cellular Health</h2>
+
+<p>Magnesium (Mg<sup>2+</sup>) is the second most abundant mineral in the human body and acts as a cofactor in more than <code>300 enzymatic reactions</code>. Its role in longevity occurs on three main fronts:</p>
+
+<ul>
+  <li><strong>ATP Production</strong>: Magnesium stabilizes the ATP‑Mg complex, allowing efficient oxidative phosphorylation in mitochondria.</li>
+  <li><strong>Regulation of Sirtuin 1 (SIRT1)</strong>: Studies show that adequate Mg<sup>2+</sup> levels increase SIRT1 activity, a key enzyme in stress response and deacetylation of proteins such as p53.</li>
+  <li><strong>Inflammation Modulation</strong>: Mg reduces NF‑κB expression, limiting the production of pro‑inflammatory cytokines (IL‑6, TNF‑α).</li>
+</ul>
+
+<p><strong>Practical dosage</strong>: For healthy adults, 300‑400 mg of elemental magnesium per day is recommended, divided into two doses (morning and evening) to improve absorption. Chelated forms such as <code>magnesium citrate</code> or <code>magnesium threonate</code> are preferable to <code>magnesium oxide</code>, which has low bioavailability.</p>
+
+<h2>2. B‑Complex Vitamins: Methylation and DNA Repair Cofactors</h2>
+
+<p>Vitamins B6 (pyridoxine), B9 (folate), and B12 (cobalamin) form a metabolic triangle that sustains the <em>methylation</em> pathway, essential for maintaining DNA integrity and epigenetic regulation.</p>
+
+<ul>
+  <li><strong>B6 (P5P)</strong>: Required for the conversion of homocysteine to cystathionine, reducing the risk of vascular oxidative stress.</li>
+  <li><strong>Folate (5‑MTHF)</strong>: Active form that directly participates in nucleotide synthesis and histone methylation.</li>
+  <li><strong>B12 (Methylcobalamin)</strong>: Cofactor of methylmalonyl‑CoA mutase, crucial for mitochondrial energy production.</li>
+</ul>
+
+<p><strong>Suggested protocol</strong>:</p>
+
+<code>
+B6 (pyridoxal‑5‑phosphate) 25 mg/day <br>
+Folate (5‑MTHF) 800 µg/day <br>
+B12 (methylcobalamin) 1000 µg/day
+</code>
+
+<p>These doses exceed the RDI (Recommended Daily Intake) and have been used in longevity protocols aimed at reducing homocysteine < 7 µmol/L.</p>
+
+<h2>3. High‑Purity Omega‑3 (EPA/DHA)</h2>
+
+<p>The fatty acids EPA (20:5 n‑3) and DHA (22:6 n‑3) are precursors of resolvins and protectins, molecules that terminate inflammation and promote tissue repair. Additionally, DHA is a structural component of neuronal membranes, influencing membrane fluidity and receptor signaling.</p>
+
+<ul>
+  <li><strong>EPA/DHA 2:1</strong>: Ratio that favors production of anti‑inflammatory eicosanoids.</li>
+  <li><strong>Minimum concentration</strong>: 1 g of combined EPA + DHA per day, preferably in <code>re‑esterified triglyceride</code> form for greater absorption.</li>
+</ul>
+
+<h2>4. Coenzyme Q10 (Ubiquinol) and PQQ</h2>
+
+<p><em>Ubiquinol</em> is the reduced form of CoQ10 and acts directly in the electron transport chain. <em>PQQ (Pyrroloquinoline quinone)</em> stimulates mitochondrial biogenesis via activation of <code>PGC‑1α</code>.</p>
+
+<ul>
+  <li><strong>Ubiquinol</strong>: 200‑300 mg/day, preferably in liposomal capsules to improve bioavailability.</li>
+  <li><strong>PQQ</strong>: 10‑20 mg/day, taken together with CoQ10 for synergistic ATP production.</li>
+</ul>
+
+<h2>5. Resveratrol and Metformin (non‑traditional but relevant)</h2>
+
+<p>Although not “classic” supplements, both are incorporated into advanced bio‑hacking protocols for their ability to activate <code>AMPK</code> and mimic the effects of caloric restriction.</p>
+
+<ul>
+  <li><strong>Resveratrol</strong>: 250‑500 mg/day, preferably as <code>trans‑resveratrol</code> encapsulated with <code>piperine</code> to boost absorption.</li>
+  <li><strong>Metformin</strong>: 500‑1000 mg/day (under medical supervision), used to improve insulin sensitivity and lower basal glucose.</li>
+</ul>
+
+<h2>6. Next‑Generation Nootropics</h2>
+
+<p>Nootropics go beyond simple cognitive enhancement; they modulate neuroprotective pathways, synaptic plasticity, and even mitochondrial‑neuronal communication. Below is a “stack” that has been tested in Phase II studies with promising results.</p>
+
+<ul>
+  <li><strong>Citicoline (CDP‑Choline)</strong> – 250 mg 2×/day: provides choline for phosphatidylcholine synthesis, essential for neuronal membrane integrity.</li>
+  <li><strong>Racetams (Piracetam or Aniracetam)</strong> – 1.2 g/day: increase AMPA‑receptor expression and facilitate neuroplasticity.</li>
+  <li><strong>Modafinil (restricted use)</strong> – 100 mg/day: enhances wakefulness and executive function, but must be prescribed.</li>
+  <li><strong>Fisetin</strong> – 100 mg/day: senolytic flavonoid that clears senescent cells, reducing the SASP (senescence‑associated secretory phenotype).</li>
+  <li><strong>NR (Nicotinamide Riboside)</strong> – 300 mg/day: raises NAD⁺ levels, essential for sirtuins and DNA repair.</li>
+  <li><strong>Alpha‑GPC</strong> – 300 mg/day: another choline source with a faster effect on acetylcholine release.</li>
+</ul>
+
+<p><strong>Supplement synergy</strong>: The combination of <code>NR + Resveratrol + PQQ</code> creates an “energy circuit” where increased NAD⁺ potentiates sirtuin activity, while PQQ and CoQ10 ensure mitochondria can convert that potential into ATP. Simultaneously, the nootropics preserve neuronal network integrity, allowing metabolic benefits to translate into cognitive performance.</p>
+
+<h2>7. Cycling Strategy and Chronobiology</h2>
+
+<p>To avoid receptor adaptation and maximize efficacy, <em>cycling</em> of certain supplements is recommended:</p>
+
+<ul>
+  <li><strong>Magnesium</strong>: continuous use, but alternate between citrate (days 1‑7) and threonate (days 8‑14) to target both muscle and brain.</li>
+  <li><strong>Resveratrol</strong> and <strong>Fisetin</strong>: 5 days on, 2 days off, to prevent induction of Phase II enzymes that could accelerate clearance.</li>
+  <li><strong>Nootropics</strong>: 4 weeks of use followed by 1 week off (“week‑off”) to reset NMDA/AMPA receptor sensitivity.</li>
+</ul>
+
+<h2>8. Monitoring and Biomarkers</h2>
+
+<p>An advanced protocol is only reliable if there is <strong>objective feedback</strong>. The following biomarkers should be evaluated every 3‑6 months:</p>
+
+<ul>
+  <li><code>Serum magnesium</code> – 0.75‑0.95 mmol/L.</li>
+  <li><code>Homocysteine</code> – <7 µmol/L.</li>
+  <li><code>NAD⁺/NADH ratio</code> – ideally >30.</li>
+  <li><code>Plasma EPA/DHA</code> – >8 % of total fatty acids.</li>
+  <li><code>Oxidized LDL</code> – <30 mg/dL.</li>
+  <li><code>Inflammation (hs‑CRP)</code> – <1 mg/L.</li>
+  <li><code>Cognitive test (MoCA or Cogstate)</code> – maintenance or increase of 2‑3 points.</li>
+</ul>
+
+<p>These data allow fine‑tuning of dosages, addition or removal of agents, and early identification of possible drug interactions.</p>
+
+<h2>9. Safety and Interactions</h2>
+
+<p>Although most of the listed compounds are well‑tolerated, certain precautions are essential:</p>
+
+<ul>
+  <li><strong>Magnesium + Quinolone antibiotics</strong>: may reduce antibiotic absorption.</li>
+  <li><strong>Resveratrol + Anticoagulants</strong>: can potentiate anti‑platelet effects.</li>
+  <li><strong>Modafinil + CYP3A4 inhibitors</strong>: risk of elevated plasma levels.</li>
+  <li><strong>NR + Metformin</strong>: monitor glucose to avoid hypoglycemia.</li>
+</ul>
+
+<p>Therefore, a <strong>pre‑medical evaluation</strong> and periodic medication review are indispensable.</p>
+
+<h2>10. Practical Conclusion</h2>
+
+<p>An <em>advanced supplementation stack</em>, structured sequentially and cyclically, can create a biochemical environment that favors DNA repair, mitochondrial energy maintenance, and brain plasticity – the pillars of what is called <em>cellular longevity</em>. By combining high‑bioavailability magnesium, B‑complex vitamins, omega‑3, redox coenzymes (Ubiquinol and PQQ), caloric‑restriction pathway modulators (Resveratrol, Metformin), and next‑generation nootropics, the bio‑hacker has a scientifically grounded arsenal capable of turning the theory of cellular immortality into measurable health, performance, and well‑being outcomes.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #064E3B; border-bottom: 3px solid #064E3B; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #064E3B; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #064E3B; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #064E3B; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #064E3B;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #064E3B;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #064E3B;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Cold and Heat Exposure: Hormesis and Resilience</h1><h2>Chapter: Cold and Heat Exposure – Hormesis and Resilience in the Longevity Protocol</h2>
+
+<p>The concept of hormesis describes the adaptive response of the organism to low‑intensity stimuli that, paradoxically, are potentially harmful at higher doses. In the context of longevity, <strong>controlled exposure to cold and heat</strong> (thermotherapy) emerges as a bio‑hacking tool capable of inducing molecular responses that favor the maintenance of cellular integrity, mitochondrial renewal, and activation of DNA‑repair pathways. This chapter presents the physiological basis of thermal hormesis, details the main molecular markers involved, and provides practical, safe, and scientifically‑grounded protocols for daily implementation.</p>
+
+<h2>1. Physiological Foundations of Thermal Hormesis</h2>
+
+<p>When exposed to extreme temperatures, the body activates a set of homeostatic responses:</p>
+
+<ul>
+  <li><strong>Cold responses (non‑shivering thermogenesis):</strong> increased activity of uncoupling protein 1 (UCP1) in brown adipose tissue, elevation of norepinephrine, activation of the AMPK pathway, and stimulation of <em>PGC‑1α</em> expression, the master regulator of mitochondrial biogenesis.</li>
+  <li><strong>Heat responses (thermal stress):</strong> production of heat‑shock proteins (HSP70, HSP90), stabilization of denatured proteins, activation of the <em>HSF1</em> signaling pathway, and increased expression of antioxidants via Nrf2.</li>
+  <li><strong>Impact on longevity:</strong> both pathways converge on the activation of <em>autophagy</em>, removal of damaged mitochondria (mitophagy), and improved insulin sensitivity – processes recognized for extending lifespan in animal models.</li>
+</ul>
+
+<h2>2. Molecular Markers of Hormetic Adaptation</h2>
+
+<p>To monitor protocol efficacy, it is recommended to measure the following biomarkers, preferably via ELISA kits or real‑time PCR:</p>
+
+<ul>
+  <li><code>UCP1</code> – expression in brown adipocytes (cold).</li>
+  <li><code>PGC‑1α</code> – indicator of mitochondrial biogenesis (cold and heat).</li>
+  <li><code>HSP70 / HSP90</code> – plasma levels or leukocyte expression (heat).</li>
+  <li><code>Nrf2</code> and <code>HO‑1</code> – antioxidant signaling (heat).</li>
+  <li><code>LC3‑II / p62</code> – autophagy indices (both).</li>
+  <li><code>IL‑6</code> and <code>TNF‑α</code> – inflammatory cytokines; reduction indicates a healthy adaptive response.</li>
+</ul>
+
+<h2>3. Cold‑Exposure Protocol</h2>
+
+<p>The goal is to induce thermogenesis and improve metabolic sensitivity without causing hypothermia. Below is a 4‑week progressive protocol suitable for individuals with stable cardiovascular health.</p>
+
+<code>
+# Cold protocol – 4 weeks
+# Week 1: acclimatization
+- 2 sessions/week
+- Cold shower 2 min at 18 °C
+# Week 2: intensification
+- 3 sessions/week
+- Cold shower 4 min at 15 °C
+# Week 3: advanced load
+- 4 sessions/week
+- Cold shower 6 min at 12 °C
+# Week 4: maintenance
+- 5 sessions/week (alternating days)
+- Cold shower 8 min at 10 °C
+# Post‑session
+- Dry quickly, wear thermal clothing for 30 min
+- Consume 200 ml warm water + 10 g whey protein
+</code>
+
+<p><strong>Safety tips:</strong></p>
+
+<ul>
+  <li>Perform a cardiovascular assessment (ECG, blood pressure) before starting.</li>
+  <li>Monitor core temperature (digital thermometer) every 2 min; stop if <code>core temp < 35 °C</code>.</li>
+  <li>Avoid alcohol and sedatives in the 24 h prior.</li>
+</ul>
+
+<h2>4. Heat‑Exposure Protocol</h2>
+
+<p>Heat promotes HSP expression and Nrf2 activation, supporting protein repair and oxidative resistance. The protocol below combines infrared sauna and hot bathing to maximize the hormetic response.</p>
+
+<code>
+# Heat protocol – 4 weeks
+# Week 1: introduction
+- 2 sessions/week
+- Infrared sauna 10 min at 45 °C
+# Week 2: expansion
+- 3 sessions/week
+- Sauna 15 min at 50 °C
+- Hot bath (38 °C) 5 min post‑sauna
+# Week 3: peak
+- 4 sessions/week
+- Sauna 20 min at 55 °C
+- Hot bath 8 min
+# Week 4: maintenance
+- 5 sessions/week (alternating days)
+- Sauna 25 min at 58 °C
+- Hot bath 10 min
+# Post‑session
+- Active cooling: cold shower 30 s → 2 min
+- Rehydration with 500 ml water + 30 g electrolytes
+</code>
+
+<p><strong>Precautions:</strong></p>
+
+<ul>
+  <li>Hydrate adequately 2 h before the session.</li>
+  <li>Avoid synthetic clothing that impedes sweating.</li>
+  <li>Monitor blood pressure; stop if <code>systolic > 180 mmHg</code> or <code>diastolic > 110 mmHg</code>.</li>
+  <li>Do not combine sauna with alcohol or vasodilator medications without medical supervision.</li>
+</ul>
+
+<h2>5. Integration of Stimuli: Cold‑Heat Cycle (Contrast)</h2>
+
+<p>Alternating cold and heat within the same session can potentiate vascular plasticity and neuro‑endocrine response. The recommended “contrast” method:</p>
+
+<code>
+# Contrast session (30 min total)
+1. Infrared sauna – 12 min @ 55 °C
+2. Active cooling – cold shower 1 min @ 10 °C
+3. Cold bath – 3 min @ 12 °C
+4. Warm recovery – warm shower 2 min @ 38 °C
+5. Repeat cycle 2 times
+# Frequency
+- 2 sessions/week (Tuesday and Thursday)
+# Post‑session
+- 10 min diaphragmatic breathing (4‑7‑8) for autonomic re‑balancing
+</code>
+
+<p>Rodent studies show that contrast increases <em>PGC‑1α</em> expression by up to 250 % and raises plasma HSP70 concentration by 180 % compared with isolated stimuli.</p>
+
+<h2>6. Monitoring and Adjustment Strategies</h2>
+
+<p>To ensure hormetic progression without overload, follow the feedback algorithm:</p>
+
+<ul>
+  <li><strong>Weeks 1–2:</strong> measure baseline <code>UCP1</code> and <code>HSP70</code>.</li>
+  <li><strong>Week 3:</strong> re‑measure; an expected 30‑50 % increase indicates adaptation.</li>
+  <li><strong>Week 4:</strong> if <code>IL‑6</code> remains elevated (> 2 pg/mL) or <code>p62</code> accumulates, reduce intensity by 20 % in the next phase.</li>
+  <li><strong>Quarterly re‑evaluation:</strong> repeat biomarker panel and adjust temperature/time according to the individual dose‑response curve.</li>
+</ul>
+
+<h2>7. Integration with Other Longevity Strategies</h2>
+
+<p>Thermotherapy should not be viewed in isolation. Combine it with:</p>
+
+<ul>
+  <li><strong>Intermittent caloric restriction (ICR):</strong> 16/8 or 5:2, to boost AMPK and SIRT1.</li>
+  <li><strong>NAD⁺ supplementation (NR or NMN):</strong> supports DNA repair after thermal stress.</li>
+  <li><strong>Low‑intensity resistance exercise:</strong> synergizes with the <em>mTOR</em> pathway for muscle maintenance.</li>
+</ul>
+
+<h2>8. Conclusion</h2>
+
+<p>Controlled exposure to cold and heat represents one of the most robust pillars of longevity bio‑hacking, operating through hormesis to reinforce cellular resilience. By following evidence‑based protocols—with gradual progression, biomarker monitoring, and integration with other health interventions—it is possible to transform thermal stress into a rejuvenating stimulus, promoting the maintenance of “immortal cells” and extending quality of life across decades.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #064E3B; border-bottom: 3px solid #064E3B; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #064E3B; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #064E3B; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #064E3B; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #064E3B;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #064E3B;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #064E3B;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Sound Mind, Eternal Body: The Impact of Stress on Telomeres</h1><h2>The Impact of Stress on Telomeres: How to Protect Genomic Integrity for Longevity</h2>
+
+<p>Telomeres are repetitive DNA structures (TTAGGG) that protect chromosome ends, preventing fusion and genomic degradation during cell division. Each replication cycle slightly shortens these chromosomal “caps”; when telomere length reaches a critical threshold, the cell enters senescence or apoptosis, contributing to tissue aging and functional decline. Chronic stress, both psychological and physiological, emerges as one of the main accelerators of this shortening, mediated by hormonal, inflammatory, and oxidative pathways. In this chapter we will discuss the underlying molecular mechanisms, present clinical evidence, and, above all, describe practical bio‑hacking protocols to mitigate the impact of stress on telomeres.</p>
+
+<h2>Molecular Mechanisms: How Stress Accelerates Telomere Shortening</h2>
+
+<p>1. <strong>HPA Axis (Hypothalamic‑Pituitary‑Adrenal)</strong></p>
+<ul>
+<li>Acute stress triggers the release of <em>cortisol</em> and adrenaline. Cortisol, by binding to the glucocorticoid receptor (GR), translocates to the nucleus and regulates the expression of pro‑inflammatory genes (NF‑κB, IL‑6, TNF‑α).</li>
+<li>These cytokines increase the production of reactive oxygen species (ROS) in mitochondria, causing damage to telomeric DNA.</li>
+<li>In addition, cortisol suppresses the expression of <strong>telomerase</strong> (TERT), the enzyme responsible for adding TTAGGG repeats to telomeres, reducing telomere‑maintenance capacity.</li>
+</ul>
+
+<p>2. <strong>Oxidation and DNA Damage</strong></p>
+<ul>
+<li>ROS such as superoxide (O₂⁻) and hydrogen peroxide (H₂O₂) attack nucleotide bases, especially guanine, forming 8‑oxoguanine, which impedes proper replication.</li>
+<li>Telomeres are particularly vulnerable because of their high guanine content and limited repair capacity via base‑excision repair (BER) mechanisms.</li>
+</ul>
+
+<p>3. <strong>Chronic Inflammation</strong></p>
+<ul>
+<li>Prolonged stress keeps the immune system on alert, with constant release of IL‑1β, IL‑6 and CRP. These mediators activate the JAK/STAT pathway, which negatively interferes with telomerase signaling.</li>
+<li>Sustained inflammation also promotes senescence of immune cells, generating the <em>senescence‑associated secretory phenotype (SASP)</em>, which further amplifies local oxidative stress.</li>
+</ul>
+
+<h2>Relevant Clinical Data</h2>
+
+<p>Epidemiological studies show robust correlations between stress markers and telomere length. A meta‑analysis of 27 cohorts (n ≈ 30 000) found:</p>
+<ul>
+<li>Individuals with high salivary cortisol levels have, on average, <code>−0.18 SD</code> leukocyte telomere length compared to low‑stress controls.</li>
+<li>Practitioners of mindfulness meditation for ≥ 8 weeks increased telomerase activity by <code>+0.25 U/mL</code>, correlating with <code>−15 %</code> reductions in cortisol markers.</li>
+<li>Moderate aerobic exercise interventions (30 min/day, 5 days/week) maintained or increased telomere length by 5‑10 % over 12 months in adults over 45 years.</li>
+</ul>
+
+<h2>Bio‑Hacking Protocols to Preserve Telomeres</h2>
+
+<p>The goal of the protocols below is to reduce biological stress load, optimize telomerase activity, and protect telomeric DNA from oxidation. Each intervention was selected based on level II or higher evidence (randomized clinical trials, meta‑analyses).</p>
+
+<h3>1. HPA Axis Control</h3>
+
+<ul>
+<li><strong>Breathing Training (Box Breathing)</strong>: 4‑4‑4‑4 cycles (inhale, hold, exhale, hold) for 5 min, 3×/day. Studies show cortisol reduction of <code>−30 %</code> after 4 weeks.</li>
+<li><strong>Adaptogen Supplementation</strong>:
+<ul>
+<li><code>Ashwagandha (Withania somnifera) 600 mg/day</code> – lowers basal cortisol by up to <code>−20 %</code>.</li>
+<li><code>Rhodiola rosea 200 mg/day</code> – improves stress resilience and increases <em>TERT</em> expression in murine models.</li>
+</ul>
+</li>
+</ul>
+
+<h3>2. Oxidation Reduction</h3>
+
+<ul>
+<li><strong>Pro‑Evidence Antioxidants</strong>:
+<ul>
+<li><code>Astaxanthin 12 mg/day</code> – neutralizes lipid ROS and protects telomeres in endurance‑athlete studies.</li>
+<li><code>Resveratrol 250 mg/day</code> – activates SIRT1, which regulates telomerase activity and enhances DNA repair.</li>
+</ul>
+</li>
+<li><strong>Antioxidant Diet</strong> (Mediterranean pattern):
+<ul>
+<li>5 daily servings of berries, cruciferous vegetables, and nuts.</li>
+<li>Omega‑3 (EPA/DHA) 1 g/day to reduce inflammation and improve mitochondrial membrane fluidity.</li>
+</ul>
+</li>
+</ul>
+
+<h3>3. Telomerase Activation</h3>
+
+<ul>
+<li><strong>Intermittent Fasting (16/8)</strong>: 16 h fast, 8 h eating window, 5‑6 days/week. Human studies show a <code>+0.12 U/mL</code> increase in telomerase activity after 12 weeks.</li>
+<li><strong>Moderate‑Intensity Aerobic Exercise</strong>:
+<ul>
+<li>30 min of running or cycling at 65‑75 % of maximal heart rate (HRmax), 5 days/week.</li>
+<li>Benefits: elevates <em>TERT</em> expression, lowers IL‑6, and improves total antioxidant capacity (TAC).</li>
+</ul>
+</li>
+<li><strong>Nucleotide Supplementation</strong> (RNA‑oligomers):
+<ul>
+<li><code>Polynucleotide (PN) 500 mg/day</code> – provides nucleotide precursors that may be incorporated into telomeres, though still experimental.</li>
+</ul>
+</li>
+</ul>
+
+<h3>4. Chronic Inflammation Mitigation</h3>
+
+<ul>
+<li><strong>Microbiota‑Targeted Therapy</strong>:
+<ul>
+<li>High‑potency probiotic (<code>≥10¹⁰ CFU</code> of *Bifidobacterium longum* and *Lactobacillus plantarum*) 1 capsule/day, improves gut barrier and reduces circulating LPS, decreasing NF‑κB activation.</li>
+<li>Prebiotic (inulin 10 g/day) to promote endogenous curcumin‑like production (butyrate).</li>
+</ul>
+</li>
+<li><strong>NF‑κB Pathway Blockade</strong>:
+<ul>
+<li><code>Curcumin (Curcuma longa) 500 mg/day + piperine 5 mg</code> – enhances bioavailability and reduces inflammatory gene expression by up to <code>−45 %</code>.</li>
+</ul>
+</li>
+</ul>
+
+<h3>5. High‑Quality Sleep</h3>
+
+<ul>
+<li><strong>Sleep Hygiene</strong>:
+<ul>
+<li>Dark environment (<5 lux), temperature 18‑20 °C, 7‑9 h consolidated sleep.</li>
+<li>Use <code>Melatonin 0.5 mg</code> 30 min before bedtime to regulate circadian rhythm and lower morning cortisol.</li>
+</ul>
+</li>
+<li><strong>Biofeedback Technology</strong>:
+<ul>
+<li>Heart‑rate variability (HRV) tracking device – target: HRV > 60 ms upon waking, indicator of low sympathetic activity.</li>
+</ul>
+</li>
+</ul>
+
+<h2>Structure of a Weekly Telomere‑Bio‑Hacking Plan</h2>
+
+<code>
+# Example routine (Monday‑Friday)
+06:30 – Wake, 5 min Box Breathing + 5 min guided meditation
+07:00 – Breakfast (smoothie with berries, flaxseed, whey + curcumin)
+08:00 – Walk/cycle 30 min (HR 70 % of HRmax)
+12:00 – Lunch (green salad, omega‑3‑rich fish, extra‑virgin olive oil)
+13:00 – Start fasting (16‑hour fast)
+15:30 – Supplements: Ashwagandha 600 mg, Astaxanthin 12 mg, Probiotic 1 capsule
+18:00 – Dinner (raw vegetables, quinoa, tofu, inulin 10 g)
+19:00 – Breathing session + fiction reading (lowers cortisol)
+21:00 – Pre‑sleep routine (dim light, melatonin 0.5 mg)
+22:30 – Sleep (HRV monitored)
+</code>
+
+<p>On weekends, include <strong>cold‑therapy</strong> sessions (ice‑water immersion 3 min) and <strong>infrared sauna</strong> (15 min) – both increase <em>HSP70</em> expression and favor DNA repair.</p>
+
+<h2>Monitoring and Adjustments Based on Biomarkers</h2>
+
+<p>To validate intervention efficacy, quarterly collection of the following markers is recommended:</p>
+<ul>
+<li><strong>Telomere Length</strong> in leukocytes – measured by qPCR (T/S ratio) or Southern blot (TRF). Goal: <code>ΔT/S ≥ +0.05</code> over 12 months.</li>
+<li><strong>Morning Salivary Cortisol</strong> – target <code>≤ 5 nmol/L</code>.</li>
+<li><strong>High‑sensitivity CRP</strong> – target <code>≤ 1 mg/L</code>.</li>
+<li><strong>HRV (RMSSD)</strong> – target <code>≥ 60 ms</code> upon waking.</li>
+<li><strong>Oxidative Stress Index</strong> (8‑oxoguanine/8‑OHdG) – reduction of <code>≥ 20 %</code> compared with baseline.</li>
+</ul>
+
+<p>Based on results, adjust adaptogen dosage, exercise intensity, or fasting window. Personalization is the cornerstone of bio‑hacking: what works for one genotype may not be optimal for another.</p>
+
+<h2>Safety Considerations and Contra‑indications</h2>
+
+<ul>
+<li>Adaptogens can interact with corticosteroid therapy; monitor hormonal levels.</li>
+<li>Resveratrol doses > 500 mg/day may inhibit platelet aggregation – caution in anticoagulated patients.</li>
+<li>Prolonged fasting (> 24 h) can cause hypoglycemia in individuals with pancreatic dysfunction; start with 12‑16 h.</li>
+<li>High‑intensity exercise should be introduced gradually in sedentary individuals to avoid oxidative overload.</li>
+</ul>
+
+<h2>Executive Summary</h2>
+
+<p>Stress, by activating the HPA axis, generating chronic inflammation, and raising oxidative stress, accelerates telomere shortening and compromises cellular longevity. Bio‑hacking strategies that combine neuro‑endocrine control (breathing, adaptogens), oxidative mitigation (antioxidants, diet), telomerase activation (intermittent fasting, aerobic exercise) and inflammatory reduction (probiotics, curcumin) demonstrate clinical efficacy in preserving—or even increasing—telomere length. Systematic implementation, monitored by specific biomarkers, allows transformation of stress from a biological enemy into a controlled hormetic stimulus, promoting the “immortal cell” – not in the sense of deathlessness, but in maintaining genomic functionality throughout life.</div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>

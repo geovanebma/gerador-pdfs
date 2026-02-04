@@ -1,0 +1,3434 @@
+<html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0F172A; border-bottom: 3px solid #0F172A; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0F172A; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0F172A; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0F172A; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0F172A;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0F172A;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0F172A;
+            }
+        </style>
+    
+    <style>
+        @page {
+            margin: 0 !important;
+            padding: 0 !important;
+        }
+
+        /* Adicionado &display=swap no final das URLs */
+        @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+        @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+        /* Importação dos Ícones Bootstrap via CDN */
+        @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+        
+        body { 
+            font-family: 'Roboto', sans-serif !important; 
+            margin: 0; 
+            padding: 0;
+            color: #333;
+        }
+
+        .cover-script {
+            font-family: 'Kaushan Script', cursive !important;
+            // font-weight: 400;
+        }
+        
+        .cover-full {
+            width: 100vw !important;
+            height: 100vh !important;
+            margin: 0 !important;
+            padding: 0 !important;
+            display: block;
+        }
+
+        .introduction-page h1 { color: #0F172A; border-bottom: 3px solid #0F172A; padding-bottom: 10px; }
+    </style></head><body>
+            <div class="cover-full" style="width:100%; background-color:#0F172A;">
+                <div style="position:relative; width:100%; height:350px; overflow:hidden;">
+                    <img src="fundo-capa.png"style="position:absolute;top:0;left:0;width:100%;height:100%;object-fit:cover;z-index:1;">
+                    <div style="position:absolute;top:0;left:0;right:0;height:100%;display:flex;flex-direction:column;justify-content:center;align-items:center;text-align:center;z-index:2;">
+                        <h3 class="cover-script" style="margin-top:-15px; font-size:2.5rem !important; color:#333; font-family: 'Kaushan Script', cursive; line-height: 1.1;">
+                            Let's talk about Applied Psychology
+                        </h3>
+                        
+                        <h3 style="font-size:1.8rem !important; color:#FFF; font-family: 'Roboto', sans-serif; padding:5px 20px; border-radius:50px; background-color:#333; margin-top:-15px; display: inline-block; max-width: 90%;">
+                            The Art of Social Engineering
+                        </h3>
+                        <i class="bi bi-person-bounding-box" style="font-size:20px;color:#333;border-radius:50px;padding:5px 40px;margin-top:-50px;background-color:#FFF;"></i>
+                    </div>
+                </div>
+                <div style="position:relative;margin-top:100px;">
+                    <div style="display: flex; align-items: center; justify-content: center; gap: 16px; margin-bottom: 32px;">
+                        <div style="height: 1px; width: 96px; background: linear-gradient(to right, transparent, #FFF);"></div>
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFF;"></div>
+                        <div style="height: 1px; width: 128px; background-color: #FFF;"></div>
+                        <div style="width: 8px; height: 8px; border-radius: 50%; background-color: #FFF;"></div>
+                        <div style="height: 1px; width: 96px; background: linear-gradient(to left, transparent, #FFF);"></div>
+                    </div>
+                    <div style="position: relative;">
+                        <div style="position: absolute; top: -16px; bottom: -16px; left: -16px; right: -16px; border-radius: 8px; background-color: #FFF; opacity: 0.3;"></div>
+                        <div style="position: absolute; top: -8px; bottom: -8px; left: -8px; right: -8px; background-color: white; border-radius: 8px; box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);"></div>
+                        <div style="position: relative; border-radius: 8px; overflow: hidden; box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);">
+                            <img src="./output/the_art_of_social_engineering.png" style="width: 100%; height: 384px; object-fit: cover; display: block;">
+                            <div style="position: absolute; inset: 0; background: linear-gradient(to top, rgba(0,0,0,0.2), transparent);"></div>
+                        </div>
+                        <div style="position: absolute; bottom: -24px; left: 50%; transform: translateX(-50%); padding: 12px 32px; border-radius: 9999px; shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1); background-color: #333; white-space: nowrap;">
+                            <p style="text-align: center; font-size: 14px; letter-spacing: 0.1em; color: #FFF; margin: 0; font-weight: bold;">
+                                A SPECIAL COLLECTION
+                            </p>
+                        </div>
+                    </div>
+                    <div style="margin-top: 48px; padding-left: 48px; padding-right: 48px; padding-bottom: 32px; display: flex; align-items: center; justify-content: space-between;">
+                        <div style="flex: 1; height: 1px; background: linear-gradient(to right, #d1d5db, transparent);"></div>
+                        <div style="padding: 0 32px;">
+                            <div style="width: 80px; height: 80px; border-radius: 50%; background-color: #FFF; display: flex; align-items: center; justify-content: center; box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);">
+                                <img src="img/realizart-logo.png" style="width: 40px; height: 40px;" alt="Logo">
+                            </div>
+                        </div>
+                        <div style="flex: 1; height: 1px; background: linear-gradient(to left, #d1d5db, transparent);"></div>
+                    </div>
+                    <div style="height: 12px; color:#F8FAFC; background: linear-gradient(to right, #0F172A, #888, #0F172A);"></div>
+                </div>
+            </div>
+        </div>
+        <div class="page-break" style="page-break-after: always;"></div>
+    </body></html><html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0F172A; border-bottom: 3px solid #0F172A; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0F172A; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0F172A; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0F172A; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0F172A;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0F172A;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0F172A;
+            }
+        </style>
+    </head><body>
+        <section class="indice-page">
+            <h1 class="indice-titulo" style="color: #0F172A">Summary</h1>
+            <div class="indice-lista">
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">1. Body Language: What the Body Says Before the Mouth</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 1</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">2. Mental Triggers: Access Keys to the Subconscious</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 5</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">3. The Neuroscience of Persuasion and Charisma</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 9</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">4. Lie Detection: Signs of Incongruity</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 14</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">5. Social Engineering in Daily Life: Protection and Application</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 19</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">6. The Psychology of Colors and Environments</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 23</span>
+                    </div>
+                
+                    <div class="indice-item">
+                        <span class="indice-nome">7. Ethics and Manipulation: The Invisible Boundary</span>
+                        <span class="indice-pontilhado"></span>
+                        <span class="indice-pagina">Pag. 27</span>
+                    </div>
+                
+            </div>
+        </section></body></html><html><head>
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0F172A; border-bottom: 3px solid #0F172A; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0F172A; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0F172A; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0F172A; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0F172A;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0F172A;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0F172A;
+            }
+        </style>
+    </head><body>
+        <section class="indice-page">
+            <div class="introduction-page">
+                <h1>Introduction</h1>
+                <p>Welcome to the fascinating universe of Applied Psychology, where every gesture, color, and word reveal powerful secrets that can transform how we relate to and influence the world around us. In this e‑book, “Let’s Dive into Applied Psychology – The Art of Social Engineering,” you will discover how the science of human behavior turns into practical art, capable of opening doors, building trust, and protecting yourself against unwanted persuasion strategies.</p>
+
+<p>As you dive into chapters that cover everything from body language – “What the Body Says Before the Mouth” – to mental triggers that act as “Access Keys to the Subconscious,” you will learn to read and use subtle signals that shape decisions. Delving into the neuroscience of persuasion and charisma, as well as lie‑detection techniques, will give you tools to recognize inconsistencies and act more confidently in any context.</p>
+
+<p>In addition, we will explore the psychology of colors and environments, revealing how the design around us influences emotions and behaviors, and we will present practical applications of social engineering in everyday life, highlighting both protective strategies and ethical use. In the end, we will reflect on the delicate line between ethics and manipulation, ensuring that your knowledge is guided by responsibility and integrity.</p>
+
+<p>Prepare to expand your vision, sharpen your communication skills, and turn challenges into opportunities – the journey toward mastery in social engineering starts now. Go ahead and discover your full potential!</p>
+            </div>
+            <div class="page-break"></div>
+        </section>
+    </body></html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0F172A; border-bottom: 3px solid #0F172A; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0F172A; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0F172A; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0F172A; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0F172A;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0F172A;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0F172A;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Body Language: What the Body Says Before the Mouth</h1><h2>Applied Psychology – The Art of Social Engineering</h2>
+<h2>Body Language: What the Body Says Before the Mouth</h2>
+
+<p>In the practice of social engineering, the most valuable information is often transmitted before the target even utters a word. The human body, as a biological sensor, emits continuous signals that reveal emotional state, level of attention, intention, and even resistance to an approach. This chapter delves into the mechanisms of body language (kinesics) and demonstrates how these signals can be interpreted, validated, and, when necessary, manipulated to optimize social‑engineering interventions.</p>
+
+<p><strong>Goal</strong>: Enable the reader to recognize, analyze, and ethically employ bodily patterns (or, when appropriate, in defensive scenarios), using techniques grounded in cognitive psychology, neuroscience, and data science.</p>
+
+<h2>1. Neuropsychological Foundations of Non‑Verbal Communication</h2>
+
+<p>The processes that give rise to body language are mediated by two main pathways:</p>
+
+<ul>
+    <li><strong>Limbic pathway</strong> – Regulates automatic emotional responses (e.g., counter‑reactions to fear, joy, or anger) that manifest as micro‑expressions and muscle tension.</li>
+    <li><strong>Prefrontal pathway</strong> – Modulates conscious behaviors, such as deliberate posture or persuasive gestures.</li>
+</ul>
+
+<p>Neuroimaging studies (fMRI) show that areas like the amygdala and anterior cingulate cortex are activated in social‑evaluation situations, influencing the “reading” of signals such as pupil dilation, sweating, and micro‑eye movements. This biological basis justifies the reliability of non‑verbal indicators, even when verbal discourse is deliberately disguised.</p>
+
+<h2>2. Key Components of Body Language</h2>
+
+<p>For systematic analysis, body language can be segmented into five domains:</p>
+
+<ul>
+    <li><strong>Posture</strong> – Torso tilt, chest opening, and spinal alignment indicate confidence level and willingness to engage.</li>
+    <li><strong>Gestures</strong> – Amplitude, speed, and direction of hand and arm movements reveal emotional intensity and intent.</li>
+    <li><strong>Facial Expressions</strong> – Micro‑expressions (duration < 0.5 s) are indicators of genuine emotions, according to Ekman’s Model.</li>
+    <li><strong>Proxemics</strong> – Interpersonal distance (intimate, personal, social, public) reflects comfort or perceived threat.</li>
+    <li><strong>Paralinguistics</strong> – Although not strictly “bodily,” variations in tone, rhythm, and volume accompany physical signals and reinforce the message.</li>
+</ul>
+
+<h2>3. Practical Observation Tools</h2>
+
+<p>Below is a field‑observation checklist, ideal for printing or converting into a mobile app:</p>
+
+<code>
+# Body Language Observation Checklist
+# 1 – Posture
+# 2 – Gestures
+# 3 – Facial expressions
+# 4 – Proxemics
+# 5 – Paralinguistics
+</code>
+
+<p>When using the checklist, record the <em>duration</em> (in seconds) and <em>intensity</em> (scale 1‑5) of each signal. These data can be entered into spreadsheets for later statistical analysis.</p>
+
+<h2>4. Interpretation of Critical Signals</h2>
+
+<p>Below we list several high‑relevance signals for social engineering, along with possible interpretations:</p>
+
+<ul>
+    <li><strong>Crossed Arms</strong> – Defense or discomfort. If the crossing occurs quickly after the first question, the target may be evaluating the credibility of the approach.</li>
+    <li><strong>Raised Eyebrows + Dilated Pupils</strong> – Surprise or curiosity. Use to introduce an “intrigue” point that raises engagement.</li>
+    <li><strong>Micro‑smiles (hidden at the corners of the mouth)</strong> – Signal of internal agreement, even if verbal speech is neutral.</li>
+    <li><strong>Step Back (proxemics)</strong> – Indication of a need for space; adjust distance or reduce message intensity.</li>
+    <li><strong>Accelerated Speech Rhythm + Broad Gestures</strong> – Excitement or anxiety; can be used to create urgency (e.g., “Limited offer”).</li>
+</ul>
+
+<h2>5. Body‑Language‑Based Engagement Strategies</h2>
+
+<p>To maximize persuasion effectiveness, align your verbal communication with the non‑verbal “signature” you wish to evoke in the target:</p>
+
+<ol>
+    <li><strong>Mirroring</strong> – Reproduce, with a slight delay (2‑3 s), the posture and gestures of the interlocutor. Studies show a 7‑10 % increase in agreement rates.</li>
+    <li><strong>Respiratory Synchronization</strong> – Match your breathing pattern to the target’s (e.g., inhale at the same time). This technique regulates the autonomic nervous system, generating a sense of “connection.”</li>
+    <li><strong>Use of “Anchoring Points”</strong> – Associate a specific gesture with a key message (e.g., lightly touch the wrist when mentioning “security”). Reinforces implicit memory.</li>
+    <li><strong>Space Control</strong> – Gradually close distance (0.5 m per interaction) to create intimacy, but stop if you detect retreat signals.</li>
+    <li><strong>Micro‑Expression Manipulation</strong> – Practice neutral expressions that can be quickly turned into genuine smiles upon receiving positive confirmation.</li>
+</ol>
+
+<h2>6. Automated Analysis Tools</h2>
+
+<p>With advances in computer vision, human observation can be integrated with algorithms for detecting micro‑expressions and posture. Below is a Python example using <code>OpenCV</code> and <code>deepface</code> to capture micro‑expressions in real time:</p>
+
+<code>
+import cv2
+from deepface import DeepFace
+
+# Initialize webcam capture
+cap = cv2.VideoCapture(0)
+
+while True:
+    ret, frame = cap.read()
+    if not ret:
+        break
+
+    # Detect faces and analyze emotions
+    result = DeepFace.analyze(frame, actions=['emotion'], enforce_detection=False)
+
+    # Display result on screen
+    cv2.putText(frame,
+                f"Emotion: {result['dominant_emotion']}",
+                (10,30),
+                cv2.FONT_HERSHEY_SIMPLEX,
+                0.9,
+                (0,255,0),2)
+
+    cv2.imshow('Live Emotion Detection', frame)
+
+    if cv2.waitKey(1) & 0xFF == ord('q'):
+        break
+
+cap.release()
+cv2.destroyAllWindows()
+</code>
+
+<p>This script can be adapted to log the frequency of specific emotions during a social‑engineering interview, facilitating correlation between verbal stimuli and bodily responses.</p>
+
+<h2>7. Ethics and Counter‑Intelligence</h2>
+
+<p>Although reading and manipulating body language are powerful tools, practice must observe ethical principles:</p>
+
+<ul>
+    <li><strong>Informed consent</strong> – In research or training contexts, obtain explicit permission for recording and analyzing non‑verbal signals.</li>
+    <li><strong>Invasion limit</strong> – Avoid techniques that induce excessive discomfort or privacy violation (e.g., covert micro‑expression monitoring).</li>
+    <li><strong>Defensive application</strong> – Organizations should train employees to recognize social‑engineering attempts based on body language, developing “detect + interrupt” protocols.</li>
+</ul>
+
+<h2>8. Action Plan for Social‑Engineering Professionals</h2>
+
+<p>Implement the following 5‑step roadmap in any persuasion campaign:</p>
+
+<ol>
+    <li><strong>Pre‑audit</strong> – Analyze context (location, culture, time of day) to anticipate proxemic and posture patterns.</li>
+    <li><strong>Initial Observation</strong> – Use the checklist (see section 3) to map the target’s baseline state during the first 30 s.</li>
+    <li><strong>Alignment</strong> – Apply mirroring and respiratory synchronization to build rapport.</li>
+    <li><strong>Intervention</strong> – Introduce key messages synchronized with anchoring gestures and adjust distance according to non‑verbal feedback.</li>
+    <li><strong>Feedback loop</strong> – Record micro‑expressions and reassess strategy in real time, using automated tools or direct observation.</li>
+</ol>
+
+<h2>Conclusion</h2>
+
+<p>Body language functions as a pre‑verbal “code” that precedes and often contradicts conscious speech. Mastering the reading of this code allows the social engineer to anticipate objections, calibrate persuasion, and, above all, detect manipulation attempts when the goal is defense. By integrating neuropsychological knowledge, structured observation techniques, and automated analysis tools, the professional elevates effectiveness in a measurable and ethical manner.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0F172A; border-bottom: 3px solid #0F172A; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0F172A; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0F172A; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0F172A; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0F172A;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0F172A;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0F172A;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Mental Triggers: The Keys to Accessing the Subconscious</h1><h2>Mental Triggers: The Keys to Accessing the Subconscious</h2>
+
+<p>In the practice of social engineering, <strong>mental triggers</strong> are the points of vulnerability that allow the attacker to bypass the victim’s conscious rationality and reach their subconscious. These triggers are, essentially, cognitive shortcuts – <em>heuristics</em> – that the brain uses to save mental effort. When activated, they generate automatic responses that can be exploited to obtain information, permissions, or unwanted actions.</p>
+
+<h2>1. Main Mental Triggers Used in Social Engineering</h2>
+
+<p>The most recurring triggers in social‑engineering campaigns are:</p>
+
+<ul>
+  <li><strong>Authority</strong>: Tendency to obey figures perceived as superior or expert.</li>
+  <li><strong>Reciprocity</strong>: Feeling of obligation when receiving something, even if minimal.</li>
+  <li><strong>Scarcity</strong>: Valuing resources that appear limited or rare.</li>
+  <li><strong>Social Proof</strong>: Adoption of behaviors observed in other people as a reference for “what is correct”.</li>
+  <li><strong>Commitment and Consistency</strong>: Need to align future actions with prior statements or commitments.</li>
+  <li><strong>Urgency</strong>: Temporal pressure that reduces the capacity for critical analysis.</li>
+  <li><strong>Affinity</strong>: Emotional or identity connection that generates automatic trust.</li>
+</ul>
+
+<h2>2. Neuropsychological Mechanisms Behind the Triggers</h2>
+
+<p>From a neuroscientific perspective, each trigger activates specific circuits:</p>
+
+<ul>
+  <li><strong>Authority</strong> – <em>dorsolateral prefrontal cortex</em> receives modulation from the <em>anterior cingulate cortex</em>, reducing internal conflict and facilitating acceptance of instructions.</li>
+  <li><strong>Reciprocity</strong> – The <em>nucleus accumbens</em> releases dopamine when receiving “gifts”, reinforcing the positive association.</li>
+  <li><strong>Scarcity</strong> – The <em>hippocampus</em> and the <em>amygdala</em> increase perceived value when the resource seems limited, activating the <em>loss‑aversion circuit</em>.</li>
+  <li><strong>Social Proof</strong> – The <em>temporoparietal cortex</em> processes “others have already done it” information, generating a conformity bias.</li>
+</ul>
+
+<p>These responses are fast (latency < 200 ms) and occur before deliberative analysis, making the target vulnerable even when the person has advanced technical knowledge.</p>
+
+<h2>3. Practical Exploitation Strategies</h2>
+
+<p>Below is a typical trigger‑exploitation flow, illustrated in pseudo‑code to facilitate understanding of the attack logic (not executable code).</p>
+
+<code>
+# Pseudo‑code of a social‑engineering vector
+def ataque_social(vitima):
+    # 1. Reconnaissance: gather data that increase affinity
+    perfil = obter_perfil_publico(vitima)
+    
+    # 2. Choose the dominant trigger
+    if perfil['cargo'] == 'gerente':
+        gatilho = 'autoridade'
+    elif perfil['interesses'].contains('caridade'):
+        gatilho = 'reciprocidade'
+    else:
+        gatilho = 'urgência'
+    
+    # 3. Build the message
+    mensagem = montar_mensagem(gatilho, perfil)
+    
+    # 4. Deliver via high‑trust channel
+    canal = selecionar_canal_confiavel(vitima)  # corporate email, Slack, etc.
+    
+    # 5. Execute
+    enviar(mensagem, canal)
+    monitorar_resposta(vitima)
+</code>
+
+<p>The purpose of this pseudo‑code is to demonstrate the **decision logic** based on psychological profiles, not to instruct real execution.</p>
+
+<h2>4. How to Identify and Neutralize Mental Triggers</h2>
+
+<p>For information‑security professionals, effective defense starts with <strong>awareness</strong> of the triggers and the implementation of <em>human controls</em> that interrupt the automatic decision flow.</p>
+
+<h3>4.1. Self‑Assessment Checklist for Users</h3>
+
+<ul>
+  <li>Am I being pressured by <em>limited time</em> or a <em>single‑offer</em>?</li>
+  <li>Who is requesting the action? Do I have proof of identity and authority?</li>
+  <li>Is there an implicit <em>favor exchange</em> that might be generating reciprocity?</li>
+  <li>Have other people already performed this action? Is there evidence of <em>social proof</em>?</li>
+  <li>Am I committed to something I previously accepted? Could that be influencing my decision?</li>
+</ul>
+
+<h3>4.2. Technical Mitigation Measures</h3>
+
+<ul>
+  <li><strong>Multi‑factor Authentication (MFA)</strong> – Reduces the impact of automatic acceptance of requests.</li>
+  <li><strong>Identity‑Verification Policies</strong> – Require confirmation via an alternate channel (e.g., phone call) for critical actions.</li>
+  <li><strong>Phishing‑Simulation Training</strong> – Regular exercises that introduce scenarios with different triggers, allowing users to recognize patterns.</li>
+  <li><strong>Communication Anomaly Monitoring</strong> – DLP (Data Loss Prevention) tools that alert when messages contain keywords such as “urgent”, “immediate”, “exclusive”.</li>
+</ul>
+
+<h2>5. Relevant Case Studies</h2>
+
+<p><strong>Case 1 – “Authority” Attack on a Finance Department</strong></p>
+
+<p>An attacker sent a spoofed email appearing to be from the CFO, requesting a transfer of US$ 150,000 to an “external audit account”. The authority trigger was reinforced with a fake digital signature and corporate language. The victim, noticing the urgency (“needed today”), executed the action without phone verification. The failure occurred because a cross‑verification policy was not formalized.</p>
+
+<p><strong>Mitigation applied:</strong> After the incident, the company implemented a two‑step approval workflow for transfers above US$ 10,000, requiring confirmation via internal call and ticket‑system logging.</p>
+
+<p><strong>Case 2 – Reciprocity Exploitation via a Virtual “Gift”</strong></p>
+
+<p>In a phishing campaign, targets received a US$ 20 “gift card” as a thank‑you for participating in an internal survey. The reciprocity trigger caused 38 % of recipients to click the link and enter credentials on a cloned site.</p>
+
+<p><strong>Mitigation applied:</strong> The organization launched a “Report‑and‑Reward” program, encouraging reporting of suspicious emails with symbolic rewards, reducing the click‑through rate by 71 % over the following three months.</p>
+
+<h2>6. Awareness‑Support Tools</h2>
+
+<p>To turn theoretical knowledge into everyday practice, it is recommended to use tools that automate trigger assessment in corporate communications:</p>
+
+<ul>
+  <li><code>GatilhoScanner</code> – Email plugin that highlights urgency, scarcity, and authority keywords, offering verification suggestions.</li>
+  <li><code>SimuladorSOC</code> – Training platform that generates dynamic social‑engineering scenarios, allowing collection of response metrics (reaction time, error rate).</li>
+  <li><code>AuditoriaSubconsciente</code> – Python script that analyzes corporate chat logs for patterns of social proof (e.g., “everyone has already done it”).</li>
+</ul>
+
+<h2>7. Conclusion</h2>
+
+<p>Mental triggers are the <em>keys to the subconscious</em> that social engineering uses to bypass technical defenses. Understanding the neuropsychological basis, recognizing manipulation patterns, and implementing both human and technological controls are essential steps to turn cognitive vulnerabilities into security strengths. Mastering these concepts not only protects digital assets but also raises organizational maturity regarding <strong>behavioral security</strong>.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0F172A; border-bottom: 3px solid #0F172A; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0F172A; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0F172A; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0F172A; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0F172A;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0F172A;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0F172A;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The Neuroscience of Persuasion and Charisma</h1><h2>Applied Psychology: The Art of Social Engineering – The Neuroscience of Persuasion and Charisma</h2>
+
+<p>This chapter dives into the neuroscientific foundations that underlie persuasion and charisma, showing how these principles can be employed – ethically – in social‑engineering strategies. The goal is to equip the reader with practical tools that, when aligned with the functioning of the human brain, increase the effectiveness of persuasive interventions in corporate, information‑security, and leadership environments.</p>
+
+<h2>1. Key Brain Structures in Persuasion</h2>
+
+<p>Understanding which brain areas are activated during persuasive processes allows messages to be targeted more precisely. The main regions are:</p>
+
+<ul>
+  <li><strong>Dorsolateral prefrontal cortex (dlPFC)</strong>: responsible for logical reasoning and risk evaluation. When a message reduces cognitive load, the dlPFC expends less energy, facilitating acceptance.</li>
+  <li><strong>Ventromedial prefrontal cortex (vmPFC)</strong>: integrates emotions and personal values. Appeals that touch intrinsic values (e.g., justice, belonging) increase activity in this region.</li>
+  <li><strong>Amygdala</strong>: center for processing fear and reward. Stimuli that evoke fear or pleasure activate the amygdala, influencing fast decisions.</li>
+  <li><strong>Ventral striatum (nucleus accumbens)</strong>: the core of the reward sensation. Dopamine release here reinforces desired behaviors.</li>
+  <li><strong>Anterior cingulate cortex (ACC)</strong>: monitor of internal conflict. Messages that reduce cognitive dissonance lower ACC activity, making agreement easier.</li>
+</ul>
+
+<p>When designing a social‑engineering campaign, the objective is to <em>maximize activation of the vmPFC and the ventral striatum</em> while <em>minimizing the amygdala’s fear response</em> – unless fear is deliberately used as a trigger (e.g., phishing that simulates urgency).</p>
+
+<h2>2. Neurotransmitters and Their Roles in Influence</h2>
+
+<p>The main neurotransmitters involved in persuasion are:</p>
+
+<ul>
+  <li><strong>Dopamine</strong>: associates the message with pleasure and reward expectation.</li>
+  <li><strong>Oxytocin</strong>: promotes trust and social bonding; released in “eye‑to‑eye” interactions and subtle touch.</li>
+  <li><strong>Serotonin</strong>: regulates mood and a sense of well‑being, facilitating receptivity.</li>
+  <li><strong>Norepinephrine</strong>: heightens attention and alertness; useful in messages that require immediate action.</li>
+</ul>
+
+<p>Practical example: a phishing email that combines <strong>urgency (norepinephrine)</strong> with <strong>future reward (dopamine)</strong> (“Click now to secure your bonus”) tends to generate a higher click‑through rate.</p>
+
+<h2>3. Cognitive Biases that Amplify Social Engineering</h2>
+
+<p>Cognitive biases are mental shortcuts that simplify decision‑making. Below are the most relevant ones and how to exploit them:</p>
+
+<ul>
+  <li><strong>Authority bias</strong>: People tend to obey figures perceived as experts. Use titles, credentials, and uniforms to create this effect.</li>
+  <li><strong>Reciprocity bias</strong>: Receiving something creates an obligation to give back. Offer a small benefit (e.g., a free ebook) before requesting an action.</li>
+  <li><strong>Scarcity bias</strong>: Limited items are perceived as more valuable. Phrases like “Offer valid for the first 50 respondents” trigger dopamine.</li>
+  <li><strong>Anchoring effect</strong>: The first number or piece of information presented serves as a reference. Set high prices or deadlines initially to “anchor” perception.</li>
+  <li><strong>Confirmation bias</strong>: People seek information that confirms their beliefs. Personalize messages according to the target’s profile so they “confirm” your point of view.</li>
+</ul>
+
+<h2>4. Persuasive Message Architecture – The “AIDA+O” Model</h2>
+
+<p>The classic AIDA model (Attention, Interest, Desire, Action) can be expanded with a fifth element – <strong>O</strong> for <em>Emotional Oxygenation</em> – which incorporates oxytocin and serotonin release to consolidate trust.</p>
+
+<code>
+function createAIDAOMessage(title, body, callToAction) {
+    // 1. Attention: visual or auditory trigger
+    const attention = `<h2>${title}</h2>`;
+
+    // 2. Interest: storytelling that activates vmPFC
+    const interest = `<p>${body}</p>`;
+
+    // 3. Desire: clear benefit + scarcity (dopamine)
+    const desire = `<p><strong>Benefit:</strong> ${body.split('.')[0]}... <em>Limited offer!</em></p>`;
+
+    // 4. Emotional Oxygenation: inclusive language + oxytocin
+    const oxygenation = `<p>Join <strong>our community</strong> of over 10,000 professionals who already trust us.</p>`;
+
+    // 5. Action: direct call + urgency (norepinephrine)
+    const action = `<button onclick="window.location.href='${callToAction}'">Click here and claim now</button>`;
+
+    return attention + interest + desire + oxygenation + action;
+}
+</code>
+
+<p>Implementing the function above, each block of the message activates specific brain regions, increasing conversion rates.</p>
+
+<h2>5. Charisma Techniques Based on Neuromarketing</h2>
+
+<p>Charisma is not just a personality trait; it is a set of behaviors that modulate perceptions of trust and authority. The neurobiological components are:</p>
+
+<ul>
+  <li><strong>Sustained eye contact (3‑5 seconds)</strong>: increases oxytocin release in the interlocutor.</li>
+  <li><strong>Mirroring posture and vocal rhythm</strong>: activates mirror neurons, reinforcing empathy.</li>
+  <li><strong>Use of short stories (micro‑narratives)</strong>: engages dlPFC and hippocampus, facilitating message retention.</li>
+  <li><strong> tonal variety (strategic pauses)</strong>: creates norepinephrine spikes that keep attention.</li>
+  <li><strong>Congruent facial expressions</strong>: avoid cognitive dissonance in the ACC.</li>
+</ul>
+
+<p>Practical application: when delivering an information‑security presentation, alternate between <em>technical data</em> (dlPFC) and <em>real breach stories</em> (hippocampus), finishing with a <em>community appeal</em> (oxytocin) to cement the message.</p>
+
+<h2>6. Ethical Social‑Engineering Strategies</h2>
+
+<p>Although social engineering is often associated with malicious attacks, its potential for positive influence is huge when used ethically. Some recommendations:</p>
+
+<ul>
+  <li><strong>Clear and transparent objective</strong>: communicate the purpose of persuasion to reduce amygdala “threat” activation.</li>
+  <li><strong>Informed consent</strong>: provide an “opt‑out” option to respect individual autonomy.</li>
+  <li><strong>Continuous feedback</strong>: use metrics (open rates, clicks, NPS) to adjust cognitive and emotional load of messages.</li>
+  <li><strong>“Manipulation detection” training</strong> for teams: by knowing neuro‑biological triggers, professionals can recognize abuse attempts.</li>
+</ul>
+
+<h2>7. Measuring Neurological Impact – Practical Tools</h2>
+
+<p>To validate the effectiveness of the described techniques, the following tools can be employed:</p>
+
+<ul>
+  <li><strong>Eye‑tracking</strong>: identifies which visual elements capture attention (dlPFC).</li>
+  <li><strong>Portable EEG</strong>: monitors alpha and beta wave patterns related to alertness and engagement.</li>
+  <li><strong>Oxytocin surveys</strong> (self‑reported trust and connection) before and after the intervention.</li>
+  <li><strong>Click heatmaps</strong>: correlate high‑dopamine reward points with conversion rates.</li>
+</ul>
+
+<p>Example of an A/B testing workflow using neuro‑informational metrics:</p>
+
+<code>
+# Pseudocode for a neuro‑aware A/B test pipeline
+def neuro_aware_test(version_A, version_B, users):
+    results = {'A': [], 'B': []}
+    for user in users:
+        # Randomize variant
+        variant = 'A' if random() < 0.5 else 'B'
+        # Show variant and collect metrics
+        eye_data = collect_eye_tracking(user, variant)
+        eeg_data = collect_EEG(user, variant)
+        click = record_click(user, variant)
+        # Neuro score: weighted combination
+        score = (eye_data.fixation_time * 0.3 +
+                 eeg_data.beta_power * 0.4 +
+                 click * 0.3)
+        results[variant].append(score)
+    # Statistical analysis
+    p_value = t_test(results['A'], results['B'])
+    return p_value < 0.05
+</code>
+
+<p>When the <code>p_value</code> indicates significance, the variant with the higher neuro‑aware score is considered superior in terms of persuasion.</p>
+
+<h2>8. Conclusion – Integrating Neuroscience into Everyday Social Engineering</h2>
+
+<p>By combining knowledge of brain structures, neurotransmitters, cognitive biases, and charisma techniques, social engineering moves from a mere “trick” to an evidence‑based discipline. Applying these principles in practice enables:</p>
+
+<ul>
+  <li>Developing internal‑communication campaigns that boost engagement by up to 45%.</li>
+  <li>Reducing click rates on phishing emails by training users to recognize neuro‑emotional triggers.</li>
+  <li>Strengthening organizational leadership by cultivating neuro‑validated charisma.</li>
+</ul>
+
+<p>The next step for the reader is to apply the <code>AIDA+O</code> models and mirroring techniques in a real scenario, collect neuro‑informational data, and iterate the process. Science has already shown that effective persuasion arises from the synergy of psychology, neuroscience, and deliberate practice – and now you have the map to navigate this territory.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0F172A; border-bottom: 3px solid #0F172A; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0F172A; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0F172A; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0F172A; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0F172A;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0F172A;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0F172A;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Lie Detection: Incongruence Signals</h1><h2>Applied Psychology – The Art of Social Engineering<br>Lie Detection: Incongruence Signals</h2>
+
+<p>In the practice of social engineering, the ability to identify lies quickly can be the difference between the success of a legitimate operation (e.g., a security audit) and exposure to critical risks. This chapter delves into <strong>incongruence signals</strong> – behavioral, linguistic, and physiological cues that deviate from an individual’s baseline and indicate possible falsehood. By combining psychological theory with observational techniques, the information‑security professional can develop a robust “truth radar,” applicable both in face‑to‑face interviews and digital interactions.</p>
+
+<h2>1. Theoretical Foundations of Incongruence</h2>
+
+<p>From a cognitive‑psychology perspective, lying involves creating a narrative that conflicts with the liar’s factual memory. This cognitive effort generates <em>additional mental load</em>, reflected in:</p>
+
+<ul>
+  <li><strong>Dual processing</strong>: the brain must keep the original truth and the lie simultaneously.</li>
+  <li><strong>Inhibition of automatic responses</strong>: habitual behaviors are suppressed to avoid contradictions.</li>
+  <li><strong>Emotional monitoring</strong>: the liar tries to control the anxiety generated by the possibility of being discovered.</li>
+</ul>
+
+<p>These processes produce “feedback loops” that manifest as micro‑expressions, speech rhythm, and narrative inconsistencies. Classic literature (Ekman, 2009; Vrij, 2008) shows that, although no single cue is infallible, the combination of multiple indicators significantly raises accuracy – from roughly 54 % (chance) to 70‑85 % when analyzed together.</p>
+
+<h2>2. Categories of Incongruence Signals</h2>
+
+<p>Below is a practical classification, organized into four domains that can be observed in the field:</p>
+
+<ul>
+  <li><strong>Verbal</strong> – speech structure, lexical choice, and timing patterns.</li>
+  <li><strong>Paraverbal</strong> – tone, rhythm, pauses, and speed.</li>
+  <li><strong>Non‑verbal</strong> – gestures, posture, facial micro‑expressions.</li>
+  <li><strong>Contextual</strong> – logical coherence of the story, details, and consistency over time.</li>
+</ul>
+
+<h2>3. Verbal Signals</h2>
+
+<p>Verbal indicators are the most accessible in telephone or video‑call interviews. Observe:</p>
+
+<ul>
+  <li><em>Distancing pronoun</em>: the liar tends to use third‑person pronouns (“he”, “she”) or avoid the pronoun “I,” reducing personal identification.</li>
+  <li><em>Double negation</em>: phrases such as “it wasn’t anything I didn’t do” increase cognitive load.</li>
+  <li><em>Excessive or scant detail</em>: narratives that are overly rich in irrelevant details or, conversely, extremely vague, may be distraction strategies.</li>
+  <li><em>Evasive language</em>: terms like “basically,” “maybe,” “more or less” are used to create interpretive leeway.</li>
+  <li><em>Verb‑tense alteration</em>: unexpected shifts between past, present, and future can indicate an attempt to “re‑write” memory.</li>
+</ul>
+
+<p><strong>Practical example (pseudo‑analytical code)</strong>:</p>
+
+<code>
+def detect_verbal_incongruence(text):
+    indicators = 0
+    if re.search(r'\b(it wasn\'t anything i didn\'t do)\b', text, re.I):
+        indicators += 1
+    if re.search(r'\b(basically|maybe|more or less)\b', text, re.I):
+        indicators += 1
+    if len(re.findall(r'\b(i|my)\b', text, re.I)) == 0:
+        indicators += 1
+    return indicators &gt;= 2
+</code>
+
+<h2>4. Paraverbal Signals</h2>
+
+<p>Voice tone and cadence reveal a great deal about internal state:</p>
+
+<ul>
+  <li><strong>Elevated pitch</strong>: anxiety raises the fundamental frequency of the voice.</li>
+  <li><strong>Unnatural pauses</strong>: abrupt silences before critical answers suggest searching for internal “scripts.”</li>
+  <li><strong>Speech speed</strong>: overly rapid speech may be an attempt to “overload” the interlocutor; slow speech can indicate caution to avoid errors.</li>
+  <li><strong>Irregular rhythm</strong>: abrupt variations between short and long sentences are typical of “re‑script” processes.</li>
+</ul>
+
+<p>Audio‑analysis tools (e.g., Praat, openSMILE) allow quantification of these parameters and generation of metrics compared to the individual’s baseline.</p>
+
+<h2>5. Non‑verbal Signals</h2>
+
+<p>Facial micro‑expressions are brief (¼‑½ second) and difficult to control consciously. The main incongruence indicators are:</p>
+
+<ul>
+  <li><strong>Eye‑contact deviation</strong>: a quick glance to the right side (left brain – language) can indicate cognitive effort.</li>
+  <li><strong>Slight eyebrow raise</strong> followed by rapid return – a sign of internal surprise.</li>
+  <li><strong>Orbicularis oculi contraction (AU6)</strong> without a genuine smile – indicates an attempt to mask emotion.</li>
+  <li><strong>Hand movements</strong> that contradict the verbal message (e.g., open palms while denying something).</li>
+</ul>
+
+<p>For training, the use of software such as <em>FaceReader</em> or <em>OpenFace</em> is recommended; they automatically detect Action Units (AUs) and allow comparison of “threat” AU frequency (e.g., AU4 – frown) with the baseline.</p>
+
+<h2>6. Contextual Signals</h2>
+
+<p>Even when non‑verbal behavior is within normal limits, the story can reveal incongruities:</p>
+
+<ul>
+  <li><strong>Temporal inconsistency</strong>: dates or sequences that do not align with known events.</li>
+  <li><strong>Internal contradictions</strong>: statements that cancel each other out during the interview.</li>
+  <li><strong>Out‑of‑place details</strong>: inclusion of information irrelevant to the conversation’s goal, possibly inserted to fill memory gaps.</li>
+  <li><strong>Failure to replicate</strong>: when the individual is asked to repeat the story after a delay (5‑10 min), divergences emerge.</li>
+</ul>
+
+<p>A practical method is the <strong>“Re‑count Test”</strong>:</p>
+
+<ol>
+  <li>Collect the complete narrative.</li>
+  <li>Wait 7‑10 min (enough time for memory to decay slightly).</li>
+  <li>Ask for a summary, without pointing to specific areas.</li>
+  <li>Compare the new version with the original, noting factual, order, and detail differences.</li>
+</ol>
+
+<h2>7. Building an Incongruence‑Assessment Protocol</h2>
+
+<p>To apply this knowledge in information‑security environments, follow the roadmap below:</p>
+
+<ul>
+  <li><strong>Pre‑interview</strong>: obtain the target’s baseline (speech style, usual posture, language patterns).</li>
+  <li><strong>Direct observation</strong>: record audio and video (when possible) in high resolution.</li>
+  <li><strong>Segmented analysis</strong>:
+    <ul>
+      <li>Divide the interview into thematic blocks (e.g., “system access,” “internal procedures”).</li>
+      <li>Apply verbal, paraverbal, and non‑verbal metrics to each block.</li>
+    </ul>
+  </li>
+  <li><strong>Incongruence score</strong>: assign points to each cue (0 = absent, 1 = present). A total above 60 % of the maximum suggests a high probability of falsehood.</li>
+  <li><strong>Cross‑validation</strong>: compare the score with independent sources (system logs, official documents).</li>
+  <li><strong>Documentation</strong>: record evidence (timestamps, audio excerpts, micro‑expression images) for later audit.</li>
+</ul>
+
+<h2>8. Practical Tools and Supporting Scripts</h2>
+
+<p>Useful resources for social‑engineering professionals:</p>
+
+<ul>
+  <li><code>Praat</code> – pitch, intensity, and rhythm analysis.</li>
+  <li><code>OpenFace</code> – automatic detection of Action Units.</li>
+  <li><code>NLTK / spaCy</code> – extraction of lexical patterns (pronouns, double negations).</li>
+  <li><code>Python – pandas</code> – consolidation of metrics into dataframes for score calculation.</li>
+</ul>
+
+<p>Simplified script that combines lexical and pitch analysis:</p>
+
+<code>
+import subprocess, json, spacy, re
+nlp = spacy.load("en_core_web_sm")
+
+def analyze_audio(wav_path):
+    # Use Praat to extract average pitch
+    cmd = ["praat", "--run", "extract_pitch.praat", wav_path]
+    result = subprocess.check_output(cmd)
+    return float(result)
+
+def analyze_text(text):
+    doc = nlp(text.lower())
+    indicators = 0
+    if any(tok.text in ["basically", "maybe", "more or less"] for tok in doc):
+        indicators += 1
+    if "i" not in text.lower():
+        indicators += 1
+    if "it wasn't anything i didn't do" in text.lower():
+        indicators += 1
+    return indicators
+
+def overall_score(text, wav_path):
+    text_score = analyze_text(text)
+    pitch = analyze_audio(wav_path)
+    pitch_score = 1 if pitch > 200 else 0  # simplified example
+    return text_score + pitch_score
+
+# Example usage:
+# total = overall_score(transcript, "recording.wav")
+</code>
+
+<h2>9. Limitations and Ethics</h2>
+
+<p>It is essential to recognize that no indicator is definitive. Factors such as:</p>
+
+<ul>
+  <li>Neuropsychological disorders (autism, ADHD) that alter communication patterns.</li>
+  <li>Situational stress (tight deadlines, hostile environment).</li>
+  <li>Cultural norms – eye‑contact and gestural conventions vary across regions.</li>
+</ul>
+
+<p>Therefore, the analyst should:</p>
+
+<ul>
+  <li>Combine multiple cues before drawing conclusions.</li>
+  <li>Document the margin of error and justify decisions with objective evidence.</li>
+  <li>Maintain confidentiality and respect the interlocutor’s privacy, following data‑protection regulations (LGPD, GDPR).</li>
+</ul>
+
+<h2>10. Conclusion</h2>
+
+<p>Mastering incongruence signals requires integration of theoretical knowledge (cognition, emotion) and observational practice (verbal, paraverbal, non‑verbal, contextual). By establishing a structured protocol, using automated analysis tools, and maintaining an ethical stance, the social‑engineering professional enhances the ability to detect lies systematically and reliably. This competence not only protects digital assets but also reinforces the credibility of internal investigations, fostering a more resilient organizational culture against manipulation attempts.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0F172A; border-bottom: 3px solid #0F172A; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0F172A; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0F172A; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0F172A; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0F172A;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0F172A;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0F172A;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Social Engineering in Everyday Life: Protection and Application</h1><h2>Social Engineering in Everyday Life: Protection and Application – Applied Psychology</h2>
+
+<p>This chapter delves into the intersection between cognitive psychology and the practice of social engineering, showing how psychological principles are employed by both attackers and defenders in corporate and home environments. The goal is to provide the reader with technical tools, mitigation strategies, and practical application examples, enabling information security professionals, managers, and end‑users to develop a resilient posture against human manipulation.</p>
+
+<h2>1. Psychological Foundations Used in Social Engineering</h2>
+
+<p>Social engineers exploit cognitive vulnerabilities that are universal and well documented in psychology literature. Below, we list the most common ones:</p>
+
+<ul>
+    <li><strong>Reciprocity Principle</strong>: Tendency to return favors, even when the initial benefit is illusory.</li>
+    <li><strong>Authority</strong>: Submission to figures perceived as legitimate or high‑status.</li>
+    <li><strong>Scarcity</strong>: Valuing resources that appear limited or temporary.</li>
+    <li><strong>Consistency</strong>: Desire to maintain coherence between past statements and future actions.</li>
+    <li><strong>Social Proof</strong>: Trust in behaviors observed from others, especially in digital environments.</li>
+    <li><strong>Emotional Triggers</strong>: Fear, urgency and curiosity are widely used to reduce critical analysis capacity.</li>
+</ul>
+
+<p>These triggers are combined into <em>attack scripts</em> that, although simple, achieve high success rates because they act on automatic processes (System 1) described by Daniel Kahneman.</p>
+
+<h2>2. Structure of a Social Engineering Attack</h2>
+
+<p>A typical attack can be broken down into four phases, each aligned with a psychological mechanism:</p>
+
+<ol>
+    <li><strong>Reconnaissance (Recon)</strong> – Data collection (public data, social networks). <em>Psychology:</em> <code>Curiosity</code> of the attacker to map targets.</li>
+    <li><strong>Engagement (Engage)</strong> – Initiates contact using a pretext (e.g., technical support). <em>Psychology:</em> <code>Authority</code> and <code>Reciprocity</code>.</li>
+    <li><strong>Persuasion (Persuade)</strong> – Application of triggers (urgency, scarcity). <em>Psychology:</em> <code>Fear</code> and <code>Urgency</code>.</li>
+    <li><strong>Execution (Execute)</strong> – Obtaining credentials or performing a malicious action. <em>Psychology:</em> <code>Consistency</code> – the target has already started the action and tends to finish it.</li>
+</ol>
+
+<p>Understanding this sequence enables the construction of specific countermeasures for each stage.</p>
+
+<h2>3. Defense Techniques Based on Psychology</h2>
+
+<p>To neutralize social engineering, defense must be as psychological as it is technological. The following practices are recommended:</p>
+
+<ul>
+    <li><strong>Metacognition Training</strong> – Encourage users to question their own automatic reactions. “10‑second pause” exercises before clicking suspicious links increase activation of System 2.</li>
+    <li><strong>Phishing Simulations with Immediate Feedback</strong> – Studies show knowledge retention increases by up to 70 % when feedback includes an explanation of the psychological trigger used.</li>
+    <li><strong>Identity Verification Policies</strong> – Implement “dual human authentication” processes, such as phone calls confirmed by an internal number, reducing the effectiveness of false authority.</li>
+    <li><strong>Sensitive Information Management</strong> – Limiting exposure of personal data on corporate social networks reduces the reconnaissance surface.</li>
+    <li><strong>Secure Interface Design</strong> – Use visual warnings that trigger the “alert brain” (e.g., risk colors, lock icons) when the user attempts to access external resources.</li>
+</ul>
+
+<h2>4. Practical Application: Building a Phishing Detection Script</h2>
+
+<p>Below is a Python example that can be integrated into an email gateway to identify messages containing social‑engineering patterns. The script combines content analysis (keywords) with URL reputation checks.</p>
+
+<code>
+<pre>
+import re
+import requests
+from urllib.parse import urlparse
+
+# Lista de palavras‑chave psicológicas com alta correlação em e‑mails de phishing
+KEYWORDS = [
+    r'\burgente\b', r'\bimediato\b', r'\bsegurança\b',
+    r'\bconfidencial\b', r'\bverificar\b', r'\bconta\b',
+    r'\bautorização\b', r'\blogin\b', r'\bcredenciais\b'
+]
+
+# Regex para capturar URLs
+URL_REGEX = re.compile(
+    r'(?i)\b((?:https?://|www\d{0,3}[.]|mailto:)[^\s<>"]+|'
+    r'(?:(?:[a-z0-9-]+\.)+[a-z]{2,}))'
+)
+
+def contains_keywords(text):
+    """Retorna True se o texto contém ao menos uma palavra‑chave de engenharia social."""
+    for pattern in KEYWORDS:
+        if re.search(pattern, text, re.IGNORECASE):
+            return True
+    return False
+
+def is_malicious_url(url):
+    """Consulta API pública de reputação (por exemplo, VirusTotal) e devolve True se a URL for suspeita."""
+    # Exemplo simplificado – substitua por chave real da API
+    api_key = 'YOUR_VIRUSTOTAL_API_KEY'
+    parsed = urlparse(url)
+    domain = parsed.netloc or parsed.path.split('/')[0]
+
+    response = requests.get(
+        f'https://www.virustotal.com/api/v3/domains/{domain}',
+        headers={'x-apikey': api_key}
+    )
+    if response.status_code != 200:
+        return False  # Falha na consulta não implica malignidade
+
+    data = response.json()
+    return data.get('data', {}).get('attributes', {}).get('malicious', False)
+
+def analyze_email(subject, body):
+    """Analisa assunto e corpo do e‑mail e devolve um score de risco."""
+    risk_score = 0
+
+    # Verifica presença de palavras‑chave
+    if contains_keywords(subject) or contains_keywords(body):
+        risk_score += 30
+
+    # Busca URLs e verifica reputação
+    urls = URL_REGEX.findall(body)
+    for url in urls:
+        if is_malicious_url(url):
+            risk_score += 40
+
+    # Penaliza e‑mails sem saudação pessoal (indicativo de mass‑mail)
+    if not re.search(r'(?i)dear\s+\w+', body):
+        risk_score += 10
+
+    return risk_score
+
+# Exemplo de uso
+subject = "Ação urgente: Verifique sua conta agora"
+body = """
+Prezado usuário,
+
+Detectamos atividade suspeita em sua conta. Por favor, acesse
+https://secure-login-example.com/verify imediatamente para
+evitar suspensão.
+
+Atenciosamente,
+Equipe de Segurança
+"""
+
+score = analyze_email(subject, body)
+print(f"Risk score: {score} (threshold 50 => quarantine)")
+</pre>
+</code>
+
+<p>The algorithm above demonstrates how psychology (keywords that trigger emotional responses) can be quantified and integrated into technical controls. Adjusting <code>risk_score</code> values and thresholds allows organizations to tailor sensitivity to their risk profile.</p>
+
+<h2>5. Incident Response Strategies for Social Engineering</h2>
+
+<p>When an incident occurs, the response should follow a flow that considers both technical containment and behavioral correction:</p>
+
+<ol>
+    <li><strong>Immediate Isolation</strong> – Block compromised accounts and revoke session tokens.</li>
+    <li><strong>Forensic Analysis of Communication</strong> – Extract email logs, instant‑message records, and call recordings to identify the psychological triggers employed.</li>
+    <li><strong>User Feedback</strong> – Send a detailed report explaining the attack, highlighting the trigger (e.g., “urgency”) and reinforcing the practice of pausing before acting.</li>
+    <li><strong>Training Reinforcement</strong> – Update awareness modules with newly detected real‑world cases, incorporating spaced‑learning techniques.</li>
+    <li><strong>Policy Review</strong> – Assess whether identity‑verification procedures were bypassed and, if necessary, implement additional layers (e.g., physical tokens).</li>
+</ol>
+
+<h2>6. Everyday Use Cases – Practical Examples</h2>
+
+<p>To make the content even more applicable, we present three typical scenarios and the recommended countermeasures:</p>
+
+<ul>
+    <li><strong>Corporate Email Phishing</strong> – An email pretends to be from HR requesting personal data updates. <em>Countermeasure:</em> “No email ever asks for passwords” policy combined with keyword filters such as “confidential”.</li>
+    <li><strong>Vishing (Voice Phishing)</strong> – An attacker calls claiming to be IT support and asks for the administrator password. <em>Countermeasure:</em> Verification script that requires the hardware serial number, which only the legitimate user knows.</li>
+    <li><strong>Pretexting on Social Networks</strong> – A “colleague” adds the user to a group and shares a malicious link under the pretext of an “important document”. <em>Countermeasure:</em> Privacy settings that require double approval for new members and real‑time URL scanners on messaging platforms.</li>
+</ul>
+
+<h2>7. Measuring the Effectiveness of Psychological Defenses</h2>
+
+<p>Key performance indicators (KPIs) should include psychological metrics in addition to traditional security ones:</p>
+
+<ul>
+    <li><strong>Trigger Detection Rate</strong> – Percentage of emails or messages flagged by the system as containing social‑engineering keywords.</li>
+    <li><strong>Mean Time to Respond (MTTR)</strong> – Interval between delivery of an attack and the user’s corrective action (the shorter, the more effective the training).</li>
+    <li><strong>Cognitive Resilience Score</strong> – Quarterly assessment based on questionnaires that measure users’ confidence in identifying manipulation.</li>
+</ul>
+
+<p>By correlating these KPIs with real incidents, security teams can fine‑tune training content, calibrate automatic detection thresholds, and, most importantly, close psychological gaps that have not yet been mitigated.</p>
+
+<h2>Conclusion</h2>
+
+<p>Social engineering is not just a technology issue; it is, first and foremost, a game of psychological influence. By combining deep knowledge of cognitive triggers with technical solutions—such as keyword‑based filtering, URL reputation checks, and multi‑factor authentication—organizations can turn human vulnerability into a strengthening point.</p>
+
+<p>This chapter equipped the reader with an attack‑analysis model, a practical code example, and a set of countermeasures that, when implemented in an integrated manner, dramatically reduce the risk surface. Ongoing learning, coupled with cognitive‑resilience metrics, ensures that defenses evolve as attackers refine their pretexts and persuasion techniques.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0F172A; border-bottom: 3px solid #0F172A; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0F172A; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0F172A; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0F172A; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0F172A;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0F172A;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0F172A;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>The Psychology of Colors and Environments</h1><h2>The Psychology of Colors and Environments in Social Engineering</h2>
+
+<p>In social‑engineering practice, the subtle manipulation of sensory perceptions is as decisive as the choice of words. Among the most powerful stimuli are <strong>colors</strong> and the <strong>configuration of environments</strong>. These elements act directly on the target’s cognitive and emotional processes, influencing levels of trust, urgency, and willingness to obey instructions. This chapter presents a technical approach, based on research in cognitive psychology, neuroscience, and interaction design, so that information‑security professionals and risk analysts can apply (or counter) these principles strategically.</p>
+
+<h2>1. Neuropsychological Foundations of Colors</h2>
+
+<p>Neuroimaging studies show that color perception activates distinct areas of the visual cortex (V4) and, simultaneously, limbic regions related to emotion (amygdala, nucleus accumbens). The responses are largely <em>universal</em>, but are modulated by cultural and contextual factors.</p>
+
+<ul>
+    <li><strong>Red</strong>: increases heart rate and adrenaline release. Associated with danger, urgency, and immediate action.</li>
+    <li><strong>Blue</strong>: promotes a sense of safety and trust. Lowers blood pressure and enhances concentration.</li>
+    <li><strong>Yellow</strong>: stimulates attention and alertness, but in excess can generate anxiety.</li>
+    <li><strong>Green</strong>: evokes balance and well‑being, facilitating acceptance of “natural” requests.</li>
+    <li><strong>Black/Black‑White</strong>: conveys authority and formality; used to legitimize official documents.</li>
+</ul>
+
+<p>These physiological responses are exploited in <em>visual phishing</em>, “urgency” advertisements, and physical settings (meeting rooms, company reception areas). The correct combination of dominant color and contrast creates “low‑resistance pathways” for the desired action.</p>
+
+<h2>2. Environmental Architecture and Human Behavior</h2>
+
+<p>Environmental psychology investigates how the arrangement of objects, lighting, and temperature modulate mental state. Two models are essential:</p>
+
+<ul>
+    <li><strong>Affordance Model (Gibson)</strong>: the environment offers “possibilities for action”. For example, a large illuminated button invites a click.</li>
+    <li><strong>Stress‑Recovery Model (Kaplan &amp; Kaplan)</strong>: overloaded environments generate cognitive fatigue, reducing critical‑analysis capacity.</li>
+</ul>
+
+<p>In a social‑engineering attack, the attacker may:</p>
+
+<ul>
+    <li>Use cool lighting (<code>#e0f7fa</code>) to create a “hospital‑like” atmosphere in support rooms, lowering user vigilance.</li>
+    <li>Arrange the work desk with few objects (minimalism) to reduce “cognitive load” and ease acceptance of a “legitimate” USB.</li>
+    <li>Play ambient music in a minor key to induce a state of “compliance” (mood‑congruency effect).</li>
+</ul>
+
+<h2>3. Practical Strategies for Applying Colors</h2>
+
+<p>Below is a set of techniques that can be incorporated into social‑engineering campaigns (for penetration‑testing purposes) or into mitigation policies.</p>
+
+<ul>
+    <li><strong>Use of Urgency Colors in Emails</strong>
+        <ul>
+            <li>Subject line with <code>#ff4d4d</code> (strong red) and verbs such as “IMMEDIATE ACTION”.</li>
+            <li>Email body on a <code>#fff5e6</code> (pale orange) background to create contrast without overload.</li>
+            <li>Call‑to‑action buttons (<code>CTA</code>) in <code>#ff0000</code> with white text (<code>#ffffff</code>) to maximize click‑through rate (CTR).</li>
+        </ul>
+    </li>
+    <li><strong>Visual Legitimation of Web Forms</strong>
+        <ul>
+            <li>Headers in <code>#003366</code> (dark blue) to convey institutional trust.</li>
+            <li>Input fields on a <code>#f0f8ff</code> (alice‑blue) background that reduces anxiety when typing sensitive data.</li>
+            <li>Error messages in <code>#ff3300</code> (orange‑red) to generate a sense of immediate correction.</li>
+        </ul>
+    </li>
+    <li><strong>Physical Environments for Social Engineering</strong>
+        <ul>
+            <li>Temporary access doors painted <code>#ffd700</code> (golden yellow) to indicate “priority” and encourage opening.</li>
+            <li>Business cards with a <code>#2e8b57</code> (sea‑green) background that suggest “trust” when delivering forged documents.</li>
+            <li>LED lighting in <code>#ff4500</code> (reddish orange) in “reception” areas to create a sense of “urgent activity”.</li>
+        </ul>
+    </li>
+</ul>
+
+<h2>4. Counter‑measures Based on Color Design</h2>
+
+<p>To reduce the effectiveness of attacks that rely on color psychology, organizations can adopt “conscious‑design” policies.</p>
+
+<ul>
+    <li><strong>Consistent Corporate Palette</strong>: Define official colors for internal communications (e.g., <code>#004080</code> for headers) and train employees to recognize deviations.</li>
+    <li><strong>Marking of Critical Elements</strong>: Use “non‑intuitive” colors (e.g., <code>#8b008b</code> dark purple) for sensitive‑action buttons, creating a “cognitive alert” when something looks out of the ordinary.</li>
+    <li><strong>Stress‑Test Environments</strong>: Simulate meeting rooms with excessively cool lighting (<code>#c0c0c0</code>) and observe whether request‑acceptance rates increase, then adjust physical‑security policies accordingly.</li>
+</ul>
+
+<h2>5. Technical Implementation – Example CSS for Safe Phishing (Test)</h2>
+
+<p>To validate the effectiveness of color combinations, Red‑Team professionals can create a login‑page prototype that incorporates the described colors. The code below demonstrates a minimal structure:</p>
+
+<code>
+&lt;style&gt;
+  body { background:#f0f8ff; font-family:Arial, sans-serif; }
+  .header { background:#003366; color:#ffffff; padding:20px; text-align:center; }
+  .cta-button { background:#ff0000; color:#ffffff; border:none; padding:12px 24px;
+                font-size:1.1em; cursor:pointer; border-radius:4px; }
+  .cta-button:hover { background:#cc0000; }
+  .footer { background:#e0e0e0; color:#333333; padding:10px; text-align:center; }
+&lt;/style&gt;
+
+&lt;div class=&quot;header&quot;&gt;Immediate Action Required&lt;/div&gt;
+&lt;p&gt;Your account will be suspended in 5 minutes. Please confirm your details.&lt;/p&gt;
+&lt;button class=&quot;cta-button&quot;&gt;Confirm Now&lt;/button&gt;
+&lt;div class=&quot;footer&quot;&gt;© 2026 Secure Company&lt;/div&gt;
+</code>
+
+<p>By analyzing the conversion rate of this mock‑up in a controlled test, it is possible to quantify the impact of the <code>#ff0000</code> (red) color combined with the <code>#f0f8ff</code> (light blue) background. Typical results show a 12‑18 % increase in click rate compared with a neutral design.</p>
+
+<h2>6. Conclusion – Strategic Integration of Colors and Environment</h2>
+
+<p>The psychology of colors and environments provides the social engineer with an “amplification kit” that, when used correctly, lowers cognitive resistance and raises attack success rates. However, the same science can be turned around: security policies based on conscious design create “verification cycles” that alert users when something deviates from the expected pattern.</p>
+
+<p>For professionals who wish to master this discipline, it is recommended to:</p>
+
+<ul>
+    <li>Study the neuroscientific foundations (e.g., “The Neural Basis of Color Perception”, 2021).</li>
+    <li>Conduct controlled A/B tests in internal settings, measuring physiological metrics (heart rate, reaction time).</li>
+    <li>Develop visual‑identity guides that include “alert codes” for critical colors.</li>
+    <li>Implement awareness training that exposes employees to examples of “suspicious” colors.</li>
+</ul>
+
+<p>By integrating technical knowledge, empirical evidence, and design practice, social engineering evolves from a simple word game to a multidisciplinary field that blends psychology, interaction design, and information security. Mastery of color and environment psychology is therefore indispensable for anyone seeking to both conduct and prevent sophisticated attacks in today’s landscape.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
+            <!DOCTYPE html>
+            <html lang="pt-BR">
+                <head><meta charset="UTF-8">
+        <style>
+            @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@400;700&display=swap');
+            @import url('https://fonts.googleapis.com/css2?family=Kaushan+Script&display=swap');
+
+            /* Importação dos Ícones Bootstrap via CDN */
+            @import url('https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css');
+
+            body { 
+                font-family: 'Roboto', sans-serif; 
+                margin: 0; 
+                padding: 0;
+                color: #333;
+            }
+
+            .cover-script{
+                font-family: "Kaushan Script", cursive;
+                font-weight: 400;
+                font-style: normal;
+            }
+
+            .cover-full {
+                margin: 0;
+                padding: 0;
+                position: relative;
+                box-shadow: none;
+            }
+
+            .cover-full ~ .page-number-box {
+                display: none;
+            }
+
+            .footer {
+                position: fixed;
+                bottom: 0;
+                left: 0;
+                right: 0;
+                height: 20mm;
+            }
+
+            .recipe,
+            .recipe-break {
+                page-break-inside: avoid;
+            }
+
+            .doc-section li {
+                page-break-inside: avoid;
+                margin-bottom: 12px;
+                padding-bottom: 6px;
+            }
+
+            /* Segurança extra para listas longas */
+            .recipe-content ul,
+            .recipe-content ol {
+                margin-bottom: 10mm;
+            }
+
+            /* Dicas extras (parágrafo final costuma quebrar feio) */
+            .recipe-content p:last-of-type {
+                margin-bottom: 12mm;
+            }
+
+            .page-break {
+                page-break-after: always;
+            }
+
+            /* Estilos Capa */
+            .cover-page {
+                width: 100%; 
+                height: 1vh; 
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                text-align: center;
+                color: #FFF;
+                padding: 0px;
+            }
+            
+            .cover-page h1 { font-size: 3.5em; margin-bottom: 20px; }
+            .cover-page h2 { font-size: 1.5em; font-weight: 400; }
+            .logo { max-width: 200px; margin-bottom: 50px; filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.3)); }
+
+            /* Estilos de Conteúdo Geral e Paginação */
+            .page-content {
+                padding: 3cm 2cm;
+                position: relative;
+            }
+
+            .page-number-intro, .page-number-index, .page-number-recipes-title {
+                position: absolute;
+                bottom: 1cm;
+                right: 2cm;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            /* Estilos Introdução */
+            .introduction-page h1 { color: #0F172A; border-bottom: 3px solid #0F172A; padding-bottom: 10px; }
+            .signature { margin-top: 40px; font-style: italic; color: #555; }
+
+            /* Estilos Índice */
+            .index-page h1 { color: #333; border-bottom: 3px solid #333; padding-bottom: 10px; }
+            .index-item { 
+                display: flex; 
+                justify-content: space-between; 
+                padding: 8px 0; 
+                border-bottom: 1px dashed #DDD;
+                font-size: 1.1em;
+            }
+
+            .index-item span { font-weight: 700; color: #0F172A; }
+
+            .recipe-container {
+                display: flex;
+                flex-direction: row;
+                justify-content: space-between;
+                align-items: flex-start;
+                gap: 30px;
+                width: 100%;
+            }
+
+            /* Coluna do texto - ocupa a maior parte da largura */
+            .recipe-content {
+                flex: 1; /* Ocupa o espaço disponível */
+                max-width: 60%; /* Garante que sobre espaço para a imagem */
+            }
+
+            /* Coluna da imagem - fixa na direita */
+            .recipe-image {
+                width: 35%; /* Define um tamanho fixo para a coluna da imagem */
+                position: sticky; /* Tenta manter a imagem visível se houver quebra */
+                top: 0;
+            }
+
+            .recipe-image img {
+                width: 100%;
+                height: auto;
+                display: block;
+                border-radius: 8px;
+                object-fit: cover;
+            }
+
+            /* Garante que se o texto for muito longo, ele não "esprema" a imagem */
+            .recipe-content, .recipe-image {
+                word-wrap: break-word;
+            }
+            
+            .recipe-content h1 { font-size: 1.8em; color: #0F172A; margin-top: 0; }
+            .recipe-content h2 { font-size: 1.4em; color: #0F172A; border-bottom: 1px solid #EEE; padding-bottom: 5px; margin-top: 25px; }
+            .recipe-content ul, .recipe-content ol { padding-left: 20px; }
+            .page-number-recipe {
+                position: absolute;
+                bottom: -2cm;
+                right: 0;
+                font-size: 0.8em;
+                color: #888;
+            }
+
+            .indice-page {
+                page-break-after: always;
+            }
+
+            .indice-titulo {
+                font-size: 28px;
+                margin-bottom: 20px;
+                color: #0F172A;
+            }
+
+            .indice-item {
+                display: flex;
+                align-items: center;
+                margin-bottom: 14px;
+                font-size: 14px;
+            }
+
+            .indice-nome {
+                white-space: nowrap;
+            }
+
+            .indice-pontilhado {
+                flex: 1;
+                border-bottom: 1px dashed #ccc;
+                margin: 0 10px;
+            }
+
+            .indice-pagina {
+                white-space: nowrap;
+                color: #0F172A;
+                font-weight: bold;
+            }
+
+            @page {
+                size: A4;
+                /* Define a margem real que aparecerá em todas as folhas */
+                margin: 20mm 20mm 25mm 25mm; 
+            }
+
+            p, li{
+                line-height: 1.5;
+            }
+
+            body {
+                margin: 0;
+                padding: 0;
+            }
+
+            /* Remova a altura fixa e o padding interno */
+            .recipe-page {
+                width: 100%;
+                position: relative;
+                /* Permite que o conteúdo flua naturalmente entre as páginas */
+                display: block; 
+            }
+
+            /* Evita que uma imagem ou título seja cortado ao meio entre páginas */
+            h1, h2, .recipe-image {
+                break-inside: avoid;
+            }
+
+            .topicos-div h1, h2, h3, h4, h5, h6, strong {
+                color: #0F172A;
+            }
+        </style>
+    </head>
+                <body>
+                    <div class='topicos-div'>
+                        <div>
+                            <div><h1>Ethics and Manipulation: The Invisible Limit</h1><h2>Applied Psychology Approach: The Art of Social Engineering – Ethics and Manipulation: The Invisible Limit</h2>
+
+<p>Social engineering is not just a set of persuasion tricks; it is the systematic application of psychological principles to influence human behavior in information‑security contexts. When these principles are employed without proper ethical consideration, “invisible limits” are created that can compromise trust, privacy, and the integrity of organizations. This chapter delves into the intersection of applied psychology, manipulation techniques, and the ethical framework that should guide security professionals.</p>
+
+<h2>1. Psychological Foundations of Social Engineering</h2>
+
+<p>The mechanisms that make social engineering effective are well studied in cognitive and social psychology. Below, we list the main triggers and their scientific bases:</p>
+
+<ul>
+  <li><strong>Authority</strong> – The principle of obedience to recognized figures (Milgram, 1963). People tend to follow instructions from those who appear to have hierarchical position or specialized knowledge.</li>
+  <li><strong>Reciprocity</strong> – The social norm of returning favors. A small concession (e.g., a “gift” or useful information) creates a psychological debt.</li>
+  <li><strong>Scarcity</strong> – Perceived value increases when something appears limited or rare, generating urgency.</li>
+  <li><strong>Commitment &amp; Consistency</strong> – Individuals seek coherence between past attitudes and present actions; once they make a commitment, they tend to keep it.</li>
+  <li><strong>Social Proof</strong> – When others demonstrate a behavior, it is seen as correct.</li>
+  <li><strong>Empathy and Rapport</strong> – Creating an emotional connection reduces cognitive vigilance and raises the predisposition to accept.</li>
+</ul>
+
+<p>These triggers can be combined in “cascade” sequences, amplifying the persuasive effect. For example, an attacker may start with <em>rapport</em> (empathy), offer a favor (reciprocity), and then use authority to request sensitive information.</p>
+
+<h2>2. Structure of a Social‑Engineering Attack</h2>
+
+<p>Although each attack is unique, most follow a five‑phase model, which can be represented in pseudo‑code to facilitate understanding and the automation of defenses:</p>
+
+<code>
+# Pseudo‑code of a typical attack flow
+def social_engineering_target(target):
+    # 1. Reconnaissance
+    data = collect_public_information(target)
+    
+    # 2. Persona Preparation
+    persona = create_persona(data['role'], data['interests'])
+    
+    # 3. Initial Engagement
+    message = generate_initial_message(persona, trigger='reciprocity')
+    send(message, channel='email')
+    
+    # 4. Trust Escalation
+    while not authorization_obtained():
+        message = generate_followup_message(persona, trigger='authority')
+        send(message, channel='phone')
+    
+    # 5. Execution
+    extract_credentials(target)
+</code>
+
+<p>This flow illustrates how psychology guides each step: <em>reconnaissance</em> feeds <em>personalization</em>, which in turn maximizes the effectiveness of persuasive triggers.</p>
+
+<h2>3. The Invisible Limit: Where Ethics Intervenes</h2>
+
+<p>The “invisible limit” refers to the point at which persuasion ceases to be a simple incentive and becomes coercion or exploitation. The ethics of social engineering should be evaluated along three axes:</p>
+
+<ul>
+  <li><strong>Informed Consent</strong> – Does the target have enough knowledge to decide freely? In internal tests, consent must be documented.</li>
+  <li><strong>Proportionality</strong> – The level of intrusion must be proportional to the security objective. Simulating an attack that compromises critical data without justification violates the necessity principle.</li>
+  <li><strong>Benefit vs. Risk</strong> – The practice must generate measurable benefit (e.g., a 30 % increase in detection rate) that outweighs potential risks (e.g., loss of trust).</li>
+</ul>
+
+<p>When these criteria are not met, the social engineer crosses the invisible limit, becoming an agent of unethical manipulation.</p>
+
+<h2>4. Practical Application: Ethical Awareness Program</h2>
+
+<p>To enable organizations to build resilience without breaching ethics, we recommend implementing an <strong>Ethical Awareness Program (EAP)</strong> structured into four modules:</p>
+
+<ol>
+  <li><strong>Initial Diagnosis</strong> – Assess the current posture using anonymous questionnaires and controlled simulations (internal phishing).</li>
+  <li><strong>Psychology‑Based Training</strong> – Explain cognitive triggers, using real‑world examples but without exposing specific vulnerabilities that could be exploited by external actors.</li>
+  <li><strong>Ethical Simulations</strong> – Conduct internal social‑engineering attacks with a clear <em>opt‑out</em> and a post‑event report that highlights learnings without penalizing the employee.</li>
+  <li><strong>Feedback and Continuous Improvement</strong> – Analyze metrics (click‑through rate, response time) and adjust training content, maintaining transparency about the use of collected data.</li>
+</ol>
+
+<p>An example of an automation script for collecting simulation metrics (Python) can be useful:</p>
+
+<code>
+import csv
+from datetime import datetime
+
+def log_event(user, event):
+    with open('simulation_log.csv', 'a', newline='') as file:
+        writer = csv.writer(file)
+        writer.writerow([datetime.now(), user, event])
+
+# Usage:
+# log_event('john.doe', 'clicked_link')
+# log_event('jane.smith', 'reported_suspicion')
+</code>
+
+<h2>5. Detection and Mitigation Techniques</h2>
+
+<p>Beyond awareness, defense against social engineering must include technical controls that identify anomalous behavior. The most effective strategies are:</p>
+
+<ul>
+  <li><strong>Communication‑Flow Monitoring</strong> – Analyze email and instant‑messaging patterns for persuasive language (use of words like “urgent”, “confidential”). NLP (Natural Language Processing) algorithms can assign risk scores.</li>
+  <li><strong>Contextual Authentication</strong> – Deploy MFA that considers risk factors (location, time, device). Access outside the norm can trigger additional verification.</li>
+  <li><strong>Social Honeypots</strong> – Create fictitious accounts (e.g., “IT‑HelpDesk”) that attract internal phishing attempts, allowing the collection of attack indicators.</li>
+  <li><strong>Rapid‑Response Training</strong> – Equip SOC (Security Operations Center) teams to recognize and isolate social‑engineering incidents in real time.</li>
+</ul>
+
+<p>An example of a simple correlation rule in a SIEM (Security Information and Event Management) to detect high‑risk phishing emails:</p>
+
+<code>
+# Correlation rule in Splunk
+index=email sourcetype="mail:log"
+| regex subject="(?i)(urgent|confidential|verify|password)"
+| stats count by sender, subject, _time
+| where count > 3
+</code>
+
+<h2>6. Ethical Dilemmas in Advanced Scenarios</h2>
+
+<p>In high‑security environments (e.g., critical infrastructure, financial sectors), the line between testing and violation can be thin. Common dilemmas include:</p>
+
+<ul>
+  <li><strong>Real Data vs. Synthetic Data</strong> – Simulating an attack with actual employee information increases effectiveness but may infringe privacy. The recommendation is to anonymize sensitive data and obtain explicit consent.</li>
+  <li><strong>Third‑Party Engagement</strong> – External consultancies may conduct social‑engineering tests. Contracts should specify intrusion limits, liability, and discovery‑communication processes.</li>
+  <li><strong>Psychological Impact</strong> – Repeated exposure to simulated attacks can generate anxiety or distrust among staff. It is essential to measure employee well‑being and provide psychological support when needed.</li>
+</ul>
+
+<h2>7. Conclusion: The Invisible Limit as a Good‑Faith Guide</h2>
+
+<p>Understanding the psychology behind social engineering enables security professionals to build stronger defenses, yet that same understanding imposes an undeniable ethical responsibility. The “invisible limit” is not only a legal barrier but a good‑faith pact between the organization and its employees. When respect for consent, proportionality, and collective benefit is observed, social engineering ceases to be a manipulation tool and becomes a means of strengthening security culture.</p>
+
+<p>By integrating psychological principles, technical practices, and a solid code of ethics, security teams can turn human vulnerabilities into learning opportunities without ever crossing the invisible horizon that protects the dignity and trust of all involved.</p></div>
+                            
+                        </div>
+                    </div>
+                </body>
+            </html>
