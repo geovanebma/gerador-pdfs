@@ -1,0 +1,28 @@
+Etapa,Objetivo,O que fazer,Comando/arquivo,Resultado esperado,Observacoes
+1,Entrar na pasta do projeto,Abrir terminal e acessar a pasta do gerador,"cd C:\Users\geovane.assuncao\Documents\gerador-pdfs-main",Terminal apontando para o projeto,
+2,Configurar chaves,Conferir se o .env tem GROQ_API_KEY e POLLINATIONS_KEY,".env",Gerador consegue chamar IA e gerar imagens,Nao compartilhe esse arquivo
+3,Criar ou editar temas,Adicionar novos ebooks em temas.json com id nome name principal main subtitulo prompt_image estrutura e bonus,"temas.json",Tema novo aparece na fila de geracao,"feito deve ficar false"
+4,Criar capitulos do tema,Preencher estrutura.capitulos com titulo PT titulo EN flag false prompt e conteudo vazio,"temas.json > estrutura.capitulos","[titulo_pt, titulo_en, false, prompt, """"]","Se ja tiver conteudo pronto no quinto campo, o gerador usa sem reescrever"
+5,Adicionar capitulos extras,Para livros curtos adicionar capitulos antes da conclusao,"temas.json",Mais capitulos para aumentar volume,Mirar 10 a 12 capitulos por ebook
+6,Configurar bonus,Adicionar ate 3 bonus em bonus,"temas.json > bonus",Bonus prontos para gerar,"Bonus 1 e 2 viram order bump; bonus 3 gratuito"
+7,Regra comercial dos bonus,Confirmar tipo_oferta e preco dos bonus,"temas.json > bonus","1 e 2 order_bump R$ 7,99; 3 bonus_gratuito R$ 0,00","Ja esta automatizado no projeto"
+8,Validar caracteres,Rodar validador antes de gerar PDFs,"npm run validar-textos",Relatorio ok em output\validacao_texto_tema_config.json,Se falhar corrija os campos indicados
+9,Gerar PDFs,Rodar o gerador principal,"node .\index-pdfs.js",PDF principal capas bonus e subir.json atualizados,O script processa o proximo tema com feito=false
+10,Gerar somente bonus de um tema,Usar quando o ebook ja existe e so faltam os bonus,"node .\index-pdfs.js --bonus-id=1 --forcar-bonus",Bonus do tema regenerados,Troque 1 pelo id do tema
+11,Gerar somente capa de teste,Usar para testar capa sem concluir o tema,"node .\index-pdfs.js --capa-id=1",Capa gerada para inspecao,Pode usar --idioma=en
+12,Forcar reforco de paginas,Ativar geracao extra para tentar chegar em 100 paginas,"REFORCAR_PAGINAS_COM_IA=true no .env",Gerador cria capitulos complementares se PDF ficar curto,Consome mais API
+13,Conferir saida,Verificar pasta output do tema,"output\ID - Nome do Ebook",PDFs e capas gerados,Confira visualmente antes de publicar
+14,Liberar item para upload,Editar subir.json e marcar subir true no ebook desejado,"subir.json > subir: true",Tampermonkey vai enxergar o item,So marque true quando arquivos estiverem corretos
+15,Manter sem video,Confirmar tem_video false para anuncios sem video,"subir.json > tem_video: false",Automacao sabe que nao ha video,Voce pode mudar manualmente no futuro
+16,Subir servidor local,Servir a pasta para o Tampermonkey ler JSON e PDFs,"npx http-server . -p 8787 --cors","http://localhost:8787/subir.json acessivel",Deixe esse terminal aberto durante upload
+17,Instalar Tampermonkey,Copiar o conteudo do script para uma extensao Tampermonkey,"tampermonkey.js",Painel aparece dentro da Kiwify,Script funciona em modo assistido
+18,Abrir Kiwify,Entrar no painel da Kiwify no navegador,"https://dashboard.kiwify.com.br/",Painel do uploader aparece no canto inferior direito,Se nao aparecer confira Tampermonkey ativo
+19,Ler subir.json no painel,Clicar em Ler subir.json no painel do script,"Painel Tampermonkey",Lista de ebooks com subir=true aparece,Se vazio confira subir.json
+20,Criar produto,Clicar em Criar/preencher produto no painel,"Painel Tampermonkey",Campos basicos preenchidos na Kiwify,Revise antes de salvar
+21,Configurar entrega,Usar Area de Membros da Kiwify como entrega,"Kiwify > Produto",Produto digital com area de membros,Necessario para entregar PDFs
+22,Upload do conteudo,Clicar em Upload/conteudo no painel,"Painel Tampermonkey",PDF principal e bonus gratuito anexados,Pode exigir revisao manual por mudanca na Kiwify
+23,Configurar order bumps,Conferir bonus 1 e 2 como adicionais antes do pagamento,"Kiwify > Checkout/Order bump",Cada adicional em R$ 7,99,Script tenta preencher mas revise
+24,Publicar e copiar checkout,Salvar produto e copiar link do checkout,"Kiwify",Link final do produto publicado,Guardar para anuncios e catalogo
+25,Atualizar subir.json,Registrar checkout_url produto_id e status se desejar,"subir.json > kiwify",Controle de publicacao atualizado,Parte pode ser automatizada depois
+26,Finalizar tema,Quando tudo estiver publicado marque feito true se necessario,"temas.json > feito true",Tema nao entra mais na fila,Capitulos tambem podem ficar true
+27,Repetir ciclo,Voltar ao proximo item com subir true ou proximo tema false,"node .\index-pdfs.js",Esteira continua de ebooks,Trabalhe um tema por vez para revisar qualidade

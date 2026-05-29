@@ -1,0 +1,1436 @@
+[
+  {
+    "id": 1,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "O Relógio do Juízo Final: Como o Mundo Acaba",
+    "titulo_en": "The Doomsday Clock: How the World Ends",
+    "categoria": "Vamos de Teorias e Mistérios",
+    "categoria_en": "Let's talk about Theories and Mysteries",
+    "subtitulo": "As perspectivas científicas, tecnológicas e sociais sobre o fim da nossa era",
+    "descricao": "As perspectivas científicas, tecnológicas e sociais sobre o fim da nossa era",
+    "pasta": {
+      "nome": "1 - O Relógio do Juízo Final- Como o Mundo Acaba",
+      "relativa": "output/1 - O Relógio do Juízo Final- Como o Mundo Acaba",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\1 - O Relógio do Juízo Final- Como o Mundo Acaba"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "O Relógio do Juízo Final- Como o Mundo Acaba-portugues.pdf",
+        "caminho": "output/1 - O Relógio do Juízo Final- Como o Mundo Acaba/O Relógio do Juízo Final- Como o Mundo Acaba-portugues.pdf",
+        "paginas": 171
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "O Relógio do Juízo Final- Como o Mundo Acaba-portugues-capa.png",
+        "caminho": "output/1 - O Relógio do Juízo Final- Como o Mundo Acaba/O Relógio do Juízo Final- Como o Mundo Acaba-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "the_doomsday_clock__how_the_world_ends.png",
+        "caminho": "output/1 - O Relógio do Juízo Final- Como o Mundo Acaba/the_doomsday_clock__how_the_world_ends.png"
+      }
+    },
+    "bonus": [
+      {
+        "ordem": 1,
+        "titulo": "Protocolo 72 Horas de Sobrevivencia Urbana",
+        "descricao": "Plano pratico para agua, energia, comunicacao e suprimentos nas primeiras 72 horas de crise.",
+        "valor_declarado": "R$ 29",
+        "comercial": {
+          "tipo_oferta": "order_bump",
+          "etapa_checkout": "antes_do_pagamento",
+          "cobrar": true,
+          "preco": {
+            "moeda": "BRL",
+            "valor": 7.99,
+            "valor_formatado": "R$ 7,99"
+          },
+          "kiwify": {
+            "configurar_como": "order_bump",
+            "observacao": "Oferecer antes do pagamento como adicional de R$ 7,99."
+          }
+        },
+        "arquivos": {
+          "pdf": {
+            "nome": "O Relógio do Juízo Final- Como o Mundo Acaba - Protocolo 72 Horas de Sobrevivencia Urbana-portugues.pdf",
+            "caminho": "output/1 - O Relógio do Juízo Final- Como o Mundo Acaba/O Relógio do Juízo Final- Como o Mundo Acaba - Protocolo 72 Horas de Sobrevivencia Urbana-portugues.pdf"
+          },
+          "capa": {
+            "nome": "O Relógio do Juízo Final- Como o Mundo Acaba - Protocolo 72 Horas de Sobrevivencia Urbana-portugues-capa.png",
+            "caminho": "output/1 - O Relógio do Juízo Final- Como o Mundo Acaba/O Relógio do Juízo Final- Como o Mundo Acaba - Protocolo 72 Horas de Sobrevivencia Urbana-portugues-capa.png"
+          },
+          "imagem": {
+            "nome": "bonus_1_1.png",
+            "caminho": "output/1 - O Relógio do Juízo Final- Como o Mundo Acaba/bonus_1_1.png"
+          }
+        },
+        "automacao": {
+          "subido": false,
+          "publicado": false
+        }
+      },
+      {
+        "ordem": 2,
+        "titulo": "Mapa de Riscos Domesticos e de Bairro",
+        "descricao": "Metodo rapido para identificar vulnerabilidades reais e criar plano preventivo por camadas.",
+        "valor_declarado": "R$ 19",
+        "comercial": {
+          "tipo_oferta": "order_bump",
+          "etapa_checkout": "antes_do_pagamento",
+          "cobrar": true,
+          "preco": {
+            "moeda": "BRL",
+            "valor": 7.99,
+            "valor_formatado": "R$ 7,99"
+          },
+          "kiwify": {
+            "configurar_como": "order_bump",
+            "observacao": "Oferecer antes do pagamento como adicional de R$ 7,99."
+          }
+        },
+        "arquivos": {
+          "pdf": {
+            "nome": "O Relógio do Juízo Final- Como o Mundo Acaba - Mapa de Riscos Domesticos e de Bairro-portugues.pdf",
+            "caminho": "output/1 - O Relógio do Juízo Final- Como o Mundo Acaba/O Relógio do Juízo Final- Como o Mundo Acaba - Mapa de Riscos Domesticos e de Bairro-portugues.pdf"
+          },
+          "capa": {
+            "nome": "O Relógio do Juízo Final- Como o Mundo Acaba - Mapa de Riscos Domesticos e de Bairro-portugues-capa.png",
+            "caminho": "output/1 - O Relógio do Juízo Final- Como o Mundo Acaba/O Relógio do Juízo Final- Como o Mundo Acaba - Mapa de Riscos Domesticos e de Bairro-portugues-capa.png"
+          },
+          "imagem": {
+            "nome": "bonus_1_2.png",
+            "caminho": "output/1 - O Relógio do Juízo Final- Como o Mundo Acaba/bonus_1_2.png"
+          }
+        },
+        "automacao": {
+          "subido": false,
+          "publicado": false
+        }
+      },
+      {
+        "ordem": 3,
+        "titulo": "Manual de Continuidade Familiar em Crises",
+        "descricao": "Guia para manter rotina, seguranca emocional e decisao racional em cenarios prolongados.",
+        "valor_declarado": "R$ 37",
+        "comercial": {
+          "tipo_oferta": "bonus_gratuito",
+          "etapa_checkout": "entrega_pos_compra",
+          "cobrar": false,
+          "preco": {
+            "moeda": "BRL",
+            "valor": 0,
+            "valor_formatado": "R$ 0,00"
+          },
+          "kiwify": {
+            "configurar_como": "conteudo_incluso",
+            "observacao": "Entregar gratuitamente dentro da area de membros junto com o ebook principal."
+          }
+        },
+        "arquivos": {
+          "pdf": {
+            "nome": "O Relógio do Juízo Final- Como o Mundo Acaba - Manual de Continuidade Familiar em Crises-portugues.pdf",
+            "caminho": "output/1 - O Relógio do Juízo Final- Como o Mundo Acaba/O Relógio do Juízo Final- Como o Mundo Acaba - Manual de Continuidade Familiar em Crises-portugues.pdf"
+          },
+          "capa": {
+            "nome": "O Relógio do Juízo Final- Como o Mundo Acaba - Manual de Continuidade Familiar em Crises-portugues-capa.png",
+            "caminho": "output/1 - O Relógio do Juízo Final- Como o Mundo Acaba/O Relógio do Juízo Final- Como o Mundo Acaba - Manual de Continuidade Familiar em Crises-portugues-capa.png"
+          },
+          "imagem": {
+            "nome": "bonus_1_3.png",
+            "caminho": "output/1 - O Relógio do Juízo Final- Como o Mundo Acaba/bonus_1_3.png"
+          }
+        },
+        "automacao": {
+          "subido": false,
+          "publicado": false
+        }
+      }
+    ],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=1",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T12:14:52.194Z"
+  },
+  {
+    "id": 2,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "Vida 3.0: A Fusão Humano-Máquina",
+    "titulo_en": "Life 3.0: The Human-Machine Fusion",
+    "categoria": "Vamos de Futuro e Tecnologia",
+    "categoria_en": "Let's talk about Future and Technology",
+    "subtitulo": "Estamos nos tornando deuses ou apenas peças de um novo sistema?",
+    "descricao": "Estamos nos tornando deuses ou apenas peças de um novo sistema?",
+    "pasta": {
+      "nome": "2 - Vida 3.0- A Fusão Humano-Máquina",
+      "relativa": "output/2 - Vida 3.0- A Fusão Humano-Máquina",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\2 - Vida 3.0- A Fusão Humano-Máquina"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "Vida 3.0- A Fusão Humano-Máquina-portugues.pdf",
+        "caminho": "output/2 - Vida 3.0- A Fusão Humano-Máquina/Vida 3.0- A Fusão Humano-Máquina-portugues.pdf",
+        "paginas": 150
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "Vida 3.0- A Fusão Humano-Máquina-portugues-capa.png",
+        "caminho": "output/2 - Vida 3.0- A Fusão Humano-Máquina/Vida 3.0- A Fusão Humano-Máquina-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "life_3_0__the_human_machine_fusion.png",
+        "caminho": "output/2 - Vida 3.0- A Fusão Humano-Máquina/life_3_0__the_human_machine_fusion.png"
+      }
+    },
+    "bonus": [
+      {
+        "ordem": 1,
+        "titulo": "Guia de Profissões Anti-Obsolescência",
+        "descricao": "Mapa prático das habilidades, perfis e estratégias para continuar relevante em um mercado dominado por IA e automação.",
+        "valor_declarado": "R$ 27",
+        "comercial": {
+          "tipo_oferta": "order_bump",
+          "etapa_checkout": "antes_do_pagamento",
+          "cobrar": true,
+          "preco": {
+            "moeda": "BRL",
+            "valor": 7.99,
+            "valor_formatado": "R$ 7,99"
+          },
+          "kiwify": {
+            "configurar_como": "order_bump",
+            "observacao": "Oferecer antes do pagamento como adicional de R$ 7,99."
+          }
+        },
+        "arquivos": {
+          "pdf": {
+            "nome": "Vida 3.0- A Fusão Humano-Máquina - Guia de Profissões Anti-Obsolescência-portugues.pdf",
+            "caminho": "output/2 - Vida 3.0- A Fusão Humano-Máquina/Vida 3.0- A Fusão Humano-Máquina - Guia de Profissões Anti-Obsolescência-portugues.pdf"
+          },
+          "capa": {
+            "nome": "Vida 3.0- A Fusão Humano-Máquina - Guia de Profissões Anti-Obsolescência-portugues-capa.png",
+            "caminho": "output/2 - Vida 3.0- A Fusão Humano-Máquina/Vida 3.0- A Fusão Humano-Máquina - Guia de Profissões Anti-Obsolescência-portugues-capa.png"
+          },
+          "imagem": {
+            "nome": "bonus_2_1.png",
+            "caminho": "output/2 - Vida 3.0- A Fusão Humano-Máquina/bonus_2_1.png"
+          }
+        },
+        "automacao": {
+          "subido": false,
+          "publicado": false
+        }
+      },
+      {
+        "ordem": 2,
+        "titulo": "Checklist de Privacidade e Soberania Digital",
+        "descricao": "Auditoria rápida para reduzir rastreamento, fortalecer segurança pessoal e recuperar controle sobre dados no dia a dia.",
+        "valor_declarado": "R$ 19",
+        "comercial": {
+          "tipo_oferta": "order_bump",
+          "etapa_checkout": "antes_do_pagamento",
+          "cobrar": true,
+          "preco": {
+            "moeda": "BRL",
+            "valor": 7.99,
+            "valor_formatado": "R$ 7,99"
+          },
+          "kiwify": {
+            "configurar_como": "order_bump",
+            "observacao": "Oferecer antes do pagamento como adicional de R$ 7,99."
+          }
+        },
+        "arquivos": {
+          "pdf": {
+            "nome": "Vida 3.0- A Fusão Humano-Máquina - Checklist de Privacidade e Soberania Digital-portugues.pdf",
+            "caminho": "output/2 - Vida 3.0- A Fusão Humano-Máquina/Vida 3.0- A Fusão Humano-Máquina - Checklist de Privacidade e Soberania Digital-portugues.pdf"
+          },
+          "capa": {
+            "nome": "Vida 3.0- A Fusão Humano-Máquina - Checklist de Privacidade e Soberania Digital-portugues-capa.png",
+            "caminho": "output/2 - Vida 3.0- A Fusão Humano-Máquina/Vida 3.0- A Fusão Humano-Máquina - Checklist de Privacidade e Soberania Digital-portugues-capa.png"
+          },
+          "imagem": {
+            "nome": "bonus_2_2.png",
+            "caminho": "output/2 - Vida 3.0- A Fusão Humano-Máquina/bonus_2_2.png"
+          }
+        },
+        "automacao": {
+          "subido": false,
+          "publicado": false
+        }
+      },
+      {
+        "ordem": 3,
+        "titulo": "Plano de Atualização Tecnológica em 30 Dias",
+        "descricao": "Roteiro de estudo e adaptação para entender IA, automação, dados e futuro do trabalho sem se perder em excesso de informação.",
+        "valor_declarado": "R$ 17",
+        "comercial": {
+          "tipo_oferta": "bonus_gratuito",
+          "etapa_checkout": "entrega_pos_compra",
+          "cobrar": false,
+          "preco": {
+            "moeda": "BRL",
+            "valor": 0,
+            "valor_formatado": "R$ 0,00"
+          },
+          "kiwify": {
+            "configurar_como": "conteudo_incluso",
+            "observacao": "Entregar gratuitamente dentro da area de membros junto com o ebook principal."
+          }
+        },
+        "arquivos": {
+          "pdf": {
+            "nome": "Vida 3.0- A Fusão Humano-Máquina - Plano de Atualização Tecnológica em 30 Dias-portugues.pdf",
+            "caminho": "output/2 - Vida 3.0- A Fusão Humano-Máquina/Vida 3.0- A Fusão Humano-Máquina - Plano de Atualização Tecnológica em 30 Dias-portugues.pdf"
+          },
+          "capa": {
+            "nome": "Vida 3.0- A Fusão Humano-Máquina - Plano de Atualização Tecnológica em 30 Dias-portugues-capa.png",
+            "caminho": "output/2 - Vida 3.0- A Fusão Humano-Máquina/Vida 3.0- A Fusão Humano-Máquina - Plano de Atualização Tecnológica em 30 Dias-portugues-capa.png"
+          },
+          "imagem": {
+            "nome": "bonus_2_3.png",
+            "caminho": "output/2 - Vida 3.0- A Fusão Humano-Máquina/bonus_2_3.png"
+          }
+        },
+        "automacao": {
+          "subido": false,
+          "publicado": false
+        }
+      }
+    ],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=2",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T20:58:01.218Z"
+  },
+  {
+    "id": 3,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "Exoplanetas: A Nossa Próxima Casa",
+    "titulo_en": "Exoplanets: Our Next Home",
+    "categoria": "Vamos de Exploração Espacial",
+    "categoria_en": "Let's talk about Space Exploration",
+    "subtitulo": "A jornada da humanidade para além do sistema solar",
+    "descricao": "A jornada da humanidade para além do sistema solar",
+    "pasta": {
+      "nome": "3 - Exoplanetas- A Nossa Próxima Casa",
+      "relativa": "output/3 - Exoplanetas- A Nossa Próxima Casa",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\3 - Exoplanetas- A Nossa Próxima Casa"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "Exoplanetas- A Nossa Próxima Casa-portugues.pdf",
+        "caminho": "output/3 - Exoplanetas- A Nossa Próxima Casa/Exoplanetas- A Nossa Próxima Casa-portugues.pdf",
+        "paginas": 170
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "Exoplanetas- A Nossa Próxima Casa-portugues-capa.png",
+        "caminho": "output/3 - Exoplanetas- A Nossa Próxima Casa/Exoplanetas- A Nossa Próxima Casa-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "exoplanets__our_next_home.png",
+        "caminho": "output/3 - Exoplanetas- A Nossa Próxima Casa/exoplanets__our_next_home.png"
+      }
+    },
+    "bonus": [],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=3",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T20:59:21.928Z"
+  },
+  {
+    "id": 4,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "A Arte da Engenharia Social",
+    "titulo_en": "The Art of Social Engineering",
+    "categoria": "Vamos de Psicologia Aplicada",
+    "categoria_en": "Let's talk about Applied Psychology",
+    "subtitulo": "Como ler mentes, influenciar decisões e entender a lógica invisível das pessoas",
+    "descricao": "Como ler mentes, influenciar decisões e entender a lógica invisível das pessoas",
+    "pasta": {
+      "nome": "4 - A Arte da Engenharia Social",
+      "relativa": "output/4 - A Arte da Engenharia Social",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\4 - A Arte da Engenharia Social"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "A Arte da Engenharia Social-portugues.pdf",
+        "caminho": "output/4 - A Arte da Engenharia Social/A Arte da Engenharia Social-portugues.pdf",
+        "paginas": 171
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "A Arte da Engenharia Social-portugues-capa.png",
+        "caminho": "output/4 - A Arte da Engenharia Social/A Arte da Engenharia Social-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "the_art_of_social_engineering.png",
+        "caminho": "output/4 - A Arte da Engenharia Social/the_art_of_social_engineering.png"
+      }
+    },
+    "bonus": [],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=4",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T21:00:38.063Z"
+  },
+  {
+    "id": 5,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "Protocolo de Longevidade: Células Imortais",
+    "titulo_en": "Longevity Protocol: Immortal Cells",
+    "categoria": "Vamos de Saúde e Biohacking",
+    "categoria_en": "Let's talk about Health and Biohacking",
+    "subtitulo": "A ciência para reverter a idade biológica e otimizar o corpo humano",
+    "descricao": "A ciência para reverter a idade biológica e otimizar o corpo humano",
+    "pasta": {
+      "nome": "5 - Protocolo de Longevidade- Células Imortais",
+      "relativa": "output/5 - Protocolo de Longevidade- Células Imortais",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\5 - Protocolo de Longevidade- Células Imortais"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "Protocolo de Longevidade- Células Imortais-portugues.pdf",
+        "caminho": "output/5 - Protocolo de Longevidade- Células Imortais/Protocolo de Longevidade- Células Imortais-portugues.pdf",
+        "paginas": 171
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "Protocolo de Longevidade- Células Imortais-portugues-capa.png",
+        "caminho": "output/5 - Protocolo de Longevidade- Células Imortais/Protocolo de Longevidade- Células Imortais-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "longevity_protocol__immortal_cells.png",
+        "caminho": "output/5 - Protocolo de Longevidade- Células Imortais/longevity_protocol__immortal_cells.png"
+      }
+    },
+    "bonus": [],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=5",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T21:02:01.086Z"
+  },
+  {
+    "id": 6,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "A Economia das Sombras: Quem Manda no Mundo?",
+    "titulo_en": "The Shadow Economy: Who Runs the World?",
+    "categoria": "Vamos de Geopolítica e Poder",
+    "categoria_en": "Let's talk about Geopolitics and Power",
+    "subtitulo": "As forças invisíveis que moldam o mercado, as guerras e o seu bolso",
+    "descricao": "As forças invisíveis que moldam o mercado, as guerras e o seu bolso",
+    "pasta": {
+      "nome": "6 - A Economia das Sombras- Quem Manda no Mundo-",
+      "relativa": "output/6 - A Economia das Sombras- Quem Manda no Mundo-",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\6 - A Economia das Sombras- Quem Manda no Mundo-"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "A Economia das Sombras- Quem Manda no Mundo--portugues.pdf",
+        "caminho": "output/6 - A Economia das Sombras- Quem Manda no Mundo-/A Economia das Sombras- Quem Manda no Mundo--portugues.pdf",
+        "paginas": 169
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "A Economia das Sombras- Quem Manda no Mundo--portugues-capa.png",
+        "caminho": "output/6 - A Economia das Sombras- Quem Manda no Mundo-/A Economia das Sombras- Quem Manda no Mundo--portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "the_shadow_economy__who_runs_the_world_.png",
+        "caminho": "output/6 - A Economia das Sombras- Quem Manda no Mundo-/the_shadow_economy__who_runs_the_world_.png"
+      }
+    },
+    "bonus": [],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=6",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T21:03:19.424Z"
+  },
+  {
+    "id": 7,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "Gênese Proibida: O Que a História Esconde",
+    "titulo_en": "Forbidden Genesis: What History Hides",
+    "categoria": "Vamos de Arqueologia Proibida",
+    "categoria_en": "Let's talk about Forbidden Archaeology",
+    "subtitulo": "Evidências de tecnologias ancestrais e o mistério do apagão histórico",
+    "descricao": "Evidências de tecnologias ancestrais e o mistério do apagão histórico",
+    "pasta": {
+      "nome": "7 - Gênese Proibida- O Que a História Esconde",
+      "relativa": "output/7 - Gênese Proibida- O Que a História Esconde",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\7 - Gênese Proibida- O Que a História Esconde"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "Gênese Proibida- O Que a História Esconde-portugues.pdf",
+        "caminho": "output/7 - Gênese Proibida- O Que a História Esconde/Gênese Proibida- O Que a História Esconde-portugues.pdf",
+        "paginas": 169
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "Gênese Proibida- O Que a História Esconde-portugues-capa.png",
+        "caminho": "output/7 - Gênese Proibida- O Que a História Esconde/Gênese Proibida- O Que a História Esconde-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "forbidden_genesis__what_history_hides.png",
+        "caminho": "output/7 - Gênese Proibida- O Que a História Esconde/forbidden_genesis__what_history_hides.png"
+      }
+    },
+    "bonus": [],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=7",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T21:04:31.623Z"
+  },
+  {
+    "id": 8,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "Cérebro Sem Limites: O Fim da Névoa Mental",
+    "titulo_en": "Limitless Brain: The End of Brain Fog",
+    "categoria": "Vamos de Alta Performance",
+    "categoria_en": "Let's talk about High Performance",
+    "subtitulo": "Hackeando o foco, a memória e a dopamina na era da distração",
+    "descricao": "Hackeando o foco, a memória e a dopamina na era da distração",
+    "pasta": {
+      "nome": "8 - Cérebro Sem Limites- O Fim da Névoa Mental",
+      "relativa": "output/8 - Cérebro Sem Limites- O Fim da Névoa Mental",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\8 - Cérebro Sem Limites- O Fim da Névoa Mental"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "Cérebro Sem Limites- O Fim da Névoa Mental-portugues.pdf",
+        "caminho": "output/8 - Cérebro Sem Limites- O Fim da Névoa Mental/Cérebro Sem Limites- O Fim da Névoa Mental-portugues.pdf",
+        "paginas": 167
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "Cérebro Sem Limites- O Fim da Névoa Mental-portugues-capa.png",
+        "caminho": "output/8 - Cérebro Sem Limites- O Fim da Névoa Mental/Cérebro Sem Limites- O Fim da Névoa Mental-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "limitless_brain__the_end_of_brain_fog.png",
+        "caminho": "output/8 - Cérebro Sem Limites- O Fim da Névoa Mental/limitless_brain__the_end_of_brain_fog.png"
+      }
+    },
+    "bonus": [],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=8",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T21:05:50.108Z"
+  },
+  {
+    "id": 9,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "O Manual do Sobrevivente Urbano",
+    "titulo_en": "The Urban Survivor Manual",
+    "categoria": "Vamos de Guia de Sobrevivência",
+    "categoria_en": "Let's talk about Survival Guide",
+    "subtitulo": "Como proteger sua família e seus bens em cenários de crise real",
+    "descricao": "Como proteger sua família e seus bens em cenários de crise real",
+    "pasta": {
+      "nome": "9 - O Manual do Sobrevivente Urbano",
+      "relativa": "output/9 - O Manual do Sobrevivente Urbano",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\9 - O Manual do Sobrevivente Urbano"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "O Manual do Sobrevivente Urbano-portugues.pdf",
+        "caminho": "output/9 - O Manual do Sobrevivente Urbano/O Manual do Sobrevivente Urbano-portugues.pdf",
+        "paginas": 170
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "O Manual do Sobrevivente Urbano-portugues-capa.png",
+        "caminho": "output/9 - O Manual do Sobrevivente Urbano/O Manual do Sobrevivente Urbano-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "the_urban_survivor_manual.png",
+        "caminho": "output/9 - O Manual do Sobrevivente Urbano/the_urban_survivor_manual.png"
+      }
+    },
+    "bonus": [],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=9",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T21:07:05.432Z"
+  },
+  {
+    "id": 10,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "Abismo: O Que Habita o Desconhecido",
+    "titulo_en": "Abyss: What Dwells in the Unknown",
+    "categoria": "Vamos de Mistérios Marinhos",
+    "categoria_en": "Let's talk about Ocean Mysteries",
+    "subtitulo": "As anomalias e civilizações perdidas sob o manto azul da Terra",
+    "descricao": "As anomalias e civilizações perdidas sob o manto azul da Terra",
+    "pasta": {
+      "nome": "10 - Abismo- O Que Habita o Desconhecido",
+      "relativa": "output/10 - Abismo- O Que Habita o Desconhecido",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\10 - Abismo- O Que Habita o Desconhecido"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "Abismo- O Que Habita o Desconhecido-portugues.pdf",
+        "caminho": "output/10 - Abismo- O Que Habita o Desconhecido/Abismo- O Que Habita o Desconhecido-portugues.pdf",
+        "paginas": 170
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "Abismo- O Que Habita o Desconhecido-portugues-capa.png",
+        "caminho": "output/10 - Abismo- O Que Habita o Desconhecido/Abismo- O Que Habita o Desconhecido-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "abyss__what_dwells_in_the_unknown.png",
+        "caminho": "output/10 - Abismo- O Que Habita o Desconhecido/abyss__what_dwells_in_the_unknown.png"
+      }
+    },
+    "bonus": [],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=10",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T21:09:02.874Z"
+  },
+  {
+    "id": 11,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "O Código da Consciência",
+    "titulo_en": "The Consciousness Code",
+    "categoria": "Vamos de Inteligência Artificial",
+    "categoria_en": "Let's talk about Artificial Intelligence",
+    "subtitulo": "O momento em que as máquinas deixam de obedecer e passam a sentir",
+    "descricao": "O momento em que as máquinas deixam de obedecer e passam a sentir",
+    "pasta": {
+      "nome": "11 - O Código da Consciência",
+      "relativa": "output/11 - O Código da Consciência",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\11 - O Código da Consciência"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "O Código da Consciência-portugues.pdf",
+        "caminho": "output/11 - O Código da Consciência/O Código da Consciência-portugues.pdf",
+        "paginas": 171
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "O Código da Consciência-portugues-capa.png",
+        "caminho": "output/11 - O Código da Consciência/O Código da Consciência-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "the_consciousness_code.png",
+        "caminho": "output/11 - O Código da Consciência/the_consciousness_code.png"
+      }
+    },
+    "bonus": [],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=11",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T21:10:26.943Z"
+  },
+  {
+    "id": 12,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "Mente Blindada: O Poder do Silêncio",
+    "titulo_en": "Armored Mind: The Power of Silence",
+    "categoria": "Vamos de Estoicismo Moderno",
+    "categoria_en": "Let's talk about Modern Stoicism",
+    "subtitulo": "Como manter a paz e o controle em um mundo desenhado para te distrair",
+    "descricao": "Como manter a paz e o controle em um mundo desenhado para te distrair",
+    "pasta": {
+      "nome": "12 - Mente Blindada- O Poder do Silêncio",
+      "relativa": "output/12 - Mente Blindada- O Poder do Silêncio",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\12 - Mente Blindada- O Poder do Silêncio"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "Mente Blindada- O Poder do Silêncio-portugues.pdf",
+        "caminho": "output/12 - Mente Blindada- O Poder do Silêncio/Mente Blindada- O Poder do Silêncio-portugues.pdf",
+        "paginas": 170
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "Mente Blindada- O Poder do Silêncio-portugues-capa.png",
+        "caminho": "output/12 - Mente Blindada- O Poder do Silêncio/Mente Blindada- O Poder do Silêncio-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "armored_mind__the_power_of_silence.png",
+        "caminho": "output/12 - Mente Blindada- O Poder do Silêncio/armored_mind__the_power_of_silence.png"
+      }
+    },
+    "bonus": [],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=12",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T21:11:50.450Z"
+  },
+  {
+    "id": 13,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "Sincronicidade: O Código Oculto",
+    "titulo_en": "Synchronicity: The Hidden Code",
+    "categoria": "Vamos de Hackeando a Sorte",
+    "categoria_en": "Let's talk about Hacking Luck",
+    "subtitulo": "A ciência por trás das coincidências impossíveis e como atraí-las",
+    "descricao": "A ciência por trás das coincidências impossíveis e como atraí-las",
+    "pasta": {
+      "nome": "13 - Sincronicidade- O Código Oculto",
+      "relativa": "output/13 - Sincronicidade- O Código Oculto",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\13 - Sincronicidade- O Código Oculto"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "Sincronicidade- O Código Oculto-portugues.pdf",
+        "caminho": "output/13 - Sincronicidade- O Código Oculto/Sincronicidade- O Código Oculto-portugues.pdf",
+        "paginas": 171
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "Sincronicidade- O Código Oculto-portugues-capa.png",
+        "caminho": "output/13 - Sincronicidade- O Código Oculto/Sincronicidade- O Código Oculto-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "synchronicity__the_hidden_code.png",
+        "caminho": "output/13 - Sincronicidade- O Código Oculto/synchronicity__the_hidden_code.png"
+      }
+    },
+    "bonus": [],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=13",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T21:13:14.776Z"
+  },
+  {
+    "id": 14,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "Arquivos Secretos: O Que Não Te Contaram",
+    "titulo_en": "Secret Files: What They Didn't Tell You",
+    "categoria": "Vamos de Curiosidades Proibidas",
+    "categoria_en": "Let's talk about Forbidden Facts",
+    "subtitulo": "Fatos históricos e científicos ocultados pelo sistema",
+    "descricao": "Fatos históricos e científicos ocultados pelo sistema",
+    "pasta": {
+      "nome": "14 - Arquivos Secretos- O Que Não Te Contaram",
+      "relativa": "output/14 - Arquivos Secretos- O Que Não Te Contaram",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\14 - Arquivos Secretos- O Que Não Te Contaram"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "Arquivos Secretos- O Que Não Te Contaram-portugues.pdf",
+        "caminho": "output/14 - Arquivos Secretos- O Que Não Te Contaram/Arquivos Secretos- O Que Não Te Contaram-portugues.pdf",
+        "paginas": 170
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "Arquivos Secretos- O Que Não Te Contaram-portugues-capa.png",
+        "caminho": "output/14 - Arquivos Secretos- O Que Não Te Contaram/Arquivos Secretos- O Que Não Te Contaram-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "secret_files__what_they_didn_t_tell_you.png",
+        "caminho": "output/14 - Arquivos Secretos- O Que Não Te Contaram/secret_files__what_they_didn_t_tell_you.png"
+      }
+    },
+    "bonus": [],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=14",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T21:14:38.482Z"
+  },
+  {
+    "id": 15,
+    "subir": true,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "Metaverso: A Nova Realidade",
+    "titulo_en": "Metaverse: The New Reality",
+    "categoria": "Vamos de Evolução Digital",
+    "categoria_en": "Let's talk about Digital Evolution",
+    "subtitulo": "A vida, o trabalho e o amor no próximo estágio da internet",
+    "descricao": "A vida, o trabalho e o amor no próximo estágio da internet",
+    "pasta": {
+      "nome": "15 - Metaverso- A Nova Realidade",
+      "relativa": "output/15 - Metaverso- A Nova Realidade",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\15 - Metaverso- A Nova Realidade"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "Metaverso- A Nova Realidade-portugues.pdf",
+        "caminho": "output/15 - Metaverso- A Nova Realidade/Metaverso- A Nova Realidade-portugues.pdf",
+        "paginas": 170
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "Metaverso- A Nova Realidade-portugues-capa.png",
+        "caminho": "output/15 - Metaverso- A Nova Realidade/Metaverso- A Nova Realidade-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "metaverse__the_new_reality.png",
+        "caminho": "output/15 - Metaverso- A Nova Realidade/metaverse__the_new_reality.png"
+      }
+    },
+    "bonus": [],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=15",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "subido": false,
+      "publicado": false,
+      "order_bumps_configurados": false,
+      "observacao": "Resetado para novo teste de upload completo, incluindo bonus."
+    },
+    "atualizado_em": "2026-05-26T21:16:00.983Z"
+  },
+  {
+    "id": 17,
+    "subir": false,
+    "tem_video": false,
+    "status": "aguardando_liberacao_manual",
+    "plataformas": {
+      "kiwify": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      },
+      "amazon_ebooks": {
+        "habilitado": true,
+        "produto_tipo": "ebook"
+      }
+    },
+    "preco": {
+      "moeda": "BRL",
+      "valor": 37,
+      "valor_formatado": "R$ 37,00"
+    },
+    "titulo": "O Codigo dos Sonhos: O Que Sua Mente Revela Enquanto Voce Dorme",
+    "titulo_en": "The Dream Code: What Your Mind Reveals While You Sleep",
+    "categoria": "Vamos de Misterios da Mente",
+    "categoria_en": "Let's talk about Mysteries of the Mind",
+    "subtitulo": "Um mergulho curioso e pratico nos sonhos, pesadelos, simbolos, memoria, deja vu e nos sinais que o cerebro reorganiza durante a noite",
+    "descricao": "Um mergulho curioso e pratico nos sonhos, pesadelos, simbolos, memoria, deja vu e nos sinais que o cerebro reorganiza durante a noite",
+    "pasta": {
+      "nome": "17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme",
+      "relativa": "output/17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme",
+      "absoluta": "C:\\Users\\geovane.assuncao\\Documents\\gerador-pdfs-main\\output\\17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme"
+    },
+    "arquivos": {
+      "pdf_pt": {
+        "nome": "O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme-portugues.pdf",
+        "caminho": "output/17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme/O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme-portugues.pdf",
+        "paginas": 214
+      },
+      "pdf_en": {
+        "nome": null,
+        "caminho": null,
+        "paginas": null
+      },
+      "capa_pt": {
+        "nome": "O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme-portugues-capa.png",
+        "caminho": "output/17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme/O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme-portugues-capa.png"
+      },
+      "capa_en": {
+        "nome": null,
+        "caminho": null
+      },
+      "imagem_principal": {
+        "nome": "the_dream_code__what_your_mind_reveals_while_you_sleep.png",
+        "caminho": "output/17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme/the_dream_code__what_your_mind_reveals_while_you_sleep.png"
+      }
+    },
+    "bonus": [
+      {
+        "ordem": 1,
+        "titulo": "Diario dos Sonhos em 21 Dias",
+        "descricao": "Modelo guiado para registrar sonhos, emocoes, simbolos e padroes recorrentes.",
+        "valor_declarado": "R$ 19",
+        "comercial": {
+          "tipo_oferta": "order_bump",
+          "etapa_checkout": "antes_do_pagamento",
+          "cobrar": true,
+          "preco": {
+            "moeda": "BRL",
+            "valor": 7.99,
+            "valor_formatado": "R$ 7,99"
+          },
+          "kiwify": {
+            "configurar_como": "order_bump",
+            "observacao": "Oferecer antes do pagamento como adicional de R$ 7,99."
+          }
+        },
+        "arquivos": {
+          "pdf": {
+            "nome": "O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme - Diario dos Sonhos em 21 Dias-portugues.pdf",
+            "caminho": "output/17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme/O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme - Diario dos Sonhos em 21 Dias-portugues.pdf"
+          },
+          "capa": {
+            "nome": "O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme - Diario dos Sonhos em 21 Dias-portugues-capa.png",
+            "caminho": "output/17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme/O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme - Diario dos Sonhos em 21 Dias-portugues-capa.png"
+          },
+          "imagem": {
+            "nome": "bonus_17_1.png",
+            "caminho": "output/17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme/bonus_17_1.png"
+          }
+        }
+      },
+      {
+        "ordem": 2,
+        "titulo": "Mapa dos Sonhos Mais Comuns",
+        "descricao": "Guia rapido com sonhos frequentes, possiveis leituras e perguntas certas para interpretar sem exagero.",
+        "valor_declarado": "R$ 27",
+        "comercial": {
+          "tipo_oferta": "order_bump",
+          "etapa_checkout": "antes_do_pagamento",
+          "cobrar": true,
+          "preco": {
+            "moeda": "BRL",
+            "valor": 7.99,
+            "valor_formatado": "R$ 7,99"
+          },
+          "kiwify": {
+            "configurar_como": "order_bump",
+            "observacao": "Oferecer antes do pagamento como adicional de R$ 7,99."
+          }
+        },
+        "arquivos": {
+          "pdf": {
+            "nome": "O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme - Mapa dos Sonhos Mais Comuns-portugues.pdf",
+            "caminho": "output/17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme/O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme - Mapa dos Sonhos Mais Comuns-portugues.pdf"
+          },
+          "capa": {
+            "nome": "O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme - Mapa dos Sonhos Mais Comuns-portugues-capa.png",
+            "caminho": "output/17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme/O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme - Mapa dos Sonhos Mais Comuns-portugues-capa.png"
+          },
+          "imagem": {
+            "nome": "bonus_17_2.png",
+            "caminho": "output/17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme/bonus_17_2.png"
+          }
+        }
+      },
+      {
+        "ordem": 3,
+        "titulo": "Checklist do Sono Misterioso",
+        "descricao": "Rotina simples para melhorar lembranca dos sonhos e identificar gatilhos de pesadelos.",
+        "valor_declarado": "R$ 17",
+        "comercial": {
+          "tipo_oferta": "bonus_gratuito",
+          "etapa_checkout": "entrega_pos_compra",
+          "cobrar": false,
+          "preco": {
+            "moeda": "BRL",
+            "valor": 0,
+            "valor_formatado": "R$ 0,00"
+          },
+          "kiwify": {
+            "configurar_como": "conteudo_incluso",
+            "observacao": "Entregar gratuitamente dentro da area de membros junto com o ebook principal."
+          }
+        },
+        "arquivos": {
+          "pdf": {
+            "nome": "O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme - Checklist do Sono Misterioso-portugues.pdf",
+            "caminho": "output/17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme/O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme - Checklist do Sono Misterioso-portugues.pdf"
+          },
+          "capa": {
+            "nome": "O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme - Checklist do Sono Misterioso-portugues-capa.png",
+            "caminho": "output/17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme/O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme - Checklist do Sono Misterioso-portugues-capa.png"
+          },
+          "imagem": {
+            "nome": "bonus_17_3.png",
+            "caminho": "output/17 - O Codigo dos Sonhos- O Que Sua Mente Revela Enquanto Voce Dorme/bonus_17_3.png"
+          }
+        }
+      }
+    ],
+    "landing_page": {
+      "url_local": "landing-page/index.html?id=17",
+      "site_json": "landing-page/site.json"
+    },
+    "automacao": {
+      "pronto_para_script": false,
+      "observacao": "Altere subir para true manualmente quando quiser liberar este ebook para automacao de upload."
+    },
+    "atualizado_em": "2026-05-29T15:38:35.908Z"
+  }
+]

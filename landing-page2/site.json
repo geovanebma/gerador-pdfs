@@ -1,0 +1,472 @@
+﻿[
+  {
+    "id": 1,
+    "site": null,
+    "cor": "#1a0f0f",
+    "cor_fonte": "#f2f2f2"
+  },
+  {
+    "id": 2,
+    "site": null,
+    "cor": "#0d1b2a",
+    "cor_fonte": "#e0e1dd"
+  },
+  {
+    "id": 3,
+    "site": null,
+    "cor": "#1b263b",
+    "cor_fonte": "#ffffff"
+  },
+  {
+    "id": 4,
+    "site": null,
+    "cor": "#0F172A",
+    "cor_fonte": "#F8FAFC"
+  },
+  {
+    "id": 5,
+    "site": null,
+    "cor": "#064E3B",
+    "cor_fonte": "#ECFDF5"
+  },
+  {
+    "id": 6,
+    "site": null,
+    "cor": "#111827",
+    "cor_fonte": "#D1D5DB"
+  },
+  {
+    "id": 7,
+    "site": null,
+    "cor": "#1C1917",
+    "cor_fonte": "#E7E5E4"
+  },
+  {
+    "id": 8,
+    "site": null,
+    "cor": "#0F172A",
+    "cor_fonte": "#60A5FA"
+  },
+  {
+    "id": 9,
+    "site": null,
+    "cor": "#14532D",
+    "cor_fonte": "#F0FDF4"
+  },
+  {
+    "id": 10,
+    "site": null,
+    "cor": "#041C32",
+    "cor_fonte": "#ECF2FF"
+  },
+  {
+    "id": 11,
+    "site": null,
+    "cor": "#0F0F1A",
+    "cor_fonte": "#00F2FF"
+  },
+  {
+    "id": 12,
+    "site": null,
+    "cor": "#1C1C1C",
+    "cor_fonte": "#D4AF37"
+  },
+  {
+    "id": 13,
+    "site": null,
+    "cor": "#0D0D0D",
+    "cor_fonte": "#F59E0B"
+  },
+  {
+    "id": 14,
+    "site": null,
+    "cor": "#2D033B",
+    "cor_fonte": "#E5B8F4"
+  },
+  {
+    "id": 15,
+    "site": null,
+    "cor": "#13005A",
+    "cor_fonte": "#00E7FF"
+  },
+  {
+    "id": 16,
+    "site": {
+      "versao": 1,
+      "observacao": "Campos de configuracao textual da landing page de vendas por tema. A landing pode ler este bloco e sobrescrever os defaults do app.js.",
+      "branding": {
+        "kicker": "Diagnostico Amoroso",
+        "nome": "Por que voce ainda esta solteira?",
+        "favicon": "",
+        "logoUrl": ""
+      },
+      "hero": {
+        "headline": "Descubra o motivo real da sua solteirice sem achismos",
+        "subheadline": "Diagnostico amoroso com leitura de padroes emocionais, escolhas, ambientes e um plano pratico para mudar sua rota afetiva.",
+        "ctaPrincipal": {
+          "texto": "Quero descobrir agora",
+          "url": ""
+        },
+        "ctaSecundario": {
+          "texto": "Ver como funciona",
+          "url": "#como-funciona"
+        },
+        "provasRapidas": [
+          "Diagnostico pratico com foco em padroes e escolhas",
+          "Conteudo em PDF com linguagem clara e aplicavel",
+          "Plano de acao para sair da repeticao e aumentar clareza"
+        ],
+        "promessaCurta": "Clareza emocional + filtro + estrategia amorosa",
+        "benefitStrip": {
+          "titulo": "Em poucas páginas, você vai:",
+          "itens": [
+            "Entender o padrão que te faz escolher errado (sem culpa, com clareza).",
+            "Aprender onde procurar para aumentar a chance de compromisso.",
+            "Aplicar um método simples pra filtrar intenção e consistência."
+          ]
+        },
+        "trustBadges": [
+          {
+            "icon": "bi bi-lightning-charge",
+            "text": "Acesso imediato"
+          },
+          {
+            "icon": "bi bi-shield-check",
+            "text": "Compra segura"
+          },
+          {
+            "icon": "bi bi-arrow-repeat",
+            "text": "Atualizações incluídas"
+          }
+        ]
+      },
+      "publicoAlvo": {
+        "titulo": "Para mulheres que querem clareza e relacionamento consciente",
+        "introducao": "Feito para mulheres solteiras que estao cansadas de repetir ciclos, se frustrar com sinais confusos e querem melhorar suas escolhas com estrategia, sem perder leveza.",
+        "itens": [
+          "Mulheres solteiras (22 a 45+) que desejam relacionamento serio",
+          "Mulheres frustradas com encontros que nao evoluem",
+          "Quem quer entender melhor sinais, filtros e intencoes",
+          "Quem deseja agir com mais clareza e menos impulsividade"
+        ],
+        "segmentosFuturos": [
+          "Divorciadas",
+          "Maes solteiras",
+          "Mulheres 30+",
+          "Evangelicas",
+          "Profissionais ocupadas"
+        ]
+      },
+      "dores": {
+        "titulo": "Dores e bloqueios mais comuns",
+        "itens": [
+          "Solidão e sensacao de estar ficando para tras",
+          "Dificuldade de encontrar parceiro compativel",
+          "Relacoes que nao duram ou nao evoluem",
+          "Rejeicao, ghosting e frustracao repetida",
+          "Baixa autoestima e confusao sobre o proprio valor",
+          "Medo de ficar sozinha e comparacao com amigas"
+        ]
+      },
+      "desejos": {
+        "titulo": "Desejos profundos por tras da busca",
+        "itens": [
+          "Ser escolhida com intencao real",
+          "Ser desejada e respeitada",
+          "Construir relacionamento serio",
+          "Ter seguranca afetiva e emocional",
+          "Parceria de crescimento e validacao emocional"
+        ]
+      },
+      "baseCientifica": {
+        "titulo": "Base cientifica e racional do produto",
+        "itens": [
+          "Psicologia comportamental",
+          "Teoria do apego",
+          "Dinamicas sociais e observacao de padroes",
+          "Educacao emocional aplicada a relacionamentos"
+        ],
+        "avisos": [
+          "Nao substitui terapia ou atendimento psicologico",
+          "Conteudo educativo e de autoconhecimento"
+        ]
+      },
+      "mecanismo": {
+        "nome": "Metodo C.A.R.A.",
+        "subtitulo": "Framework para transformar confusao amorosa em estrategia consciente",
+        "passos": [
+          {
+            "code": "C",
+            "title": "Clareza emocional",
+            "desc": "Separar carencia, desejo real e objetivo amoroso."
+          },
+          {
+            "code": "A",
+            "title": "Ambiente alinhado",
+            "desc": "Aumentar presenca em contextos compativeis com o resultado desejado."
+          },
+          {
+            "code": "R",
+            "title": "Reconhecimento de padroes",
+            "desc": "Identificar repeticoes, gatilhos e sinais que sabotam escolhas."
+          },
+          {
+            "code": "A",
+            "title": "Acao estrategica",
+            "desc": "Aplicar filtros, limites e atitudes praticas no dia a dia."
+          }
+        ]
+      },
+      "comoFunciona": {
+        "titulo": "Como funciona o diagnostico",
+        "passos": [
+          {
+            "title": "Leitura e identificacao",
+            "desc": "Voce entende como seus ambientes, padroes e escolhas influenciam seus resultados amorosos."
+          },
+          {
+            "title": "Diagnostico dos erros",
+            "desc": "O material mostra onde voce esta perdendo energia emocional e repetindo ciclos."
+          },
+          {
+            "title": "Plano de ajuste",
+            "desc": "Voce recebe direcao pratica para mudar ambiente, filtros e postura."
+          },
+          {
+            "title": "Aplicacao real",
+            "desc": "Com exercicios e checklists, voce transforma insight em mudanca observavel."
+          }
+        ]
+      },
+      "beneficios": {
+        "titulo": "Beneficios percebidos",
+        "itens": [
+          "Clareza sobre padroes emocionais e de escolha",
+          "Melhor leitura de sinais e intencao masculina",
+          "Reducao de impulsividade nas decisoes amorosas",
+          "Filtro mais inteligente de compatibilidade",
+          "Plano pratico para sair da repeticao"
+        ]
+      },
+      "diferenciais": {
+        "titulo": "Diferenciais competitivos",
+        "itens": [
+          "Diagnostico em linguagem humana (nao academica)",
+          "Mistura de explicacao + exemplos + exercicios",
+          "Framework proprietario (Metodo C.A.R.A.)",
+          "Estrutura de infoproduto com alta percepcao de valor",
+          "Aplicacao pratica imediata na vida real"
+        ]
+      },
+      "provaSocial": {
+        "titulo": "Prova social e validacao",
+        "subtitulo": "Campos para depoimentos e casos de sucesso",
+        "depoimentos": [
+          {
+            "name": "Mariana, 31",
+            "quote": "Percebi que eu estava repetindo os mesmos ambientes e os mesmos perfis. O diagnostico me deu clareza.",
+            "avatar": ""
+          },
+          {
+            "name": "Aline, 28",
+            "quote": "Nao foi motivacao vazia. Foi estrategia emocional. Mudei meus filtros e minha postura.",
+            "avatar": ""
+          },
+          {
+            "name": "Patricia, 37",
+            "quote": "Passei a escolher por coerencia e nao por intensidade. Minha ansiedade caiu muito.",
+            "avatar": ""
+          }
+        ],
+        "metricas": [
+          {
+            "label": "Tempo de leitura",
+            "value": "1 a 2 horas"
+          },
+          {
+            "label": "Aplicacao pratica",
+            "value": "Imediata"
+          },
+          {
+            "label": "Formato",
+            "value": "PDF digital"
+          }
+        ],
+        "rating": {
+          "nota": "4,8/5",
+          "texto": "1.200+ leitoras"
+        }
+      },
+      "oferta": {
+        "titulo": "Oferta principal",
+        "descricao": "Diagnostico amoroso em PDF com explicacoes praticas, exemplos reais, mini-diagnosticos e plano de acao para construir relacionamentos mais conscientes.",
+        "produtoPrincipal": "Diagnostico personalizado + relatorio PDF",
+        "preco": "R$ 37,00",
+        "precoAncorado": "R$ 197,00",
+        "notaPagamento": "Pagamento unico. Acesso imediato ao conteudo digital.",
+        "cta": {
+          "texto": "Quero descobrir agora",
+          "url": ""
+        },
+        "checkoutUrl": "https://pay.kiwify.com.br/i5GrlOG",
+        "itens": [
+          {
+            "label": "Produto principal",
+            "value": "Diagnostico + Relatorio PDF"
+          },
+          {
+            "label": "Capitulos",
+            "value": "14 capitulos"
+          },
+          {
+            "label": "Formato",
+            "value": "PDF digital"
+          },
+          {
+            "label": "Entrega",
+            "value": "Acesso imediato"
+          }
+        ],
+        "monetizacao": {
+          "produtoPrincipal": "R$37",
+          "orderBump": [
+            "Frases para conversar",
+            "Dicas de perfil Tinder",
+            "Analise extra"
+          ],
+          "upsell": [
+            "Diagnostico completo",
+            "Plano 30 dias",
+            "Guia de relacionamento"
+          ]
+        }
+      },
+      "bonus": {
+        "titulo": "Bonus da oferta",
+        "observacao": "Esses produtos ainda podem ser criados depois. Campos ja preparados para a landing.",
+        "itens": [
+          {
+            "title": "Guia de Conversas que Nao Morrem",
+            "desc": "Mensagens e perguntas para iniciar e sustentar conversas com naturalidade.",
+            "value": "R$ 19",
+            "status": "planejado"
+          },
+          {
+            "title": "Checklist de Compatibilidade em 10 Minutos",
+            "desc": "Filtro pratico para separar essencial, alerta e superficial.",
+            "value": "R$ 27",
+            "status": "planejado"
+          },
+          {
+            "title": "Plano de 7 Dias para Ajustar Seu Ambiente Social",
+            "desc": "Rotina curta para ampliar circulos compativeis com seu objetivo amoroso.",
+            "value": "R$ 17",
+            "status": "planejado"
+          }
+        ]
+      },
+      "garantia": {
+        "titulo": "Garantia",
+        "textoCurto": "Garantia incondicional de 7 dias",
+        "descricao": "Se voce sentir que o conteudo nao te ajudou a ter mais clareza sobre seus padroes e escolhas, voce pode solicitar reembolso dentro do prazo da garantia."
+      },
+      "faq": {
+        "titulo": "Perguntas frequentes",
+        "itens": [
+          {
+            "q": "Esse diagnostico substitui terapia?",
+            "a": "Nao. Ele e um material educativo de autoconhecimento e estrategia relacional."
+          },
+          {
+            "q": "Serve para quem acabou de sair de um relacionamento?",
+            "a": "Sim. Pode ajudar especialmente a reconhecer padroes antes de iniciar um novo ciclo."
+          },
+          {
+            "q": "Vou receber acesso na hora?",
+            "a": "A estrutura da landing esta preparada para acesso imediato apos confirmacao do pagamento."
+          },
+          {
+            "q": "Posso usar esse material mesmo tendo baixa autoestima hoje?",
+            "a": "Sim. O livro foi pensado para te dar clareza e passos praticos sem te culpabilizar."
+          },
+          {
+            "q": "Posso adaptar essa mesma pagina para outros ebooks?",
+            "a": "Sim. A landing foi pensada para ler os dados por ID no temas.json."
+          }
+        ]
+      },
+      "ctaFinal": {
+        "titulo": "Voce nao precisa continuar repetindo ciclos para aprender",
+        "texto": "Troque confusao por clareza. Ajuste ambiente, filtros e escolhas com um plano pratico para construir relacoes mais conscientes."
+      },
+      "seo": {
+        "title": "Por que voce ainda esta solteira? | Diagnostico Amoroso",
+        "description": "Descubra os motivos ocultos da sua solteirice com um diagnostico amoroso pratico, humano e estrategico.",
+        "keywords": [
+          "diagnostico amoroso",
+          "relacionamento",
+          "solteira",
+          "autoconhecimento",
+          "ebook"
+        ]
+      },
+      "paginasLegais": {
+        "termosDeUso": {
+          "titulo": "Termos de Uso",
+          "resumo": "Define regras de acesso ao conteudo, propriedade intelectual e uso pessoal do material.",
+          "url": "/termos-de-uso"
+        },
+        "politicaDePrivacidade": {
+          "titulo": "Politica de Privacidade",
+          "resumo": "Explica coleta de dados, cookies, finalidade de uso e direitos do usuario.",
+          "url": "/politica-de-privacidade"
+        },
+        "politicaDeReembolso": {
+          "titulo": "Politica de Reembolso",
+          "resumo": "Detalha prazos, condicoes e canal para solicitar reembolso dentro da garantia.",
+          "url": "/politica-de-reembolso"
+        },
+        "avisoLegal": {
+          "titulo": "Aviso Legal",
+          "resumo": "Conteudo educativo. Resultados variam conforme aplicacao individual. Nao ha promessa de resultado garantido.",
+          "url": "/aviso-legal"
+        }
+      },
+      "contato": {
+        "emailSuporte": "suporte@seudominio.com",
+        "whatsapp": "",
+        "instagram": "",
+        "horarioAtendimento": "Segunda a sexta, horario comercial"
+      },
+      "rastreamento": {
+        "metaPixelId": "",
+        "googleTagId": "",
+        "eventos": {
+          "viewContent": true,
+          "initiateCheckout": true,
+          "purchase": true
+        }
+      },
+      "previews": [
+        "id16-previa-02.png"
+      ]
+    },
+    "cor": "#940404",
+    "cor_fonte": "#F8FAFC",
+    "arquivos": {
+      "pastaTema": "16 - Por que você ainda está solteira-",
+      "pastaRelativa": "output/16 - Por que você ainda está solteira-",
+      "capaPng": "Por que você ainda está solteira--portugues-capa.png",
+      "capaPngPt": "Por que você ainda está solteira--portugues-capa.png",
+      "capaPngEn": null,
+      "pdfPt": "Por que você ainda está solteira--portugues.pdf",
+      "pdfEn": null,
+      "imagemCapaGerada": "why_are_you_still_single_.png",
+      "atualizadoEm": "2026-02-24T16:57:50.356Z",
+      "capaPngPathRelativo": "pdf/Por que você ainda está solteira--portugues-capa.png",
+      "capaPngPtPathRelativo": "pdf/Por que você ainda está solteira--portugues-capa.png",
+      "capaPngEnPathRelativo": null,
+      "imagemSitePathRelativo": "img/why_are_you_still_single_.png"
+    }
+  }
+]

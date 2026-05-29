@@ -1,0 +1,1 @@
+Project Brief: Initialize Memory Bank for automatizador-pdf project. This file serves as the foundation for all memory bank documentation.

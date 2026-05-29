@@ -1,0 +1,1585 @@
+<![CDATA[
+<!doctype html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Landing Dinâmica | E-book</title>
+  <meta name="description" content="Landing page dinâmica por ID de e-book baseada em temas.json + site.json">
+  <meta name="keywords" content="e-book, landing page, dinâmica, personalizada">
+  <meta name="author" content="Triafy">
+  <meta name="robots" content="index, follow">
+  <meta name="theme-color" content="#1E1B4B">
+  <link rel="icon" type="image/x-icon" href="icon.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@400;700;900&family=Kaushan+Script&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+  <style>
+    [v-cloak] { display: none !important; }
+
+    :root {
+      --theme-primary: #1E1B4B;
+      --theme-on-primary: #F8FAFC;
+      --theme-rgb: 30, 27, 75;
+      --bg: #0f1118;
+      --ink: #f7f8fc;
+      --muted: rgba(247, 248, 252, 0.72);
+      --line: rgba(255,255,255,.14);
+      --panel-shadow: 0 24px 80px rgba(0,0,0,.28);
+      --radius: 22px;
+    }
+
+    * { box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body {
+      margin: 0;
+      font-family: "Roboto", system-ui, sans-serif;
+      background: #0b0d14;
+      color: var(--ink);
+      overflow-x: hidden;
+    }
+    h1,h2,h3 {
+      margin: 0;
+      font-family: "Roboto", system-ui, sans-serif;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+      line-height: 1.02;
+    }
+    p { line-height: 1.6; }
+    a { color: inherit; text-decoration: none; }
+    img { max-width: 100%; display: block; }
+    code { background: rgba(255,255,255,.08); border-radius: 6px; padding: 2px 6px; }
+
+    .boot-fallback {
+      display: none;
+      min-height: 100vh;
+      place-items: center;
+      padding: 24px;
+      background: #0b0d14;
+    }
+    .boot-fallback.show { display: grid; }
+    .boot-card {
+      max-width: 760px;
+      width: 100%;
+      background: #121726;
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 16px;
+      padding: 18px;
+      box-shadow: var(--panel-shadow);
+    }
+    .boot-card h1 { font-size: 1.3rem; margin-bottom: 8px; }
+    .boot-card p { color: rgba(255,255,255,.78); margin: 6px 0; }
+
+    #app { min-height: 100vh; }
+    .site-shell {
+      position: relative;
+      min-height: 100vh;
+      background:
+        radial-gradient(70rem 34rem at -10% -10%, rgba(var(--theme-rgb), .28), transparent 55%),
+        radial-gradient(60rem 30rem at 110% 10%, rgba(var(--theme-rgb), .24), transparent 55%),
+        #0b0d14;
+    }
+
+    .state {
+      min-height: 100vh;
+      display: grid;
+      place-items: center;
+      padding: 24px;
+      text-align: center;
+    }
+    .state-card {
+      max-width: 760px;
+      background: rgba(255,255,255,.04);
+      border: 1px solid rgba(255,255,255,.08);
+      border-radius: 18px;
+      padding: 20px;
+      box-shadow: var(--panel-shadow);
+      backdrop-filter: blur(8px);
+    }
+    .state p { color: var(--muted); }
+    .state p.muted { color: var(--muted); }
+    .spinner {
+      width: 40px; height: 40px; border-radius: 50%;
+      border: 3px solid rgba(255,255,255,.18);
+      border-top-color: rgba(var(--theme-rgb), 1);
+      margin: 0 auto 12px;
+      animation: spin .9s linear infinite;
+    }
+    @keyframes spin { to { transform: rotate(360deg); } }
+
+    .catalog-shell {
+      min-height: 100vh;
+      padding: 28px 22px 40px;
+    }
+    .catalog-header {
+      max-width: 1100px;
+      margin: 0 auto 22px;
+      padding: 18px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .catalog-header h1 { font-size: clamp(1.6rem, 3vw, 2.4rem); }
+    .catalog-header p { margin: 8px 0 0; color: var(--muted); max-width: 70ch; }
+    .catalog-grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+    .catalog-card {
+      display: grid;
+      gap: 12px;
+      padding: 14px;
+      border-radius: 18px;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+      transition: transform .15s ease, border-color .15s ease, background .15s ease;
+      cursor: pointer;
+    }
+    .catalog-card:hover {
+      transform: translateY(-2px);
+      border-color: rgba(255,255,255,.18);
+      background: rgba(255,255,255,.045);
+    }
+    .catalog-cover {
+      aspect-ratio: 4 / 5;
+      border-radius: 14px;
+      overflow: hidden;
+      background: rgba(255,255,255,.03);
+      display: grid;
+      place-items: center;
+      border: 1px solid rgba(255,255,255,.06);
+    }
+    .catalog-cover img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+    .catalog-cover-fallback {
+      width: 100%;
+      height: 100%;
+      padding: 14px;
+      display: grid;
+      align-content: end;
+      background: linear-gradient(135deg, rgba(var(--theme-rgb), .35), rgba(255,255,255,.02));
+      color: var(--ink);
+    }
+    .catalog-meta .kicker {
+      margin: 0 0 4px;
+      color: var(--muted);
+      font-size: .78rem;
+      letter-spacing: .08em;
+      text-transform: uppercase;
+      font-weight: 800;
+    }
+    .catalog-meta h3 {
+      font-size: 1.05rem;
+      line-height: 1.15;
+      margin: 0 0 8px;
+    }
+    .catalog-meta p {
+      margin: 0;
+      color: var(--muted);
+      font-size: .92rem;
+      line-height: 1.45;
+    }
+    .catalog-foot {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      margin-top: 4px;
+    }
+    .catalog-badges {
+      display: flex;
+      gap: 8px;
+      flex-wrap: wrap;
+    }
+    .catalog-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 10px;
+      border-radius: 999px;
+      font-size: .78rem;
+      border: 1px solid rgba(255,255,255,.12);
+      color: var(--muted);
+      background: rgba(255,255,255,.02);
+    }
+
+    .btn {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      gap: 8px;
+      border-radius: 12px;
+      min-height: 46px;
+      padding: 10px 16px;
+      font-weight: 800;
+      border: 1px solid transparent;
+      cursor: pointer;
+      transition: transform .15s ease, opacity .15s ease;
+    }
+    .btn:hover { transform: translateY(-1px); }
+    .btn-primary {
+      background: var(--theme-primary);
+      color: var(--theme-on-primary);
+      box-shadow: 0 10px 24px rgba(var(--theme-rgb), .35);
+    }
+    .btn-ghost {
+      background: rgba(255,255,255,.04);
+      border-color: rgba(255,255,255,.14);
+      color: var(--ink);
+    }
+    .btn-outline {
+      background: transparent;
+      border-color: rgba(255,255,255,.2);
+      color: var(--ink);
+    }
+
+    .warning-banner {
+      position: sticky;
+      top: 0;
+      z-index: 40;
+      margin: 0 22px;
+      transform: translateY(12px);
+    }
+    .warning-banner p {
+      margin: 0;
+      padding: 10px 14px;
+      border-radius: 12px;
+      background: rgba(255, 210, 74, .12);
+      border: 1px solid rgba(255, 210, 74, .24);
+      color: #ffe39b;
+    }
+
+    .side-nav {
+      position: fixed;
+      right: 18px;
+      top: 50%;
+      transform: translateY(-50%);
+      z-index: 50;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      padding: 8px;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(11,13,20,.6);
+      backdrop-filter: blur(10px);
+    }
+    .side-dot-link {
+      position: relative;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .side-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background: rgba(255,255,255,.25);
+      border: 1px solid rgba(255,255,255,.35);
+      transition: transform .2s ease, background-color .2s ease;
+    }
+    .side-dot:hover { transform: scale(1.2); }
+    .side-tooltip {
+      position: absolute;
+      right: calc(100% + 10px);
+      top: 50%;
+      transform: translateY(-50%) translateX(6px);
+      opacity: 0;
+      pointer-events: none;
+      white-space: nowrap;
+      padding: 6px 9px;
+      border-radius: 8px;
+      background: rgba(11,13,20,.9);
+      color: #fff;
+      font-size: .75rem;
+      border: 1px solid rgba(255,255,255,.1);
+      transition: opacity .15s ease, transform .15s ease;
+    }
+    .side-dot-link:hover .side-tooltip {
+      opacity: 1;
+      transform: translateY(-50%) translateX(0);
+    }
+
+    .topbar {
+      position: fixed;
+      top: 16px;
+      left: 16px;
+      right: 62px;
+      z-index: 45;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      gap: 14px;
+      padding: 10px 12px;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.1);
+      background: rgba(11,13,20,.55);
+      backdrop-filter: blur(12px);
+    }
+    .brand {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      min-width: 0;
+    }
+    .brand-icon {
+      width: 42px; height: 42px;
+      border-radius: 12px;
+      display: grid; place-items: center;
+      background: rgba(var(--theme-rgb), .15);
+      color: var(--theme-on-primary);
+      border: 1px solid rgba(var(--theme-rgb), .3);
+      flex-shrink: 0;
+    }
+    .brand-meta p { margin: 0; }
+    .brand-meta .kicker {
+      font-size: .7rem;
+      text-transform: uppercase;
+      letter-spacing: .12em;
+      color: rgba(255,255,255,.65);
+      font-weight: 800;
+    }
+    .brand-meta .name {
+      font-weight: 800;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 46vw;
+    }
+
+    .panel {
+      min-height: 100vh;
+      position: relative;
+      display: flex;
+      align-items: center;
+      padding: 110px 24px 54px;
+    }
+    .panel::before {
+      content: "";
+      position: absolute;
+      inset: 0;
+      pointer-events: none;
+    }
+    .panel.primary::before {
+      background:
+        linear-gradient(
+          135deg,
+          var(--theme-primary) 100%,
+          rgba(var(--theme-rgb), .66) 0%,
+          var(--theme-primary) 12%
+        );
+      opacity: .45;
+    }
+    .panel.alt::before {
+      background: #ffffff;
+      opacity: 1;
+    }
+    .panel.dark::before {
+      background: #0a0a0a;
+      opacity: 1;
+    }
+    .panel.gray::before {
+      background: #f8f9fa;
+      opacity: 1;
+    }
+
+    /* Alternância de cores das seções: principal → branco → preto → cinza → principal → branco → preto */
+    .panel-inner,
+    .card,
+    .offer-line,
+    .step-item,
+    .method-item,
+    .chapter-card,
+    .metric,
+    .testimonial,
+    details.faq-item {
+      background: rgba(255,255,255,.03);
+    }
+    .panel.alt .panel-inner,
+    .panel.alt .card,
+    .panel.alt .offer-line,
+    .panel.alt .step-item,
+    .panel.alt .method-item,
+    .panel.alt .chapter-card,
+    .panel.alt .metric,
+    .panel.alt .testimonial,
+    .panel.alt details.faq-item {
+      background: #ffffff;
+    }
+    .panel.dark .panel-inner,
+    .panel.dark .card,
+    .panel.dark .offer-line,
+    .panel.dark .step-item,
+    .panel.dark .method-item,
+    .panel.dark .chapter-card,
+    .panel.dark .metric,
+    .panel.dark .testimonial,
+    .panel.dark details.faq-item {
+      background: #1a1a1a;
+    }
+    .panel.gray .panel-inner,
+    .panel.gray .card,
+    .panel.gray .offer-line,
+    .panel.gray .step-item,
+    .panel.gray .method-item,
+    .panel.gray .chapter-card,
+    .panel.gray .metric,
+    .panel.gray .testimonial,
+    .panel.gray details.faq-item {
+      background: #f8f9fa;
+    }
+
+    /* Cores de texto por fundo */
+    .panel.alt,
+    .panel.alt h1, .panel.alt h2, .panel.alt h3,
+    .panel.alt p, .panel.alt li, .panel.alt .muted,
+    .panel.alt .eyebrow, .panel.alt .title-xl, .panel.alt .title-lg {
+      color: #0a0a0a;
+    }
+    .panel.alt .muted { color: rgba(0,0,0,0.65); }
+    .panel.alt .card { border: 1px solid rgba(0,0,0,0.08); }
+    .panel.alt .btn-ghost,
+    .panel.alt .btn-outline {
+      background: rgba(0,0,0,0.06);
+    }
+    .panel.alt .cover-frame { border: 1px solid rgba(0,0,0,0.1); }
+    .panel.alt .preview-thumb { border: 1px solid rgba(0,0,0,0.08); }
+    .panel.alt .chapter-card .tag { border: 1px solid rgba(0,0,0,0.12); color: rgba(0,0,0,0.85); }
+    .panel.alt .footer-links a { border: 1px solid rgba(0,0,0,0.12); color: rgba(0,0,0,0.86); background: rgba(0,0,0,0.03); }
+    .panel.alt .catalog-card { border: 1px solid rgba(0,0,0,0.08); }
+    .panel.alt .catalog-cover { border: 1px solid rgba(0,0,0,0.06); }
+    .panel.alt .catalog-badge { border: 1px solid rgba(0,0,0,0.12); color: rgba(0,0,0,0.65); background: rgba(0,0,0,0.02); }
+    .panel.alt .boot-card { border: 1px solid rgba(0,0,0,0.08); }
+    .panel.alt .state-card { border: 1px solid rgba(0,0,0,0.08); }
+
+    .panel.dark,
+    .panel.dark h1, .panel.dark h2, .panel.dark h3,
+    .panel.dark p, .panel.dark li, .panel.dark .muted,
+    .panel.dark .eyebrow, .panel.dark .title-xl, .panel.dark .title-lg {
+      color: #ffffff;
+    }
+    .panel.dark .muted { color: rgba(255,255,255,0.65); }
+    .panel.dark .card { border: 1px solid rgba(255,255,255,0.08); }
+    .panel.dark .btn-ghost,
+    .panel.dark .btn-outline {
+      background: rgba(255,255,255,0.06);
+    }
+    .panel.dark .cover-frame { border: 1px solid rgba(255,255,255,0.1); }
+    .panel.dark .preview-thumb { border: 1px solid rgba(255,255,255,0.08); }
+    .panel.dark .chapter-card .tag { border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.85); }
+    .panel.dark .footer-links a { border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.86); background: rgba(255,255,255,0.03); }
+    .panel.dark .catalog-card { border: 1px solid rgba(255,255,255,0.08); }
+    .panel.dark .catalog-cover { border: 1px solid rgba(255,255,255,0.06); }
+    .panel.dark .catalog-badge { border: 1px solid rgba(255,255,255,0.12); color: rgba(255,255,255,0.65); background: rgba(255,255,255,0.02); }
+    .panel.dark .boot-card { border: 1px solid rgba(255,255,255,0.08); }
+    .panel.dark .state-card { border: 1px solid rgba(255,255,255,0.08); }
+
+    .panel.gray,
+    .panel.gray h1, .panel.gray h2, .panel.gray h3,
+    .panel.gray p, .panel.gray li, .panel.gray .muted,
+    .panel.gray .eyebrow, .panel.gray .title-xl, .panel.gray .title-lg {
+      color: #0a0a0a;
+    }
+    .panel.gray .muted { color: rgba(0,0,0,0.65); }
+    .panel.gray .card { border: 1px solid rgba(0,0,0,0.08); }
+    .panel.gray .btn-ghost,
+    .panel.gray .btn-outline {
+      background: rgba(0,0,0,0.06);
+    }
+    .panel.gray .cover-frame { border: 1px solid rgba(0,0,0,0.1); }
+    .panel.gray .preview-thumb { border: 1px solid rgba(0,0,0,0.08); }
+    .panel.gray .chapter-card .tag { border: 1px solid rgba(0,0,0,0.12); color: rgba(0,0,0,0.85); }
+    .panel.gray .footer-links a { border: 1px solid rgba(0,0,0,0.12); color: rgba(0,0,0,0.86); background: rgba(0,0,0,0.03); }
+    .panel.gray .catalog-card { border: 1px solid rgba(0,0,0,0.08); }
+    .panel.gray .catalog-cover { border: 1px solid rgba(0,0,0,0.06); }
+    .panel.gray .catalog-badge { border: 1px solid rgba(0,0,0,0.12); color: rgba(0,0,0,0.65); background: rgba(0,0,0,0.02); }
+    .panel.gray .boot-card { border: 1px solid rgba(0,0,0,0.08); }
+    .panel.gray .state-card { border: 1px solid rgba(0,0,0,0.08); }
+
+    .panel.alt .topbar,
+    .panel.dark .topbar,
+    .panel.gray .topbar {
+      background: rgba(255,255,255,0.55);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .panel.alt .brand-icon,
+    .panel.dark .brand-icon,
+    .panel.gray .brand-icon {
+      background: rgba(0,0,0,0.08);
+      color: var(--theme-on-primary);
+      border: 1px solid rgba(var(--theme-rgb),0.3);
+    }
+    .panel.alt .side-nav,
+    .panel.dark .side-nav,
+    .panel.gray .side-nav {
+      background: rgba(255,255,255,0.6);
+      border: 1px solid rgba(0,0,0,0.08);
+    }
+    .panel.alt .side-dot,
+    .panel.dark .side-dot,
+    .panel.gray .side-dot {
+      background: rgba(0,0,0,0.35);
+      border: 1px solid rgba(0,0,0,0.45);
+    }
+    .panel.alt .side-tooltip,
+    .panel.dark .side-tooltip,
+    .panel.gray .side-tooltip {
+      background: rgba(255,255,255,0.95);
+      color: #000;
+      border: 1px solid rgba(0,0,0,0.1);
+    }
+
+    .panel-inner {
+      position: relative;
+      z-index: 1;
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      box-shadow: var(--panel-shadow);
+      backdrop-filter: blur(8px);
+      padding: 28px;
+    }
+
+    .panel-grid {
+      display: grid;
+      grid-template-columns: 1.1fr .9fr;
+      gap: 18px;
+      align-items: start;
+    }
+    .stack { display: grid; gap: 14px; }
+
+    .eyebrow {
+      margin: 0 0 10px;
+      font-size: .78rem;
+      letter-spacing: .1em;
+      text-transform: none;
+      color: rgba(255,255,255,.75);
+      font-weight: 800;
+      font-family: "Kaushan Script", cursive;
+      letter-spacing: .02em;
+    }
+    .title-xl {
+      font-size: clamp(2rem, 6vw, 5rem);
+      margin-bottom: 12px;
+    }
+    .title-lg {
+      font-size: clamp(1.55rem, 3vw, 2.7rem);
+      margin-bottom: 10px;
+    }
+    .lead {
+      margin: 0;
+      color: var(--muted);
+      font-size: 1.02rem;
+      max-width: 62ch;
+      line-height: 1.78;
+    }
+
+    .hero-price {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 14px;
+    }
+    .hero-price .pill {
+      border-radius: 14px;
+      border: 1px solid rgba(255,255,255,.14);
+      background: rgba(255,255,255,.03);
+      padding: 10px 12px;
+      min-width: 170px;
+    }
+    .hero-price .pill strong {
+      display: block;
+      color: #fff;
+      font-size: 1.55rem;
+      line-height: 1.1;
+    }
+    .hero-price .pill span { color: var(--muted); font-size: .85rem; }
+
+    .cta-row { display: flex; flex-wrap: wrap; gap: 10px; margin-top: 14px; }
+    .trust-line {
+      margin: 8px 0 0;
+      color: var(--muted);
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      align-items: center;
+      font-size: .92rem;
+    }
+    .trust-line i { color: rgba(255,255,255,.88); }
+
+    .card {
+      border-radius: 18px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      padding: 16px;
+    }
+    .card h3 { font-size: 1.1rem; margin-bottom: 8px; }
+    .card p { margin: 0; color: var(--muted); }
+
+    .cover-frame {
+    border-radius: 4px;
+    overflow: visible;
+    border: none;
+    background: transparent;
+    box-shadow: 
+      0 1px 0 rgba(255,255,255,0.12),
+      0 2px 4px rgba(0,0,0,0.3),
+      0 8px 16px rgba(0,0,0,0.4),
+      0 16px 32px rgba(0,0,0,0.3),
+      0 32px 64px rgba(0,0,0,0.2);
+    transform: perspective(1200px) rotateY(-8deg) rotateX(4deg);
+    transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+    margin: 20px 0;
+}
+.cover-frame img {
+    width: 100%;
+    aspect-ratio: 1 / 1.414;
+    object-fit: cover;
+    object-position: top center;
+    background: #fff;
+    border: 1px solid rgba(0,0,0,0.08);
+    display: block;
+}
+.cover-frame:hover {
+    transform: perspective(1200px) rotateY(0deg) rotateX(0deg) scale(1.03);
+}
+.cover-frame::after {
+    content: '';
+    position: absolute;
+    inset: -40px;
+    background: radial-gradient(ellipse at 30% 30%, rgba(255,255,255,0.08) 0%, transparent 50%),
+                radial-gradient(ellipse at 70% 70%, rgba(0,0,0,0.3) 0%, transparent 50%);
+    pointer-events: none;
+    z-index: -1;
+}
+    .cover-fallback {
+      aspect-ratio: 1 / 1.414;
+      display: grid;
+      place-items: center;
+      text-align: center;
+      padding: 18px;
+      color: rgba(255,255,255,.8);
+    }
+    .preview-carousel {
+      display: grid;
+      grid-auto-flow: column;
+      grid-auto-columns: minmax(180px, 1fr);
+      gap: 10px;
+      overflow-x: auto;
+      padding-bottom: 4px;
+      margin-top: 10px;
+    }
+    .preview-thumb {
+      border-radius: 12px;
+      overflow: hidden;
+      background: rgba(255,255,255,.03);
+      border: 1px solid rgba(255,255,255,.08);
+    }
+    .preview-thumb img {
+      width: 100%;
+      aspect-ratio: .78;
+      object-fit: cover;
+      object-position: top;
+    }
+
+    .metrics {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 10px;
+    }
+    .metric {
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px;
+      padding: 10px;
+      background: rgba(255,255,255,.02);
+    }
+    .metric small { color: var(--muted); display: block; }
+    .metric strong { display: block; font-size: 1.1rem; }
+
+    .list-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 14px;
+    }
+    .bullet-list {
+      margin: 0;
+      padding-left: 18px;
+      display: grid;
+      gap: 8px;
+    }
+    .bullet-list li { color: rgba(255,255,255,.9); }
+
+    .method-steps, .steps, .faq-list {
+      display: grid;
+      gap: 10px;
+    }
+    .method-item, .step-item, .faq-item {
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 14px;
+      background: rgba(255,255,255,.025);
+      padding: 12px;
+    }
+    .method-item {
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 12px;
+      align-items: start;
+    }
+    .method-code {
+      width: 34px; height: 34px;
+      border-radius: 10px;
+      display: grid; place-items: center;
+      background: rgba(var(--theme-rgb), .25);
+      border: 1px solid rgba(var(--theme-rgb), .4);
+      font-weight: 900;
+      color: var(--theme-on-primary);
+      flex-shrink: 0;
+    }
+    .method-item strong, .step-item strong { display: block; margin-bottom: 4px; }
+    .method-item p, .step-item p { margin: 0; color: var(--muted); }
+
+    .chapter-scroll {
+      display: grid;
+      grid-template-columns: repeat(12, minmax(250px, 1fr));
+      gap: 12px;
+      overflow-x: auto;
+      padding-bottom: 6px;
+      scroll-snap-type: x proximity;
+    }
+    .chapter-card {
+      scroll-snap-align: start;
+      border-radius: 16px;
+      border: 1px solid rgba(255,255,255,.12);
+      background: rgba(255,255,255,.03);
+      padding: 14px;
+      min-height: 220px;
+    }
+    .chapter-no {
+      display: inline-flex;
+      min-width: 36px;
+      justify-content: center;
+      padding: 4px 8px;
+      border-radius: 999px;
+      background: rgba(var(--theme-rgb), .22);
+      border: 1px solid rgba(var(--theme-rgb), .32);
+      color: var(--theme-on-primary);
+      font-weight: 900;
+      font-size: .78rem;
+      margin-bottom: 8px;
+    }
+    .chapter-card h3 { font-size: 1rem; margin-bottom: 6px; }
+    .chapter-card p { color: var(--muted); margin: 0; font-size: .92rem; }
+    .chapter-card .tag {
+      margin-top: 8px;
+      display: inline-flex;
+      font-size: .72rem;
+      border-radius: 999px;
+      border: 1px solid rgba(255,255,255,.12);
+      padding: 4px 8px;
+      color: rgba(255,255,255,.85);
+    }
+
+    .offer-grid {
+      display: grid;
+      grid-template-columns: .95fr 1.05fr;
+      gap: 18px;
+    }
+    .offer-lines {
+      display: grid;
+      gap: 8px;
+      margin-top: 10px;
+    }
+    .offer-line {
+      display: flex;
+      justify-content: space-between;
+      gap: 10px;
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 10px;
+      padding: 10px;
+      background: rgba(255,255,255,.02);
+    }
+    .offer-line span { color: var(--muted); }
+    .offer-line strong { color: #fff; }
+
+    .price-box {
+      margin-top: 10px;
+      border-radius: 14px;
+      border: 1px solid rgba(var(--theme-rgb), .28);
+      background: rgba(var(--theme-rgb), .18);
+      padding: 12px;
+    }
+    .price-box .old { text-decoration: line-through; color: rgba(255,255,255,.55); }
+    .price-box .main { display: block; font-size: 2rem; font-weight: 900; color: #fff; line-height: 1; }
+    .price-box small { display: block; color: var(--muted); margin-top: 4px; }
+
+    .testimonials {
+      display: grid;
+      gap: 10px;
+    }
+    .rating-pill{
+      display:inline-flex; gap:8px; align-items:center;
+      padding:8px 10px; border-radius:999px;
+      background: rgba(255,255,255,.06);
+      font-weight:800;
+      color: #fff;
+      margin-bottom: 8px;
+    }
+    .benefit-strip h3 { margin-bottom: 8px; }
+    .testimonial {
+      border: 1px solid rgba(255,255,255,.1);
+      border-radius: 12px;
+      padding: 12px;
+      background: rgba(255,255,255,.02);
+    }
+    .testimonial p { margin: 0 0 6px; color: rgba(255,255,255,.88); }
+    .testimonial span { color: var(--muted); font-size: .92rem; }
+
+    details.faq-item summary {
+      cursor: pointer;
+      font-weight: 800;
+      color: #fff;
+    }
+    details.faq-item p {
+      margin: 8px 0 0;
+      color: var(--muted);
+    }
+
+    .footer-links {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 10px;
+      margin-top: 12px;
+    }
+    .footer-links a {
+      border: 1px solid rgba(255,255,255,.12);
+      border-radius: 999px;
+      padding: 8px 10px;
+      font-size: .85rem;
+      color: rgba(255,255,255,.86);
+      background: rgba(255,255,255,.03);
+    }
+
+    .muted { color: var(--muted); }
+
+    @media (max-width: 1080px) {
+      .panel-grid, .offer-grid { grid-template-columns: 1fr; }
+      .metrics { grid-template-columns: 1fr; }
+      .list-grid { grid-template-columns: 1fr; }
+      .topbar { right: 16px; }
+      .side-nav { display: none; }
+    }
+
+    @media (max-width: 720px) {
+      .panel { padding: 86px 12px 24px; }
+      .panel-inner { padding: 16px; border-radius: 18px; }
+      .topbar { left: 10px; right: 10px; top: 10px; }
+      .brand-meta .name { max-width: 52vw; }
+      .title-xl { font-size: clamp(1.65rem, 12vw, 2.7rem); }
+      .title-lg { font-size: clamp(1.25rem, 7vw, 1.85rem); }
+      .cta-row { flex-direction: column; }
+      .trust-line { gap: 8px; font-size: .85rem; }
+      .cta-row .btn { width: 100%; }
+    }
+
+    /* Visual enxuto + mesmas fontes do e-book (index-pdfs.js: Roboto + Kaushan Script) */
+    body, p, li, summary, .btn, .brand-meta .name, .brand-meta .kicker {
+      font-family: "Roboto", system-ui, sans-serif;
+    }
+    h1, h2, h3, .title-xl, .title-lg {
+      font-family: "Roboto", system-ui, sans-serif;
+      font-weight: 900;
+      letter-spacing: -0.03em;
+    }
+    .eyebrow {
+      font-family: "Kaushan Script", cursive;
+      text-transform: none;
+      letter-spacing: .02em;
+      color: rgba(255,255,255,.9);
+    }
+
+    .panel::before {
+      background: var(--theme-primary);
+      opacity: .42;
+    }
+
+    .panel-inner,
+    .card,
+    .offer-line,
+    .step-item,
+    .method-item,
+    .chapter-card,
+    .cover-frame,
+    .metric,
+    .testimonial,
+    details.faq-item,
+    .topbar,
+    .side-nav,
+    .hero-price .pill,
+    .price-box,
+    .warning-banner p,
+    .boot-card,
+    .state-card {
+      border: 0 !important;
+      box-shadow: none !important;
+    }
+
+    .btn-ghost,
+    .btn-outline {
+      border: 0 !important;
+      background: rgba(255,255,255,.06);
+    }
+
+    .brand-icon,
+    .side-dot,
+    .chapter-card .tag,
+    .method-code {
+      border: 0 !important;
+    }
+
+    .offer-line,
+    .step-item,
+    .method-item,
+    .chapter-card,
+    .testimonial,
+    details.faq-item {
+      background: rgba(255,255,255,.028);
+    }
+
+    .cover-frame {
+      background: rgba(255,255,255,.02);
+    }
+
+    /* Estilos de impressão */
+    @media print {
+      .topbar, .side-nav, .warning-banner, .cta-row, .trust-line {
+        display: none !important;
+      }
+      .panel {
+        padding: 20px;
+        min-height: auto;
+        page-break-inside: avoid;
+      }
+      .panel-inner {
+        box-shadow: none;
+        backdrop-filter: none;
+        padding: 0;
+      }
+      body {
+        background: white;
+        color: black;
+      }
+    }
+
+    /* Reduzir animação para usuários que preferem movimento reduzido */
+    @media (prefers-reduced-motion: reduce) {
+      * {
+        animation-duration: 0.01ms !important;
+        animation-iteration-count: 1 !important;
+        transition-duration: 0.01ms !important;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="boot-fallback" class="boot-fallback" aria-live="polite">
+    <div class="boot-card">
+      <h1>Falha ao iniciar a landing</h1>
+      <p id="boot-fallback-message">Verifique se a pagina foi aberta via <code>http://localhost</code> e se o Vue CDN carregou.</p>
+      <p>Exemplo correto: <code>http://localhost:5500/landing-page/index.html?id=16</code></p>
+    </div>
+  </div>
+
+  <div id="app">
+    <div class="site-shell" v-cloak :style="cssVars">
+      <div v-if="loading" class="state">
+        <div class="state-card">
+          <div class="spinner"></div>
+          <h2>Carregando tema...</h2>
+          <p>Aguarde enquanto a landing é personalizada pelo ID da URL.</p>
+        </div>
+      </div>
+
+      <div v-else-if="error" class="state">
+        <div class="state-card">
+          <h2>Erro ao carregar landing</h2>
+          <p>{{ error }}</p>
+          <p class="muted">Teste com <code>?id=16</code> e garanta que <code>./temas.json</code> e <code>./site.json</code> estejam acessíveis via localhost.</p>
+          <button class="btn btn-primary" @click="init">Tentar novamente</button>
+        </div>
+      </div>
+
+      <template v-else-if="showCatalog">
+        <div class="catalog-shell">
+          <div class="catalog-header">
+            <p class="kicker">Catálogo</p>
+            <h1>Escolha um e-book para abrir a landing</h1>
+            <p>Ao clicar em um item, a página abre com <code>?id=NUMERO</code> e aplica automaticamente cor, capa, capítulos e textos do produto.</p>
+          </div>
+
+          <div class="catalog-grid">
+            <button
+              type="button"
+              class="catalog-card"
+              v-for="item in catalogItems"
+              :key="`catalog-${item.id}`"
+              @click="goToTheme(item.id)"
+              :style="{ '--theme-primary': item.cor, '--theme-on-primary': item.corFonte }"
+            >
+              <div class="catalog-cover">
+                <img v-if="item.coverUrl" :src="item.coverUrl" :alt="`Capa de ${item.nome}`" loading="lazy">
+                <div v-else class="catalog-cover-fallback">
+                  <div>
+                    <p class="kicker">{{ item.principal || 'E-book' }}</p>
+                    <h3>{{ item.nome }}</h3>
+                  </div>
+                </div>
+              </div>
+              <div class="catalog-meta">
+                <p class="kicker">ID {{ item.id }}</p>
+                <h3>{{ item.nome }}</h3>
+                <p>{{ item.subtitulo || 'Landing dinâmica configurada por tema.' }}</p>
+              </div>
+              <div class="catalog-foot">
+                <div class="catalog-badges">
+                  <span class="catalog-badge"><i class="bi bi-journal-text"></i>{{ item.chapterCount }} capítulos</span>
+                  <span class="catalog-badge" v-if="item.preco"><i class="bi bi-tag"></i>{{ item.preco }}</span>
+                </div>
+                <span class="btn btn-primary">Abrir</span>
+              </div>
+            </button>
+          </div>
+        </div>
+      </template>
+
+      <template v-else-if="theme && offer">
+        <div v-if="warning" class="warning-banner">
+          <p>{{ warning }}</p>
+        </div>
+
+        <nav class="topbar" role="banner" aria-label="Menu principal">
+          <div class="brand">
+            <div class="brand-icon" aria-hidden="true">
+              <i :class="theme.icone || 'bi-book'"></i>
+            </div>
+            <div class="brand-meta">
+              <p class="kicker">{{ offer.brandKicker || theme.principal }}</p>
+              <p class="name">{{ offer.brandName || theme.nome }}</p>
+            </div>
+          </div>
+        </nav>
+
+        <aside class="side-nav" aria-label="Navegação lateral">
+          <a class="side-dot-link" href="#hero" aria-label="Ir para seção hero"><span class="side-dot"></span><span class="side-tooltip">Hero</span></a>
+          <a class="side-dot-link" href="#diagnostico" aria-label="Ir para diagnóstico"><span class="side-dot"></span><span class="side-tooltip">Diagnóstico</span></a>
+          <a class="side-dot-link" href="#metodo" aria-label="Ir para método"><span class="side-dot"></span><span class="side-tooltip">Método</span></a>
+          <a class="side-dot-link" href="#conteudo" aria-label="Ir para conteúdo"><span class="side-dot"></span><span class="side-tooltip">Conteúdo</span></a>
+          <a class="side-dot-link" href="#oferta" aria-label="Ir para oferta"><span class="side-dot"></span><span class="side-tooltip">Oferta</span></a>
+          <a class="side-dot-link" href="#faq" aria-label="Ir para FAQ"><span class="side-dot"></span><span class="side-tooltip">FAQ</span></a>
+          <a class="side-dot-link" href="#cta-final" aria-label="Ir para chamada final"><span class="side-dot"></span><span class="side-tooltip">CTA</span></a>
+        </aside>
+
+        <main role="main">
+          <section id="hero" class="panel bg-primary">
+            <div class="panel-inner">
+              <div class="panel-grid">
+                <div class="stack">
+                  <div>
+                    <p class="">{{ theme.principal }}</p>
+                    <h1 class="title-xl">{{ offer.headline || theme.nome }}</h1>
+                    <p class="lead">{{ offer.subheadline || theme.subtitulo }}</p>
+                  </div>
+
+                  <div class="hero-price">
+                    <div class="pill">
+                      <span>Investimento</span>
+                      <strong>{{ offer.price || 'Consulte oferta' }}</strong>
+                    </div>
+                    <div class="pill">
+                      <span>Garantia</span>
+                      <strong style="font-size:1rem; line-height:1.25;">{{ offer.guarantee || 'Sem informação' }}</strong>
+                    </div>
+                  </div>
+
+                  <div class="cta-row">
+                    <a class="btn btn-primary" :href="offer.checkoutUrl || '#oferta'" target="_blank" rel="noopener" aria-label="Comprar {{ offer.ctaPrimary || 'agora' }}">{{ offer.ctaPrimary || 'Comprar agora' }}</a>
+                    <a class="btn btn-ghost" href="#conteudo">{{ offer.ctaSecondary || 'Ver como funciona' }}</a>
+                  </div>
+                </div>
+
+                <div class="stack">
+                  <div class="cover-frame">
+                    <img v-if="coverPngUrl" :src="coverPngUrl" :alt="`Capa do ebook ${theme.nome}`" loading="lazy">
+                    <div v-else class="cover-fallback">
+                      <div>
+                        <p class="">Prévia da capa</p>
+                        <h3>{{ theme.nome }}</h3>
+                        <p class="muted">A capa PNG será exibida aqui quando o arquivo estiver salvo no <code>site.json</code>.</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="diagnostico" class="panel bg-light">
+            <div class="panel-inner">
+              <div class="panel-grid">
+                <div class="stack">
+                  <div>
+                    <p class="">Diagnóstico do público</p>
+                    <h2 class="title-lg">Dor, desejo e contexto social em uma estrutura de produto vendável</h2>
+                    <p class="lead">{{ offer.targetIntro || 'Configure esse texto em site.json → publicoAlvo.introducao' }}</p>
+                  </div>
+
+                  <div class="list-grid">
+                    <div class="card">
+                      <h3>Dores e bloqueios</h3>
+                      <ul class="bullet-list">
+                        <li v-for="item in offer.pains" :key="`pain-${item}`">{{ item }}</li>
+                      </ul>
+                    </div>
+                    <div class="card">
+                      <h3>Desejos profundos</h3>
+                      <ul class="bullet-list">
+                        <li v-for="item in offer.desires" :key="`desire-${item}`">{{ item }}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="stack">
+                  <div class="card">
+                    <h3>Público-alvo</h3>
+                    <ul class="bullet-list">
+                      <li v-for="item in offer.targetAudience" :key="`aud-${item}`">{{ item }}</li>
+                    </ul>
+                  </div>
+                  <div class="card">
+                    <h3>Base e autoridade</h3>
+                    <ul class="bullet-list">
+                      <li v-for="item in offer.scientificBase" :key="`base-${item}`">{{ item }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="metodo" class="panel bg-dark">
+            <div class="panel-inner">
+              <div class="panel-grid">
+                <div class="stack">
+                  <div>
+                    <p class="">Mecanismo único</p>
+                    <h2 class="title-lg">{{ offer.method?.name || 'Método' }}</h2>
+                    <p class="lead">Framework proprietário para sair da confusão emocional e entrar em clareza, filtro e ação estratégica.</p>
+                  </div>
+                  <div class="method-steps">
+                    <div class="method-item" v-for="step in (offer.method?.steps || [])" :key="step.code + step.title">
+                      <span class="method-code">{{ step.code }}</span>
+                      <div>
+                        <strong>{{ step.title }}</strong>
+                        <p>{{ step.desc }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="stack">
+                  <div class="card">
+                    <h3>Como funciona</h3>
+                    <div class="steps">
+                      <div class="step-item" v-for="(step, idx) in offer.howItWorks" :key="step.title + idx">
+                        <strong>{{ String(idx + 1).padStart(2,'0') }}. {{ step.title }}</strong>
+                        <p>{{ step.desc }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <h3>Diferenciais</h3>
+                    <ul class="bullet-list">
+                      <li v-for="item in offer.differentials" :key="`dif-${item}`">{{ item }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="conteudo" class="panel bg-gray">
+            <div class="panel-inner">
+              <p class="">Conteúdo do produto</p>
+              <h2 class="title-lg">Capítulos em sequência lógica, com leitura clara e profundidade</h2>
+              <p class="lead">Troque o ID da URL e a página se adapta ao e-book, mantendo a mesma estrutura de landing com cara própria.</p>
+              <div class="chapter-scroll" style="margin-top:14px;">
+                <article class="chapter-card" v-for="(chapter, index) in chapterCards" :key="chapter.title + index">
+                  <span class="chapter-no">{{ String(index + 1).padStart(2,'0') }}</span>
+                  <h3>{{ chapter.title }}</h3>
+                  <p>{{ chapter.summary }}</p>
+                  <span class="tag" v-if="chapter.hasHtml">Conteúdo rico</span>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <section id="oferta" class="panel bg-primary">
+            <div class="panel-inner">
+              <div class="offer-grid">
+                <div class="stack">
+                  <div class="card">
+                    <p class="">Oferta</p>
+                    <h2 class="title-lg">{{ theme.nome }}</h2>
+                    <p>{{ offer.offerDescription || 'Configure em site.json → oferta.descricao' }}</p>
+
+                    <div class="offer-lines">
+                      <div class="offer-line" v-for="item in offer.offerItems" :key="item.label + item.value">
+                        <span>{{ item.label }}</span>
+                        <strong>{{ item.value }}</strong>
+                      </div>
+                    </div>
+
+                    <div class="price-box">
+                      <span class="old" v-if="offer.anchoredPrice">{{ offer.anchoredPrice }}</span>
+                      <span class="main">{{ offer.price || '—' }}</span>
+                      <small>{{ offer.paymentNote || '' }}</small>
+                    </div>
+
+                    <div class="cta-row">
+                      <a class="btn btn-primary" :href="offer.checkoutUrl || '#'" target="_blank" rel="noopener">{{ offer.ctaPrimary || 'Comprar agora' }}</a>
+                      <a class="btn btn-ghost" href="#faq">Ver FAQ</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="stack">
+                  <div class="card">
+                    <h3>Bônus</h3>
+                    <div class="steps">
+                      <div class="step-item" v-for="bonus in offer.bonuses" :key="bonus.title">
+                        <strong>{{ bonus.title }} <span class="muted" v-if="bonus.value">({{ bonus.value }})</span></strong>
+                        <p>{{ bonus.desc }}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <h3>Prova social</h3>
+                    <div class="rating-pill" v-if="offer.socialRating">
+                      <span>⭐ {{ offer.socialRating.nota || '4,8/5' }}</span>
+                      <span>•</span>
+                      <span>{{ offer.socialRating.texto || '1.200+ leitoras' }}</span>
+                    </div>
+                    <div class="testimonials">
+                      <div class="testimonial" v-for="t in offer.testimonials" :key="t.name + t.quote">
+                        <p>"{{ t.quote }}"</p>
+                        <span>{{ t.name }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="faq" class="panel bg-light">
+            <div class="panel-inner">
+              <div class="panel-grid">
+                <div class="stack">
+                  <div>
+                    <p class="">Perguntas frequentes</p>
+                    <h2 class="title-lg">Objeções, segurança e próximos passos</h2>
+                    <p class="lead">Seção pensada para reduzir dúvida e aumentar confiança antes da decisão.</p>
+                  </div>
+                  <div class="faq-list">
+                    <details class="faq-item" v-for="item in offer.faq" :key="item.q">
+                      <summary>{{ item.q }}</summary>
+                      <p>{{ item.a }}</p>
+                    </details>
+                  </div>
+                </div>
+
+                <div class="stack">
+                  <div class="card">
+                    <h3>Garantia</h3>
+                    <p>{{ offer.guarantee || 'Configure a garantia em site.json' }}</p>
+                  </div>
+                  <div class="card">
+                    <h3>Arquivos do produto (site.json)</h3>
+                    <p class="muted">Pasta: <code>{{ siteEntry?.arquivos?.pastaTema || '—' }}</code></p>
+                    <p class="muted">Capa PNG: <code>{{ siteEntry?.arquivos?.capaPng || siteEntry?.arquivos?.capaPngPt || '—' }}</code></p>
+                    <p class="muted">PDF PT: <code>{{ siteEntry?.arquivos?.pdfPt || '—' }}</code></p>
+                    <p class="muted">Atualizado em: <code>{{ siteEntry?.arquivos?.atualizadoEm || '—' }}</code></p>
+                  </div>
+                  <div class="card">
+                    <h3>Contato / Legal</h3>
+                    <p class="muted">Use <code>site.json</code> para termos, privacidade, reembolso e aviso legal.</p>
+                    <div class="footer-links">
+                      <a href="#">{{ siteEntry?.site?.paginasLegais?.termosDeUso?.titulo || 'Termos de uso' }}</a>
+                      <a href="#">{{ siteEntry?.site?.paginasLegais?.politicaDePrivacidade?.titulo || 'Privacidade' }}</a>
+                      <a href="#">{{ siteEntry?.site?.paginasLegais?.politicaDeReembolso?.titulo || 'Reembolso' }}</a>
+                      <a href="#">{{ siteEntry?.site?.paginasLegais?.avisoLegal?.titulo || 'Aviso legal' }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="cta-final" class="panel bg-dark">
+            <div class="panel-inner">
+              <div class="stack" style="max-width: 980px; margin: 0 auto; text-align:center;">
+                <p class="">Decisão</p>
+                <h2 class="title-xl" style="font-size:clamp(2rem,5vw,4rem);">{{ offer.finalCtaTitle || theme.nome }}</h2>
+                <p class="lead" style="margin:0 auto;">{{ offer.finalCtaText || theme.subtitulo }}</p>
+                <div class="cta-row" style="justify-content:center;">
+                  <a class="btn btn-primary" :href="offer.checkoutUrl || '#'" target="_blank" rel="noopener">{{ offer.ctaPrimary || 'Comprar agora' }}</a>
+                  <a class="btn btn-ghost" href="#hero">Voltar ao topo</a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+
+          <section id="diagnostico" class="panel alt">
+            <div class="panel-inner">
+              <div class="panel-grid">
+                <div class="stack">
+                  <div>
+                    <p class="">Diagnóstico do público</p>
+                    <h2 class="title-lg">Dor, desejo e contexto social em uma estrutura de produto vendável</h2>
+                    <p class="lead">{{ offer.targetIntro || 'Configure esse texto em site.json → publicoAlvo.introducao' }}</p>
+                  </div>
+
+                  <div class="list-grid">
+                    <div class="card">
+                      <h3>Dores e bloqueios</h3>
+                      <ul class="bullet-list">
+                        <li v-for="item in offer.pains" :key="`pain-${item}`">{{ item }}</li>
+                      </ul>
+                    </div>
+                    <div class="card">
+                      <h3>Desejos profundos</h3>
+                      <ul class="bullet-list">
+                        <li v-for="item in offer.desires" :key="`desire-${item}`">{{ item }}</li>
+                      </ul>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="stack">
+                  <div class="card">
+                    <h3>Público-alvo</h3>
+                    <ul class="bullet-list">
+                      <li v-for="item in offer.targetAudience" :key="`aud-${item}`">{{ item }}</li>
+                    </ul>
+                  </div>
+                  <div class="card">
+                    <h3>Base e autoridade</h3>
+                    <ul class="bullet-list">
+                      <li v-for="item in offer.scientificBase" :key="`base-${item}`">{{ item }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="metodo" class="panel">
+            <div class="panel-inner">
+              <div class="panel-grid">
+                <div class="stack">
+                  <div>
+                    <p class="">Mecanismo único</p>
+                    <h2 class="title-lg">{{ offer.method?.name || 'Método' }}</h2>
+                    <p class="lead">Framework proprietário para sair da confusão emocional e entrar em clareza, filtro e ação estratégica.</p>
+                  </div>
+                  <div class="method-steps">
+                    <div class="method-item" v-for="step in (offer.method?.steps || [])" :key="step.code + step.title">
+                      <span class="method-code">{{ step.code }}</span>
+                      <div>
+                        <strong>{{ step.title }}</strong>
+                        <p>{{ step.desc }}</p>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="stack">
+                  <div class="card">
+                    <h3>Como funciona</h3>
+                    <div class="steps">
+                      <div class="step-item" v-for="(step, idx) in offer.howItWorks" :key="step.title + idx">
+                        <strong>{{ String(idx + 1).padStart(2,'0') }}. {{ step.title }}</strong>
+                        <p>{{ step.desc }}</p>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="card">
+                    <h3>Diferenciais</h3>
+                    <ul class="bullet-list">
+                      <li v-for="item in offer.differentials" :key="`dif-${item}`">{{ item }}</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="conteudo" class="panel alt">
+            <div class="panel-inner">
+              <p class="">Conteúdo do produto</p>
+              <h2 class="title-lg">Capítulos em sequência lógica, com leitura clara e profundidade</h2>
+              <p class="lead">Troque o ID da URL e a página se adapta ao e-book, mantendo a mesma estrutura de landing com cara própria.</p>
+              <div class="chapter-scroll" style="margin-top:14px;">
+                <article class="chapter-card" v-for="(chapter, index) in chapterCards" :key="chapter.title + index">
+                  <span class="chapter-no">{{ String(index + 1).padStart(2,'0') }}</span>
+                  <h3>{{ chapter.title }}</h3>
+                  <p>{{ chapter.summary }}</p>
+                  <span class="tag" v-if="chapter.hasHtml">Conteúdo rico</span>
+                </article>
+              </div>
+            </div>
+          </section>
+
+          <section id="oferta" class="panel">
+            <div class="panel-inner">
+              <div class="offer-grid">
+                <div class="stack">
+                  <div class="card">
+                    <p class="">Oferta</p>
+                    <h2 class="title-lg">{{ theme.nome }}</h2>
+                    <p>{{ offer.offerDescription || 'Configure em site.json → oferta.descricao' }}</p>
+
+                    <div class="offer-lines">
+                      <div class="offer-line" v-for="item in offer.offerItems" :key="item.label + item.value">
+                        <span>{{ item.label }}</span>
+                        <strong>{{ item.value }}</strong>
+                      </div>
+                    </div>
+
+                    <div class="price-box">
+                      <span class="old" v-if="offer.anchoredPrice">{{ offer.anchoredPrice }}</span>
+                      <span class="main">{{ offer.price || '—' }}</span>
+                      <small>{{ offer.paymentNote || '' }}</small>
+                    </div>
+
+                    <div class="cta-row">
+                      <a class="btn btn-primary" :href="offer.checkoutUrl || '#'" target="_blank" rel="noopener">{{ offer.ctaPrimary || 'Comprar agora' }}</a>
+                      <a class="btn btn-ghost" href="#faq">Ver FAQ</a>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="stack">
+                  <div class="card">
+                    <h3>Bônus</h3>
+                    <div class="steps">
+                      <div class="step-item" v-for="bonus in offer.bonuses" :key="bonus.title">
+                        <strong>{{ bonus.title }} <span class="muted" v-if="bonus.value">({{ bonus.value }})</span></strong>
+                        <p>{{ bonus.desc }}</p>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="card">
+                    <h3>Prova social</h3>
+                    <div class="rating-pill" v-if="offer.socialRating">
+                      <span>⭐ {{ offer.socialRating.nota || '4,8/5' }}</span>
+                      <span>•</span>
+                      <span>{{ offer.socialRating.texto || '1.200+ leitoras' }}</span>
+                    </div>
+                    <div class="testimonials">
+                      <div class="testimonial" v-for="t in offer.testimonials" :key="t.name + t.quote">
+                        <p>"{{ t.quote }}"</p>
+                        <span>{{ t.name }}</span>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="faq" class="panel alt">
+            <div class="panel-inner">
+              <div class="panel-grid">
+                <div class="stack">
+                  <div>
+                    <p class="">Perguntas frequentes</p>
+                    <h2 class="title-lg">Objeções, segurança e próximos passos</h2>
+                    <p class="lead">Seção pensada para reduzir dúvida e aumentar confiança antes da decisão.</p>
+                  </div>
+                  <div class="faq-list">
+                    <details class="faq-item" v-for="item in offer.faq" :key="item.q">
+                      <summary>{{ item.q }}</summary>
+                      <p>{{ item.a }}</p>
+                    </details>
+                  </div>
+                </div>
+
+                <div class="stack">
+                  <div class="card">
+                    <h3>Garantia</h3>
+                    <p>{{ offer.guarantee || 'Configure a garantia em site.json' }}</p>
+                  </div>
+                  <div class="card">
+                    <h3>Arquivos do produto (site.json)</h3>
+                    <p class="muted">Pasta: <code>{{ siteEntry?.arquivos?.pastaTema || '—' }}</code></p>
+                    <p class="muted">Capa PNG: <code>{{ siteEntry?.arquivos?.capaPng || siteEntry?.arquivos?.capaPngPt || '—' }}</code></p>
+                    <p class="muted">PDF PT: <code>{{ siteEntry?.arquivos?.pdfPt || '—' }}</code></p>
+                    <p class="muted">Atualizado em: <code>{{ siteEntry?.arquivos?.atualizadoEm || '—' }}</code></p>
+                  </div>
+                  <div class="card">
+                    <h3>Contato / Legal</h3>
+                    <p class="muted">Use <code>site.json</code> para termos, privacidade, reembolso e aviso legal.</p>
+                    <div class="footer-links">
+                      <a href="#">{{ siteEntry?.site?.paginasLegais?.termosDeUso?.titulo || 'Termos de uso' }}</a>
+                      <a href="#">{{ siteEntry?.site?.paginasLegais?.politicaDePrivacidade?.titulo || 'Privacidade' }}</a>
+                      <a href="#">{{ siteEntry?.site?.paginasLegais?.politicaDeReembolso?.titulo || 'Reembolso' }}</a>
+                      <a href="#">{{ siteEntry?.site?.paginasLegais?.avisoLegal?.titulo || 'Aviso legal' }}</a>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </section>
+
+          <section id="cta-final" class="panel">
+            <div class="panel-inner">
+              <div class="stack" style="max-width: 980px; margin: 0 auto; text-align:center;">
+                <p class="">Decisão</p>
+                <h2 class="title-xl" style="font-size:clamp(2rem,5vw,4rem);">{{ offer.finalCtaTitle || theme.nome }}</h2>
+                <p class="lead" style="margin:0 auto;">{{ offer.finalCtaText || theme.subtitulo }}</p>
+                <div class="cta-row" style="justify-content:center;">
+                  <a class="btn btn-primary" :href="offer.checkoutUrl || '#'" target="_blank" rel="noopener">{{ offer.ctaPrimary || 'Comprar agora' }}</a>
+                  <a class="btn btn-ghost" href="#hero">Voltar ao topo</a>
+                </div>
+              </div>
+            </div>
+          </section>
+        </main>
+      </template>
+    </div>
+  </div>
+
+  <script>
+    window.__showLandingBootFallback = function (msg) {
+      var el = document.getElementById('boot-fallback');
+      var text = document.getElementById('boot-fallback-message');
+      if (text && msg) text.textContent = msg;
+      if (el) el.classList.add('show');
+    };
+  </script>
+  <script src="https://unpkg.com/vue@3/dist/vue.global.prod.js" onerror="window.__showLandingBootFallback('Nao foi possivel carregar o Vue CDN. Verifique sua internet ou bloqueios de rede e recarregue a pagina.');"></script>
+  <script src="./app.js"></script>
+</body>
+</html>
+]]>

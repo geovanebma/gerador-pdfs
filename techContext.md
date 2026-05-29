@@ -1,0 +1,1 @@
+Technical Context: The project utilizes Node.js for PDF generation, with dependencies managed through npm. Template rendering is handled by a custom template engine. External integrations include APIs for data fetching and services for PDF distribution. Development environment: Visual Studio Code with necessary extensions for Node.js and Markdown support.

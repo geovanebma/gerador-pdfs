@@ -1,0 +1,1042 @@
+[
+  {
+    "id": 1,
+    "titulo": "O Relógio do Juízo Final: Como o Mundo Acaba",
+    "categoria": "Vamos de Teorias e Mistérios",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#B85C4A",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "O fim do mundo talvez nao chegue como nos filmes.",
+    "promessa": "As perspectivas científicas, tecnológicas e sociais sobre o fim da nossa era",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "O fim do mundo talvez nao chegue como nos filmes.",
+        "narracao": "O fim do mundo talvez nao chegue como nos filmes.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em O Relógio do Juízo Final, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "As perspectivas científicas, tecnológicas e sociais sobre o fim da nossa era",
+        "narracao": "As perspectivas científicas, tecnológicas e sociais sobre o fim da nossa era",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "O fim do mundo talvez nao chegue como nos filmes.\n\nAs perspectivas científicas, tecnológicas e sociais sobre o fim da nossa era\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"O Relógio do Juízo Final: Como o Mundo Acaba\". Style: professional cinematic editorial ad, Cinematic surrealism, giant clock face showing midnight, apocalypse landscape background, collapsing skyscrapers, dying sun, deep red and cold blue lighting, hyper-realistic, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"O Relógio do Juízo Final: Como o Mundo Acaba\". professional cinematic editorial ad, Cinematic surrealism, giant clock face showing midnight, apocalypse landscape background, collapsing skyscrapers, dying sun, deep red and cold blue lighting, hyper-realistic, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 2,
+    "titulo": "Vida 3.0: A Fusão Humano-Máquina",
+    "categoria": "Vamos de Futuro e Tecnologia",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#5B8DEF",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Existe uma parte de \"Vida 3.0\" que quase ninguem te explica.",
+    "promessa": "Estamos nos tornando deuses ou apenas peças de um novo sistema?",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Existe uma parte de \"Vida 3.0\" que quase ninguem te explica.",
+        "narracao": "Existe uma parte de \"Vida 3.0\" que quase ninguem te explica.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Vida 3.0, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "Estamos nos tornando deuses ou apenas peças de um novo sistema?",
+        "narracao": "Estamos nos tornando deuses ou apenas peças de um novo sistema?",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Existe uma parte de \"Vida 3.0\" que quase ninguem te explica.\n\nEstamos nos tornando deuses ou apenas peças de um novo sistema?\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Vida 3.0: A Fusão Humano-Máquina\". Style: professional cinematic editorial ad, Futuristic cyborg profile, human face merging with glowing circuit boards, fiber optics neural network, neon cyan and violet lighting, sleek tech aesthetic, macro detail, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Vida 3.0: A Fusão Humano-Máquina\". professional cinematic editorial ad, Futuristic cyborg profile, human face merging with glowing circuit boards, fiber optics neural network, neon cyan and violet lighting, sleek tech aesthetic, macro detail, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 3,
+    "titulo": "Exoplanetas: A Nossa Próxima Casa",
+    "categoria": "Vamos de Exploração Espacial",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#6E8FC7",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Existe uma parte de \"Exoplanetas\" que quase ninguem te explica.",
+    "promessa": "A jornada da humanidade para além do sistema solar",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Existe uma parte de \"Exoplanetas\" que quase ninguem te explica.",
+        "narracao": "Existe uma parte de \"Exoplanetas\" que quase ninguem te explica.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Exoplanetas, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "A jornada da humanidade para além do sistema solar",
+        "narracao": "A jornada da humanidade para além do sistema solar",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Existe uma parte de \"Exoplanetas\" que quase ninguem te explica.\n\nA jornada da humanidade para além do sistema solar\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Exoplanetas: A Nossa Próxima Casa\". Style: professional cinematic editorial ad, Breathtaking exoplanet surface view, two moons in indigo sky, bioluminescent magenta plants, futuristic geodesic domes colony, deep space nebulae, cinematic wide shot, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Exoplanetas: A Nossa Próxima Casa\". professional cinematic editorial ad, Breathtaking exoplanet surface view, two moons in indigo sky, bioluminescent magenta plants, futuristic geodesic domes colony, deep space nebulae, cinematic wide shot, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 4,
+    "titulo": "A Arte da Engenharia Social",
+    "categoria": "Vamos de Psicologia Aplicada",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#7C91C8",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Nem todo golpe comeca com um link. Alguns comecam com confianca.",
+    "promessa": "Como ler mentes, influenciar decisões e entender a lógica invisível das pessoas",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Nem todo golpe comeca com um link. Alguns comecam com confianca.",
+        "narracao": "Nem todo golpe comeca com um link. Alguns comecam com confianca.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em A Arte da Engenharia Social, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "Como ler mentes, influenciar decisões e entender a lógica invisível das pessoas",
+        "narracao": "Como ler mentes, influenciar decisões e entender a lógica invisível das pessoas",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Nem todo golpe comeca com um link. Alguns comecam com confianca.\n\nComo ler mentes, influenciar decisões e entender a lógica invisível das pessoas\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"A Arte da Engenharia Social\". Style: professional cinematic editorial ad, Digital art of social influence, human silhouette made of golden clockwork, glowing strings connecting people, charcoal background, dramatic spotlight, conceptual symbolism, high contrast, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"A Arte da Engenharia Social\". professional cinematic editorial ad, Digital art of social influence, human silhouette made of golden clockwork, glowing strings connecting people, charcoal background, dramatic spotlight, conceptual symbolism, high contrast, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 5,
+    "titulo": "Protocolo de Longevidade: Células Imortais",
+    "categoria": "Vamos de Saúde e Biohacking",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#3FA37A",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Existe uma parte de \"Protocolo de Longevidade\" que quase ninguem te explica.",
+    "promessa": "A ciência para reverter a idade biológica e otimizar o corpo humano",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Existe uma parte de \"Protocolo de Longevidade\" que quase ninguem te explica.",
+        "narracao": "Existe uma parte de \"Protocolo de Longevidade\" que quase ninguem te explica.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Protocolo de Longevidade, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "A ciência para reverter a idade biológica e otimizar o corpo humano",
+        "narracao": "A ciência para reverter a idade biológica e otimizar o corpo humano",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Existe uma parte de \"Protocolo de Longevidade\" que quase ninguem te explica.\n\nA ciência para reverter a idade biológica e otimizar o corpo humano\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Protocolo de Longevidade: Células Imortais\". Style: professional cinematic editorial ad, Microscopic view of golden DNA strand, glowing cells, energy sparks, medical biotech aesthetic, deep teal background, volumetric lighting, hyper-realistic biology, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Protocolo de Longevidade: Células Imortais\". professional cinematic editorial ad, Microscopic view of golden DNA strand, glowing cells, energy sparks, medical biotech aesthetic, deep teal background, volumetric lighting, hyper-realistic biology, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 6,
+    "titulo": "A Economia das Sombras: Quem Manda no Mundo?",
+    "categoria": "Vamos de Geopolítica e Poder",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#8C7A5B",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Existe uma parte de \"A Economia das Sombras\" que quase ninguem te explica.",
+    "promessa": "As forças invisíveis que moldam o mercado, as guerras e o seu bolso",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Existe uma parte de \"A Economia das Sombras\" que quase ninguem te explica.",
+        "narracao": "Existe uma parte de \"A Economia das Sombras\" que quase ninguem te explica.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em A Economia das Sombras, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "As forças invisíveis que moldam o mercado, as guerras e o seu bolso",
+        "narracao": "As forças invisíveis que moldam o mercado, as guerras e o seu bolso",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Existe uma parte de \"A Economia das Sombras\" que quase ninguem te explica.\n\nAs forças invisíveis que moldam o mercado, as guerras e o seu bolso\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"A Economia das Sombras: Quem Manda no Mundo?\". Style: professional cinematic editorial ad, Dark boardroom silhouette, high skyscraper window, global gold data map background, holographic spinning globe, financial flow lines, moody lighting, black and gold palette, cinematic, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"A Economia das Sombras: Quem Manda no Mundo?\". professional cinematic editorial ad, Dark boardroom silhouette, high skyscraper window, global gold data map background, holographic spinning globe, financial flow lines, moody lighting, black and gold palette, cinematic, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 7,
+    "titulo": "Gênese Proibida: O Que a História Esconde",
+    "categoria": "Vamos de Arqueologia Proibida",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#A36F4F",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Existe uma parte de \"Gênese Proibida\" que quase ninguem te explica.",
+    "promessa": "Evidências de tecnologias ancestrais e o mistério do apagão histórico",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Existe uma parte de \"Gênese Proibida\" que quase ninguem te explica.",
+        "narracao": "Existe uma parte de \"Gênese Proibida\" que quase ninguem te explica.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Gênese Proibida, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "Evidências de tecnologias ancestrais e o mistério do apagão histórico",
+        "narracao": "Evidências de tecnologias ancestrais e o mistério do apagão histórico",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Existe uma parte de \"Gênese Proibida\" que quase ninguem te explica.\n\nEvidências de tecnologias ancestrais e o mistério do apagão histórico\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Gênese Proibida: O Que a História Esconde\". Style: professional cinematic editorial ad, Ancient advanced city ruins in jungle, giant stone monoliths with glowing gold symbols, massive weathered pyramid, twilight sky with constellations, cinematic sunbeams, archaeological mystery, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Gênese Proibida: O Que a História Esconde\". professional cinematic editorial ad, Ancient advanced city ruins in jungle, giant stone monoliths with glowing gold symbols, massive weathered pyramid, twilight sky with constellations, cinematic sunbeams, archaeological mystery, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 8,
+    "titulo": "Cérebro Sem Limites: O Fim da Névoa Mental",
+    "categoria": "Vamos de Alta Performance",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#5FA8D3",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Existe uma parte de \"Cérebro Sem Limites\" que quase ninguem te explica.",
+    "promessa": "Hackeando o foco, a memória e a dopamina na era da distração",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Existe uma parte de \"Cérebro Sem Limites\" que quase ninguem te explica.",
+        "narracao": "Existe uma parte de \"Cérebro Sem Limites\" que quase ninguem te explica.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Cérebro Sem Limites, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "Hackeando o foco, a memória e a dopamina na era da distração",
+        "narracao": "Hackeando o foco, a memória e a dopamina na era da distração",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Existe uma parte de \"Cérebro Sem Limites\" que quase ninguem te explica.\n\nHackeando o foco, a memória e a dopamina na era da distração\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Cérebro Sem Limites: O Fim da Névoa Mental\". Style: professional cinematic editorial ad, Human head silhouette, brain made of vibrant galaxy and electric neural connections, luminous waves of light, deep navy blue background, sharp focus, cognitive peak performance art, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Cérebro Sem Limites: O Fim da Névoa Mental\". professional cinematic editorial ad, Human head silhouette, brain made of vibrant galaxy and electric neural connections, luminous waves of light, deep navy blue background, sharp focus, cognitive peak performance art, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 9,
+    "titulo": "O Manual do Sobrevivente Urbano",
+    "categoria": "Vamos de Guia de Sobrevivência",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#4F9D69",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Quando a cidade falha, quem improvisa paga caro.",
+    "promessa": "Como proteger sua família e seus bens em cenários de crise real",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Quando a cidade falha, quem improvisa paga caro.",
+        "narracao": "Quando a cidade falha, quem improvisa paga caro.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em O Manual do Sobrevivente Urbano, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "Como proteger sua família e seus bens em cenários de crise real",
+        "narracao": "Como proteger sua família e seus bens em cenários de crise real",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Quando a cidade falha, quem improvisa paga caro.\n\nComo proteger sua família e seus bens em cenários de crise real\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"O Manual do Sobrevivente Urbano\". Style: professional cinematic editorial ad, Tactical survival gear on wet dark asphalt, compass and flashlight, blurred city blackout background with fire embers, moody olive green and emergency orange lighting, gritty realism, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"O Manual do Sobrevivente Urbano\". professional cinematic editorial ad, Tactical survival gear on wet dark asphalt, compass and flashlight, blurred city blackout background with fire embers, moody olive green and emergency orange lighting, gritty realism, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 10,
+    "titulo": "Abismo: O Que Habita o Desconhecido",
+    "categoria": "Vamos de Mistérios Marinhos",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#4E88B8",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Existe uma parte de \"Abismo\" que quase ninguem te explica.",
+    "promessa": "As anomalias e civilizações perdidas sob o manto azul da Terra",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Existe uma parte de \"Abismo\" que quase ninguem te explica.",
+        "narracao": "Existe uma parte de \"Abismo\" que quase ninguem te explica.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Abismo, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "As anomalias e civilizações perdidas sob o manto azul da Terra",
+        "narracao": "As anomalias e civilizações perdidas sob o manto azul da Terra",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Existe uma parte de \"Abismo\" que quase ninguem te explica.\n\nAs anomalias e civilizações perdidas sob o manto azul da Terra\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Abismo: O Que Habita o Desconhecido\". Style: professional cinematic editorial ad, Deep underwater abyss, glowing alien-like jellyfish, dark silhouettes of massive unknown sea creatures, bioluminescent plants, cinematic lighting, murky blue atmosphere, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Abismo: O Que Habita o Desconhecido\". professional cinematic editorial ad, Deep underwater abyss, glowing alien-like jellyfish, dark silhouettes of massive unknown sea creatures, bioluminescent plants, cinematic lighting, murky blue atmosphere, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 11,
+    "titulo": "O Código da Consciência",
+    "categoria": "Vamos de Inteligência Artificial",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#5F9EA0",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Existe uma parte de \"O Código da Consciência\" que quase ninguem te explica.",
+    "promessa": "O momento em que as máquinas deixam de obedecer e passam a sentir",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Existe uma parte de \"O Código da Consciência\" que quase ninguem te explica.",
+        "narracao": "Existe uma parte de \"O Código da Consciência\" que quase ninguem te explica.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em O Código da Consciência, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "O momento em que as máquinas deixam de obedecer e passam a sentir",
+        "narracao": "O momento em que as máquinas deixam de obedecer e passam a sentir",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Existe uma parte de \"O Código da Consciência\" que quase ninguem te explica.\n\nO momento em que as máquinas deixam de obedecer e passam a sentir\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"O Código da Consciência\". Style: professional cinematic editorial ad, Artificial brain made of golden light and digital data particles, dark laboratory background, holographic interfaces, high-tech aesthetic, futuristic blue glow, sharp focus, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"O Código da Consciência\". professional cinematic editorial ad, Artificial brain made of golden light and digital data particles, dark laboratory background, holographic interfaces, high-tech aesthetic, futuristic blue glow, sharp focus, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 12,
+    "titulo": "Mente Blindada: O Poder do Silêncio",
+    "categoria": "Vamos de Estoicismo Moderno",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#B99A52",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Existe uma parte de \"Mente Blindada\" que quase ninguem te explica.",
+    "promessa": "Como manter a paz e o controle em um mundo desenhado para te distrair",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Existe uma parte de \"Mente Blindada\" que quase ninguem te explica.",
+        "narracao": "Existe uma parte de \"Mente Blindada\" que quase ninguem te explica.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Mente Blindada, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "Como manter a paz e o controle em um mundo desenhado para te distrair",
+        "narracao": "Como manter a paz e o controle em um mundo desenhado para te distrair",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Existe uma parte de \"Mente Blindada\" que quase ninguem te explica.\n\nComo manter a paz e o controle em um mundo desenhado para te distrair\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Mente Blindada: O Poder do Silêncio\". Style: professional cinematic editorial ad, Marble statue of a stoic philosopher partially shattered, glowing gold light filling the cracks, dark minimalist background, dramatic side lighting, symbolic of inner strength, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Mente Blindada: O Poder do Silêncio\". professional cinematic editorial ad, Marble statue of a stoic philosopher partially shattered, glowing gold light filling the cracks, dark minimalist background, dramatic side lighting, symbolic of inner strength, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 13,
+    "titulo": "Sincronicidade: O Código Oculto",
+    "categoria": "Vamos de Hackeando a Sorte",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#C4863A",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Existe uma parte de \"Sincronicidade\" que quase ninguem te explica.",
+    "promessa": "A ciência por trás das coincidências impossíveis e como atraí-las",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Existe uma parte de \"Sincronicidade\" que quase ninguem te explica.",
+        "narracao": "Existe uma parte de \"Sincronicidade\" que quase ninguem te explica.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Sincronicidade, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "A ciência por trás das coincidências impossíveis e como atraí-las",
+        "narracao": "A ciência por trás das coincidências impossíveis e como atraí-las",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Existe uma parte de \"Sincronicidade\" que quase ninguem te explica.\n\nA ciência por trás das coincidências impossíveis e como atraí-las\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Sincronicidade: O Código Oculto\". Style: professional cinematic editorial ad, Abstract digital representation of coincidence, golden lines connecting random events in a dark city, floating numbers and symbols, cinematic atmosphere, high contrast, gold and deep grey, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Sincronicidade: O Código Oculto\". professional cinematic editorial ad, Abstract digital representation of coincidence, golden lines connecting random events in a dark city, floating numbers and symbols, cinematic atmosphere, high contrast, gold and deep grey, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 14,
+    "titulo": "Arquivos Secretos: O Que Não Te Contaram",
+    "categoria": "Vamos de Curiosidades Proibidas",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#A36AC8",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Existe uma parte de \"Arquivos Secretos\" que quase ninguem te explica.",
+    "promessa": "Fatos históricos e científicos ocultados pelo sistema",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Existe uma parte de \"Arquivos Secretos\" que quase ninguem te explica.",
+        "narracao": "Existe uma parte de \"Arquivos Secretos\" que quase ninguem te explica.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Arquivos Secretos, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "Fatos históricos e científicos ocultados pelo sistema",
+        "narracao": "Fatos históricos e científicos ocultados pelo sistema",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Existe uma parte de \"Arquivos Secretos\" que quase ninguem te explica.\n\nFatos históricos e científicos ocultados pelo sistema\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Arquivos Secretos: O Que Não Te Contaram\". Style: professional cinematic editorial ad, Old dusty folder with a red 'Top Secret' stamp, glowing light coming from inside the folder, dark wooden table, single overhead spotlight, film noir style, moody and mysterious, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Arquivos Secretos: O Que Não Te Contaram\". professional cinematic editorial ad, Old dusty folder with a red 'Top Secret' stamp, glowing light coming from inside the folder, dark wooden table, single overhead spotlight, film noir style, moody and mysterious, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 15,
+    "titulo": "Metaverso: A Nova Realidade",
+    "categoria": "Vamos de Evolução Digital",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#4EB7C5",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "A proxima realidade talvez nao esteja fora da tela. Talvez esteja dentro dela.",
+    "promessa": "A vida, o trabalho e o amor no próximo estágio da internet",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "A proxima realidade talvez nao esteja fora da tela. Talvez esteja dentro dela.",
+        "narracao": "A proxima realidade talvez nao esteja fora da tela. Talvez esteja dentro dela.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Metaverso, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "A vida, o trabalho e o amor no próximo estágio da internet",
+        "narracao": "A vida, o trabalho e o amor no próximo estágio da internet",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "A proxima realidade talvez nao esteja fora da tela. Talvez esteja dentro dela.\n\nA vida, o trabalho e o amor no próximo estágio da internet\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Metaverso: A Nova Realidade\". Style: professional cinematic editorial ad, Person wearing VR goggles, digital world reflecting in the lenses, vibrant neon colors, glitch art elements, floating geometric shapes, cyberpunk aesthetic, high resolution, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Metaverso: A Nova Realidade\". professional cinematic editorial ad, Person wearing VR goggles, digital world reflecting in the lenses, vibrant neon colors, glitch art elements, floating geometric shapes, cyberpunk aesthetic, high resolution, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 16,
+    "titulo": "Por que você ainda está solteira?",
+    "categoria": "Vamos de Diagnóstico Amoroso",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#940404",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "E se o problema nao fosse voce, mas o ambiente onde voce procura?",
+    "promessa": "A verdade brutal sobre o mercado da sedução, os bloqueios invisíveis e onde estão os homens de verdade",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "E se o problema nao fosse voce, mas o ambiente onde voce procura?",
+        "narracao": "E se o problema nao fosse voce, mas o ambiente onde voce procura?",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Por que você ainda está solteira?, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "A verdade brutal sobre o mercado da sedução, os bloqueios invisíveis e onde estão os homens de verdade",
+        "narracao": "A verdade brutal sobre o mercado da sedução, os bloqueios invisíveis e onde estão os homens de verdade",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "E se o problema nao fosse voce, mas o ambiente onde voce procura?\n\nA verdade brutal sobre o mercado da sedução, os bloqueios invisíveis e onde estão os homens de verdade\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Por que você ainda está solteira?\". Style: professional cinematic editorial ad, A lonely elegant woman sitting in a modern cafe looking at a rain-streaked window, blurred city lights in the background, a single wilted rose on the table, cinematic lighting, moody atmosphere, deep navy and amber tones, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Por que você ainda está solteira?\". professional cinematic editorial ad, A lonely elegant woman sitting in a modern cafe looking at a rain-streaked window, blurred city lights in the background, a single wilted rose on the table, cinematic lighting, moody atmosphere, deep navy and amber tones, 8k, no text., premium book launch, abstract realistic scenes, no cartoon, no childish animation. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 17,
+    "titulo": "O Codigo dos Sonhos: O Que Sua Mente Revela Enquanto Voce Dorme",
+    "categoria": "Vamos de Misterios da Mente",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#526A9E",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "E se seus sonhos fossem pistas que voce esquece toda manha?",
+    "promessa": "Um mergulho nos sonhos, pesadelos, deja vu e sinais que a mente reorganiza durante a noite.",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "E se seus sonhos fossem pistas que voce esquece toda manha?",
+        "narracao": "E se seus sonhos fossem pistas que voce esquece toda manha?",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em O Codigo dos Sonhos, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "Um mergulho nos sonhos, pesadelos, deja vu e sinais que a mente reorganiza durante a noite.",
+        "narracao": "Um mergulho nos sonhos, pesadelos, deja vu e sinais que a mente reorganiza durante a noite.",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "E se seus sonhos fossem pistas que voce esquece toda manha?\n\nUm mergulho nos sonhos, pesadelos, deja vu e sinais que a mente reorganiza durante a noite.\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"O Codigo dos Sonhos: O Que Sua Mente Revela Enquanto Voce Dorme\". Style: surreal cinematic editorial, sleeping person, dream symbols, moonlight, neural constellations, mysterious premium documentary style, no cartoon. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"O Codigo dos Sonhos: O Que Sua Mente Revela Enquanto Voce Dorme\". surreal cinematic editorial, sleeping person, dream symbols, moonlight, neural constellations, mysterious premium documentary style, no cartoon. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 18,
+    "titulo": "Ansiedade Silenciosa: Como Parar de Pensar Demais e Recuperar o Controle da Mente",
+    "categoria": "Vamos de Autocontrole Emocional",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#4F7F73",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Sua mente nao esta cansada por acaso.",
+    "promessa": "Um metodo para reduzir ruminacao, organizar pensamentos e voltar a agir com clareza.",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Sua mente nao esta cansada por acaso.",
+        "narracao": "Sua mente nao esta cansada por acaso.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Ansiedade Silenciosa, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "Um metodo para reduzir ruminacao, organizar pensamentos e voltar a agir com clareza.",
+        "narracao": "Um metodo para reduzir ruminacao, organizar pensamentos e voltar a agir com clareza.",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Sua mente nao esta cansada por acaso.\n\nUm metodo para reduzir ruminacao, organizar pensamentos e voltar a agir com clareza.\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Ansiedade Silenciosa: Como Parar de Pensar Demais e Recuperar o Controle da Mente\". Style: cinematic editorial, calm teal room, restless thoughts becoming organized lines, adult, premium self-help, no cartoon, no disney style. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Ansiedade Silenciosa: Como Parar de Pensar Demais e Recuperar o Controle da Mente\". cinematic editorial, calm teal room, restless thoughts becoming organized lines, adult, premium self-help, no cartoon, no disney style. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 19,
+    "titulo": "Dopamina Barata: Como as Telas Roubaram Seu Foco e Como Recuperar Sua Vida",
+    "categoria": "Vamos de Foco e Vida Digital",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#586A8C",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Seu foco nao sumiu. Ele foi treinado para fugir.",
+    "promessa": "Um plano para cortar estimulos baratos, recuperar atencao profunda e voltar para a vida real.",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Seu foco nao sumiu. Ele foi treinado para fugir.",
+        "narracao": "Seu foco nao sumiu. Ele foi treinado para fugir.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Dopamina Barata, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "Um plano para cortar estimulos baratos, recuperar atencao profunda e voltar para a vida real.",
+        "narracao": "Um plano para cortar estimulos baratos, recuperar atencao profunda e voltar para a vida real.",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Seu foco nao sumiu. Ele foi treinado para fugir.\n\nUm plano para cortar estimulos baratos, recuperar atencao profunda e voltar para a vida real.\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Dopamina Barata: Como as Telas Roubaram Seu Foco e Como Recuperar Sua Vida\". Style: cinematic editorial, smartphone glow, notification particles dissolving into quiet morning light, premium productivity ad, no cartoon. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Dopamina Barata: Como as Telas Roubaram Seu Foco e Como Recuperar Sua Vida\". cinematic editorial, smartphone glow, notification particles dissolving into quiet morning light, premium productivity ad, no cartoon. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  },
+  {
+    "id": 20,
+    "titulo": "Pare de Se Abandonar: Como Criar Limites, Autoestima e Paz Emocional",
+    "categoria": "Vamos de Autoestima e Limites",
+    "formato_recomendado": "9:16 vertical, 1080x1920, 24 a 35 segundos",
+    "estilo_visual": "profissional/editorial/cinematico, com mockup do ebook, textos grandes, transicoes suaves, particulas discretas, sem personagens infantis e sem estilo Disney",
+    "cor_tema": "#8A5F6A",
+    "fonte_sugerida": "Montserrat, Inter, Poppins ou Bebas Neue para chamadas curtas",
+    "trilha_sugerida": "ambient cinematic, tension build, piano pulse, dark corporate ou inspirational trailer leve",
+    "hook": "Talvez voce nao esteja perdido. Talvez esteja se deixando para depois.",
+    "promessa": "Um guia para criar limites, dizer nao sem culpa e parar de se trair para agradar os outros.",
+    "roteiro_30s": [
+      {
+        "tempo": "0-3s",
+        "objetivo": "parar o scroll",
+        "texto_tela": "Talvez voce nao esteja perdido. Talvez esteja se deixando para depois.",
+        "narracao": "Talvez voce nao esteja perdido. Talvez esteja se deixando para depois.",
+        "visual": "close cinematic/abstrato com movimento lento, fundo na cor tema, entrada de texto com impacto"
+      },
+      {
+        "tempo": "3-8s",
+        "objetivo": "mostrar a dor",
+        "texto_tela": "O problema nao e falta de vontade.",
+        "narracao": "O problema e que voce esta tentando vencer uma guerra invisivel com ferramentas erradas.",
+        "visual": "cortes rapidos de rotina, tela, pensamento, cidade, objetos simbolicos ligados ao tema"
+      },
+      {
+        "tempo": "8-14s",
+        "objetivo": "aumentar curiosidade",
+        "texto_tela": "Existe um padrao por tras disso.",
+        "narracao": "Em Pare de Se Abandonar, voce entende os sinais, os padroes e o que fazer antes que isso controle suas decisoes.",
+        "visual": "linhas, mapas, paginas, simbolos e cenas abstratas se organizando"
+      },
+      {
+        "tempo": "14-22s",
+        "objetivo": "promessa clara",
+        "texto_tela": "Um guia para criar limites, dizer nao sem culpa e parar de se trair para agradar os outros.",
+        "narracao": "Um guia para criar limites, dizer nao sem culpa e parar de se trair para agradar os outros.",
+        "visual": "mockup do ebook aparecendo com movimento de camera, paginas abrindo, luz suave no produto"
+      },
+      {
+        "tempo": "22-30s",
+        "objetivo": "chamada para compra",
+        "texto_tela": "Leia hoje. Aplique hoje.",
+        "narracao": "Se esse tema falou com voce, esse ebook foi feito para a sua proxima fase.",
+        "visual": "capa do ebook em destaque, bonus pequenos ao lado, botao/CTA animado"
+      }
+    ],
+    "legenda_post": "Talvez voce nao esteja perdido. Talvez esteja se deixando para depois.\n\nUm guia para criar limites, dizer nao sem culpa e parar de se trair para agradar os outros.\n\nComente \"EU QUERO\" ou acesse o link para receber o ebook completo.",
+    "prompt_video_ia": "Create a professional vertical social media ad video for an ebook titled \"Pare de Se Abandonar: Como Criar Limites, Autoestima e Paz Emocional\". Style: cinematic emotional editorial, person crossing a soft boundary line, broken strings falling, warm rose and sage colors, premium self-help, no cartoon. Use cinematic camera motion, premium editorial typography, realistic abstract visuals, no childish cartoon, no disney style, no mascot, no exaggerated facial animation. Include a book mockup reveal, subtle particles, elegant transitions, strong hook text in Portuguese, and a clear final call to action. Duration 30 seconds, format 9:16.",
+    "prompt_imagem_base": "Professional ebook advertising key visual for \"Pare de Se Abandonar: Como Criar Limites, Autoestima e Paz Emocional\". cinematic emotional editorial, person crossing a soft boundary line, broken strings falling, warm rose and sage colors, premium self-help, no cartoon. Vertical 9:16, premium cinematic editorial, space for bold Portuguese text, realistic abstract symbolism, no cartoon, no disney style, no mascot."
+  }
+]

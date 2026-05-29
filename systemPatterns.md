@@ -1,0 +1,1 @@
+System Patterns: 1. Component-based architecture with reusable template components 2. Centralized configuration management through .env files 3. Modular service layer for PDF generation 4. Dependency injection for external system integrations 5. Version-controlled template repository structure

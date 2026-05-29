@@ -1,0 +1,1 @@
+Product Context: This project generates PDFs for various business documents. It handles PDF creation, customization, and distribution for clients. Key features include dynamic content generation, template management, and integration with external systems.
